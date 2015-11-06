@@ -1,0 +1,20 @@
+<div layout="row" ng-controller="MenuController as mc" ng-cloak>
+    <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="false">
+        <md-toolbar class="md-whiteframe-z1">
+            <h1>Menu</h1>
+        </md-toolbar>
+        <md-list>
+            <md-list-item ng-repeat="mi in mc.menuItems">
+                <md-button ng-href="{{mi.href}}">{{mi.name}}</md-button>
+            </md-list-item>
+        </md-list>
+    </md-sidenav>
+    <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
+        <md-toolbar layout="row" class="md-whiteframe-z1">
+            <md-button class="menu" ng-click="mc.toggleSidebar()" aria-label="Show Menu">
+                <md-icon md-svg-icon="menu"></md-icon>
+            </md-button>
+            <h1>Ebikko</h1>
+        </md-toolbar>
+    </div>
+</div>

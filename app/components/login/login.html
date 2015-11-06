@@ -1,0 +1,26 @@
+<div ng-controller="LoginController as lc" layout="column" ng-cloak layout-align="center">
+    <div layout="row" layout-align="center center">
+        <md-toolbar layout="row" flex="40">
+            <div class="md-toolbar-tools">
+                <h2>
+					<span>Ebikko Login Page</span>
+				</h2>
+            </div>
+        </md-toolbar>
+    </div>
+    <div layout="row" layout-align="center center">
+        <md-content layout-padding flex="40">
+            <form name="loginForm">
+                <md-input-container class="md-block">
+                    <label>Username</label>
+                    <input ng-model="lc.username">
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Password</label>
+                    <input type="password" ng-model="lc.password">
+                </md-input-container>
+                <md-button class="md-raised md-primary" style="margin-left:0px" ng-click="lc.login()">Login</md-button>
+            </form>
+        </md-content>
+    </div>
+</div>
