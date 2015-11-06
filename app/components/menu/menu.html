@@ -1,4 +1,4 @@
-<div layout="row" ng-controller="MenuController as mc" ng-cloak>
+<div layout="row" ng-controller="MenuController as mc" ng-cloak class="menu-bar">
     <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="false">
         <md-toolbar class="md-whiteframe-z1">
             <h1>Menu</h1>
@@ -11,10 +11,26 @@
     </md-sidenav>
     <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
         <md-toolbar layout="row" class="md-whiteframe-z1">
-            <md-button class="menu" ng-click="mc.toggleSidebar()" aria-label="Show Menu">
+            <md-button class="menu" ng-click="mc.toggleSidebar()" aria-label="Show Menu" flex="10">
                 <md-icon md-svg-icon="menu"></md-icon>
             </md-button>
-            <h1>Ebikko</h1>
+            <h1 flex="80" layout="row" layout-align="center">Ebikko</h1>
+            <span flex layout="column" layout-align="center center">
+                <md-menu>
+                <md-button class="md-icon-button" ng-click="mc.openSettings($mdOpenMenu, $event)" aria-label="Show Settings">
+                    <md-icon md-svg-icon="settings"></md-icon>
+                </md-button>
+                    <md-menu-content width="4">
+                        <md-menu-item>
+                            <md-button ng-click="mc.showChangePassword($event)">Change Password</md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="mc.logout()">Logout</md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </span>
         </md-toolbar>
     </div>
 </div>
+

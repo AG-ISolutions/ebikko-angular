@@ -1,9 +1,2 @@
-(function(){
-  'use strict';
-
-  // Prepare the 'users' module for subsequent registration of controllers and delegates
-  angular
-  	.module('ebikko.users', [ 'ngMaterial' ]);
-
-
-})();
+angular
+	.module('ebikko.users', ['ebikko.config', 'ebikko.login']);

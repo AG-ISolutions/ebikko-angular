@@ -1,2 +1,2 @@
 angular
-	.module('ebikko.menu', ['ebikko.config', 'ebikko.users', 'ebikko.detail']);
+	.module('ebikko.menu', ['ngMaterial', 'ebikko.config', 'ebikko.users', 'ebikko.login']);

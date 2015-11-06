@@ -20,7 +20,6 @@ function TableController(){
     		prop: "assignee"
         },{
             name: "Title",
-            width: 300,
             prop: "title"
         },{
         	name: "Record Number",

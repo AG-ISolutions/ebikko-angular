@@ -32,61 +32,65 @@ function LoginService($http, $q, $rootScope, $location, config) {
     };
 
     self.login = function(username, password) {
-            $http({
-                'method': 'Post',
-                'url': config.basePath + '/Login',
-                'params': {
-                    'json': '{"username": "' + username + '","password":"' + password + '"}'
-                }
-            }).success(function(data) {
-                self.setLogin(data);
-                var params = {
-                    method: "PRINCIPAL_DETAIL",
-                    principal_id: self.loginDetails.principal_id,
-                    ebikko_session_id: self.getSessionId()
-                };
-                $http({
-                    'method': 'GET',
-                    'url': config.basePath + '/Principal',
-                    'params': {
-                        'json': params
-                    }
-                }).success(function(data) {
-                    if (data.results[0].profile_name.match(config.userProfileMatch) != null) {
-                        //$rootScope.$broadcast('EbikkoValidLogin', true);
-                        //$scope.validLogin = true;
-                        self.setPrincipalDetails(data);
-                        $location.url("/nodes/recent-records");
-                    } else {
-                        var p = self.logout();
-                        p.promise.then(function() {
-                            $rootScope.$broadcast('EbikkoMessage', true, 'Admin-1');
-                        });
-                    }
-                });
-            });
-        }
-        /**
-         *@ngdoc method
-         *@name EbikkoServices.ebikkoLoginService.ebikkoLoginService
-         *@description Ebikko Logout function
-         * A valid logout broadcasts the message 'ValidLogout'
-         * and also resets the setPrincipalDetails
-         *@methodOf EbikkoServices.ebikkoLoginService
-         */
-    this.logout = function() {
-        var promise = $q.defer();
+        var json = {
+            'username': username,
+            'password': password
+        };
         $http({
             'method': 'Post',
-            'url': '/Logout',
+            'url': config.basePath + '/Login',
             'params': {
-                'json': '{"ebikko_session_id":"' + sessionDetails.sessonId() + '"}'
+                'json': json
             }
         }).success(function(data) {
-            sessionDetails.clearLogin();
-            $rootScope.$broadcast('EbikkoValidLogout', true);
-            promise.resolve(data);
+            self.setLogin(data);
+            var params = {
+                method: "PRINCIPAL_DETAIL",
+                principal_id: self.loginDetails.principal_id,
+                ebikko_session_id: self.getSessionId()
+            };
+            $http({
+                'method': 'GET',
+                'url': config.basePath + '/Principal',
+                'params': {
+                    'json': params
+                }
+            }).success(function(data) {
+                if (data.results[0].profile_name.match(config.userProfileMatch) != null) {
+                    //$rootScope.$broadcast('EbikkoValidLogin', true);
+                    //$scope.validLogin = true;
+                    self.setPrincipalDetails(data);
+                    $location.url("/nodes/recent-records");
+                } else {
+                    var p = self.logout();
+                    p.promise.then(function() {
+                        $rootScope.$broadcast('EbikkoMessage', true, 'Admin-1');
+                    });
+                }
+            });
         });
-        return promise.promise;
+    }
+    /**
+     *@ngdoc method
+     *@name EbikkoServices.ebikkoLoginService.ebikkoLoginService
+     *@description Ebikko Logout function
+     * A valid logout broadcasts the message 'ValidLogout'
+     * and also resets the setPrincipalDetails
+     *@methodOf EbikkoServices.ebikkoLoginService
+     */
+    self.logout = function() {
+        var json = {
+            'ebikko_session_id': self.getSessionId()
+        };
+        var promise = $q.defer();
+        return $http({
+            'method': 'POST',
+            'url': config.basePath + '/Logout',
+            'params': {'json': json}
+        }).success(function(data) {
+            self.clearLogin();
+            // $rootScope.$broadcast('EbikkoValidLogout', true);
+            return data;
+        });
     };
 };

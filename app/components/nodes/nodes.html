@@ -1,7 +1,5 @@
 <div ebikko-menu></div>
 
-{{nodes.table_options}}
-
-<div ng-controller="tableController as tc">
-	<dtable options="tc.table_options" rows="nodes.nodes" class="material dt"></dtable>
+<div ng-controller="tableController as tc" layout-align="center center" layout="row">
+	<dtable options="tc.table_options" rows="nodes.nodes" class="material dt" flex="90"></dtable>
 </div>
