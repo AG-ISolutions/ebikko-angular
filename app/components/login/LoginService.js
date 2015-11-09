@@ -6,31 +6,16 @@
  */
 angular
     .module('ebikko.login')
-    .service('loginService', ['$http', '$q', '$rootScope', '$location', 'ebikkoConfig',
+    .service('loginService', ['$http', '$q', '$rootScope', '$location', 'ebikkoConfig', 'userRepository',
         LoginService
     ]);
 
-function LoginService($http, $q, $rootScope, $location, config) {
+function LoginService($http, $q, $rootScope, $location, config, userRepository) {
     var self = this;
 
-    self.setLogin = function(loginDetails) {
-        self.loginDetails = loginDetails;
-        self.name = loginDetails.principal_details[0].fullname;
-    };
-
-    self.setPrincipalDetails = function(loginDetails) {
-        self.principalDetails = loginDetails;
-        self.validLogin = true;
-    };
-
     self.clearLogin = function() {
-        self.loginDetails = {};
-        self.validLogin = false;
+        userRepository.clearCurrentUser();
     };
-    self.getSessionId = function() {
-        return self.loginDetails.ebikko_session_id;
-    };
-
     self.login = function(username, password) {
         var json = {
             'username': username,
@@ -43,11 +28,11 @@ function LoginService($http, $q, $rootScope, $location, config) {
                 'json': json
             }
         }).success(function(data) {
-            self.setLogin(data);
+            userRepository.setCurrentUser(data);
             var params = {
                 method: "PRINCIPAL_DETAIL",
-                principal_id: self.loginDetails.principal_id,
-                ebikko_session_id: self.getSessionId()
+                principal_id: userRepository.getCurrentUser().principal_id,
+                ebikko_session_id: userRepository.getSessionId()
             };
             $http({
                 'method': 'GET',
@@ -57,9 +42,7 @@ function LoginService($http, $q, $rootScope, $location, config) {
                 }
             }).success(function(data) {
                 if (data.results[0].profile_name.match(config.userProfileMatch) != null) {
-                    //$rootScope.$broadcast('EbikkoValidLogin', true);
-                    //$scope.validLogin = true;
-                    self.setPrincipalDetails(data);
+                    userRepository.setPrincipalDetails(data);
                     $location.url("/nodes/recent-records");
                 } else {
                     var p = self.logout();
@@ -80,7 +63,7 @@ function LoginService($http, $q, $rootScope, $location, config) {
      */
     self.logout = function() {
         var json = {
-            'ebikko_session_id': self.getSessionId()
+            'ebikko_session_id': userRepository.getSessionId()
         };
         var promise = $q.defer();
         return $http({
@@ -88,8 +71,7 @@ function LoginService($http, $q, $rootScope, $location, config) {
             'url': config.basePath + '/Logout',
             'params': {'json': json}
         }).success(function(data) {
-            self.clearLogin();
-            // $rootScope.$broadcast('EbikkoValidLogout', true);
+            userRepository.clearCurrentUser();
             return data;
         });
     };

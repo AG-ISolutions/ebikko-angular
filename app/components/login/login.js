@@ -1,2 +1,2 @@
 angular
-	.module('ebikko.login', ['ebikko.config']);
+	.module('ebikko.login', ['ebikko.config', 'ebikko.users']);

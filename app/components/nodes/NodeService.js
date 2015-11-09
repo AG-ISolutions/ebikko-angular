@@ -1,10 +1,10 @@
 angular
     .module('ebikko.nodes')
-    .service('nodeService', ['$http', '$q', 'loginService', 'ebikkoConfig',
+    .service('nodeService', ['$http', '$q', 'userRepository', 'ebikkoConfig',
         NodeService
     ]);
 
-function NodeService($http, $q, loginService, config) {
+function NodeService($http, $q, userRepository, config) {
     var self = this;
     self.defaultColumns = [22,12,1,4,10,4.1];
     self.defaultStart = 0;
@@ -12,7 +12,7 @@ function NodeService($http, $q, loginService, config) {
 
     self.getRecentRecords = function() {
         var json = {
-            'ebikko_session_id': loginService.getSessionId(),
+            'ebikko_session_id': userRepository.getSessionId(),
             'selected_columns': self.defaultColumns,
             'method': 'RECENTLY_UPDATED'
         };
@@ -31,7 +31,7 @@ function NodeService($http, $q, loginService, config) {
 
     self.getSavedSearch = function(searchId) {
     	var json = {
-    		'ebikko_session_id': loginService.getSessionId(),
+    		'ebikko_session_id': userRepository.getSessionId(),
     		'selected_columns': self.defaultColumns,
     		'method': 'SEARCH',
     		'saved_search_id': searchId, 
