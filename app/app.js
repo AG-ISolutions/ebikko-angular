@@ -9,8 +9,8 @@ angular
             .icon("settings", "./assets/svg/settings.svg", 24);
 
         $mdThemingProvider.theme('default')
-            .primaryPalette('brown')
-            .accentPalette('red');
+            .primaryPalette('red')
+            .accentPalette('amber');
 
         $httpProvider.defaults.withCredentials = true;
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
