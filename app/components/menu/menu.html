@@ -4,33 +4,34 @@
             <h1></h1>
         </md-toolbar>
         <md-list>
-            <md-list-item ng-repeat="mi in mc.menuItems">
-                <md-button ng-click="mc.selectMenuItem(mi)">{{mi.name}}</md-button>
+            <md-list-item ng-repeat="mi in menu.menuItems">
+                <md-button ng-class="{'md-primary': menu.title == mi.name}" ng-link="{{mi.component}}" ng-click="menu.selectMenuItem(mi)">{{mi.name}}</md-button>
             </md-list-item>
         </md-list>
     </md-sidenav>
     <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
         <md-toolbar layout="row" class="md-whiteframe-z1">
-            <md-button class="menu" ng-click="mc.toggleSidebar()" aria-label="Show Menu" flex="10">
+            <md-button class="menu" ng-click="menu.toggleSidebar()" aria-label="Show Menu" flex="10">
                 <md-icon md-svg-icon="menu"></md-icon>
             </md-button>
-            <h1 flex="80" layout="row" layout-align="center">Ebikko</h1>
+            <h1 flex="80" layout="row" layout-align="center">{{menu.title}}</h1>
             <span flex layout="column" layout-align="center center">
                 <md-menu>
-                <md-button class="md-icon-button" ng-click="mc.openSettings($mdOpenMenu, $event)" aria-label="Show Settings">
+                <md-button class="md-icon-button" ng-click="menu.openSettings($mdOpenMenu, $event)" aria-label="Show Settings">
                     <md-icon md-svg-icon="settings"></md-icon>
                 </md-button>
                     <md-menu-content width="4">
                         <md-menu-item>
-                            <md-button ng-click="mc.showChangePassword($event)">Change Password</md-button>
+                            <md-button ng-click="menu.showChangePassword($event)">Change Password</md-button>
                         </md-menu-item>
                         <md-menu-item>
-                            <md-button ng-click="mc.logout()">Logout</md-button>
+                            <md-button ng-click="menu.logout()">Logout</md-button>
                         </md-menu-item>
                     </md-menu-content>
                 </md-menu>
             </span>
         </md-toolbar>
+        <div ng-viewport></div>
     </div>
 </div>
 

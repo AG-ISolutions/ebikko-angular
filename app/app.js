@@ -1,5 +1,5 @@
 angular
-    .module('ebikko', ['ngMaterial', 'ngNewRouter', 'ebikko.users', 'ebikko.login','ebikko.config', 'ebikko.menu', 'ebikko.nodes'])
+    .module('ebikko', ['ngMaterial', 'ngNewRouter', 'ebikko.users', 'ebikko.login', 'ebikko.config', 'ebikko.menu', 'ebikko.nodes'])
     .controller('AppController', ['$router', AppController])
     .config(['$mdThemingProvider', '$mdIconProvider', '$httpProvider', function($mdThemingProvider, $mdIconProvider, $httpProvider) {
 
@@ -16,12 +16,15 @@ angular
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
     }]);
 
-function AppController($router) {   
-    $router.config([
-        { path: '/', redirectTo: '/login' },
-        { path: '/login', component: 'login'},
-        { path: '/nodes/:type', component: 'nodes'},
-        { path: '/nodes/:type/:type-id', component: 'nodes'}
-    ]);
-
+function AppController($router) {
+    $router.config([{
+        path: '/',
+        redirectTo: '/login'
+    }, {
+        path: '/login',
+        component: 'login'
+    }, {
+        path: '/menu',
+        component: 'menu'
+    }]);
 }

@@ -9,6 +9,5 @@ function LoginController($http, config, loginService) {
 
     this.login = function() {
         loginService.login(this.username, this.password);
-        
     };
 };

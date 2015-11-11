@@ -1,26 +1,34 @@
 angular
     .module('ebikko.menu')
-    .controller('MenuController', ['$router', '$mdSidenav', '$mdBottomSheet', '$mdDialog', '$location', 'loginService', 'menuService',
+    .controller('MenuController', ['$router', '$mdSidenav', '$mdBottomSheet', '$mdDialog', '$location', 'loginService',
         MenuController
-    ]);
+    ])
 
-function MenuController($router, $mdSidenav, $mdBottomSheet, $mdDialog, $location, loginService, menuService) {
-    this.title = "Test title";
+function MenuController($router, $mdSidenav, $mdBottomSheet, $mdDialog, $location, loginService) {
+    this.title = "Ebikko";
     this.router = $router;
 
     this.menuItems = [{
         'name': 'All meetings',
-        'href': '/nodes/saved-search/ia4065fe384245cc85e0670b7bb10c15',
+        'component': "nodes({type: 'saved-search', 'type-id': 'ia4065fe384245cc85e0670b7bb10c15'})",
         'id': 'all-meetings'
     }, {
         'name': 'Recent Records',
-        'href': '/nodes/recent-records',
+        'component': "nodes({type: 'recent-records', 'type-id': ''})",
         'id': 'recent-records'
     }];
 
+    $router.config([{
+        path: '/nodes/:type',
+        component: 'nodes'
+    }, {
+        path: '/nodes/:type/:type-id',
+        component: 'nodes'
+    }]);
+
     this.selectMenuItem = function(menuItem) {
-        this.title = menuItem.name; 
-        $router.navigate(menuItem.href);
+        this.title = menuItem.name;
+        this.toggleSidebar();
     }
 
     this.toggleSidebar = function() {

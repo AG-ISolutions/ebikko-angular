@@ -43,7 +43,7 @@ function LoginService($http, $q, $rootScope, $location, config, userRepository) 
             }).success(function(data) {
                 if (data.results[0].profile_name.match(config.userProfileMatch) != null) {
                     userRepository.setPrincipalDetails(data);
-                    $location.url("/nodes/recent-records");
+                    $location.url("/menu");
                 } else {
                     var p = self.logout();
                     p.promise.then(function() {
