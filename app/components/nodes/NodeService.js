@@ -29,7 +29,7 @@ function NodeService($http, $q, userRepository, config) {
         });
     }
 
-    self.getSavedSearch = function(searchId) {
+    self.getSavedSearch = function(searchId, parentId) {
     	var json = {
     		'ebikko_session_id': userRepository.getSessionId(),
     		'selected_columns': self.defaultColumns,
@@ -44,7 +44,8 @@ function NodeService($http, $q, userRepository, config) {
     		'params': {
 				'json': json,
 				'limit': self.defaultLimit,
-				'start': self.defaultStart
+				'start': self.defaultStart,
+                'anode' : parentId ? parentId : ''
     		}
     	}).then(function(response){
     		return response.data.results;
