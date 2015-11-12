@@ -135,9 +135,22 @@ span.name {
 }
 
 svg {
-  fill: inherit;
+    fill: inherit;
 }
 
 .menu-bar {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+#loginForm .md-primary {
+    margin-left: 0px;
+    width: 100%;
+}
+
+#loginForm label {
+    font-size: 1.2em;
+}
+
+.password-error { 
+    color: #FF1100;
 }

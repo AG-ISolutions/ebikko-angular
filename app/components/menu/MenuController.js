@@ -80,8 +80,6 @@ function MenuController($router, $mdSidenav, $mdBottomSheet, $mdDialog, $locatio
             parent: angular.element(document.body),
             targetEvent: ev,
             clickOutsideToClose: true
-        }).then(function(answer) {
-            alert('ok');
         });
     }
 
