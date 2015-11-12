@@ -1,15 +1,19 @@
 angular
     .module('ebikko.menu')
-    .controller('MenuController', ['$router', '$mdSidenav', '$mdBottomSheet', '$mdDialog', '$location', 'loginService',
+    .controller('MenuController', ['$router', '$mdSidenav', '$mdBottomSheet', '$mdDialog', '$location', 'loginService', '$parse',
         MenuController
     ])
 
-function MenuController($router, $mdSidenav, $mdBottomSheet, $mdDialog, $location, loginService) {
+function MenuController($router, $mdSidenav, $mdBottomSheet, $mdDialog, $location, loginService, $parse) {
     this.title = "Ebikko";
     this.router = $router;
+    var self = this;
+
+    this.tabs = [];
+    this.selectedMenuItem = {};
 
     this.menuItems = [{
-        'name': 'All meetings',
+        'name': 'All Meetings',
         'component': "nodes({type: 'saved-search', 'type-id': 'ia4065fe384245cc85e0670b7bb10c15'})",
         'id': 'all-meetings'
     }, {
@@ -27,7 +31,14 @@ function MenuController($router, $mdSidenav, $mdBottomSheet, $mdDialog, $locatio
     }]);
 
     this.selectMenuItem = function(menuItem) {
-        this.title = menuItem.name;
+        if (this.selectedMenuItem !== menuItem) {
+            var currentIndex = this.tabs.indexOf(menuItem);
+            if (currentIndex > -1) {
+                this.tabs.splice(currentIndex, 1);
+            }
+            this.tabs.push(menuItem);
+            this.selectTab(menuItem);
+        }
         this.toggleSidebar();
     }
 
@@ -44,6 +55,15 @@ function MenuController($router, $mdSidenav, $mdBottomSheet, $mdDialog, $locatio
             .then(function(data) {
                 $location.url("/");
             });
+    }
+
+    this.selectTab = function(menuItem) {
+        if (this.selectedMenuItem !== menuItem) {
+            this.title = menuItem.name;
+            this.selectedMenuItem = menuItem;
+            var url = generateUrlForComponent(menuItem.component);
+            $location.url(url);
+        }
     }
 
     var originatorEv;
@@ -63,5 +83,16 @@ function MenuController($router, $mdSidenav, $mdBottomSheet, $mdDialog, $locatio
         }).then(function(answer) {
             alert('ok');
         });
+    }
+
+    var LINK_MICROSYNTAX_RE = /^(.+?)(?:\((.*)\))?$/;
+
+    function generateUrlForComponent(component) {
+        var parts = component.match(LINK_MICROSYNTAX_RE);
+        var routeName = parts[1];
+        var routeParams = parts[2];
+        var routeParamsGetter = $parse(routeParams);
+        var params = routeParamsGetter();
+        return self.router.generate(routeName, params);
     }
 };
