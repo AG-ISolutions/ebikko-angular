@@ -1,22 +1,27 @@
-angular
-    .module('ebikko.users')
-    .service('userService', ['$http', 'userRepository', 'ebikkoConfig', UserService]);
+(function() {
+    'use strict';
 
-function UserService($http, userRepository, config) {
+    angular
+        .module('ebikko.users')
+        .service('userService', ['$http', 'userRepository', 'ebikkoConfig', UserService]);
 
-    this.changePassword = function(currentPassword, newPassword, repeatNewPassword) {
-        var json = {
-            'old_password': currentPassword,
-            'new_password': newPassword,
-            'retype_password': repeatNewPassword,
-            'ebikko_session_id': userRepository.getSessionId()
-        };
-        return $http({
-            'method': 'Post',
-            'url': config.basePath + '/ChangePassword',
-            'params': {
-                'json': json
-            }
-        });
+    function UserService($http, userRepository, config) {
+
+        this.changePassword = function(currentPassword, newPassword, repeatNewPassword) {
+            var json = {
+                'old_password': currentPassword,
+                'new_password': newPassword,
+                'retype_password': repeatNewPassword,
+                'ebikko_session_id': userRepository.getSessionId()
+            };
+            return $http({
+                'method': 'Post',
+                'url': config.basePath + '/ChangePassword',
+                'params': {
+                    'json': json
+                }
+            });
+        }
     }
-}
+
+})();

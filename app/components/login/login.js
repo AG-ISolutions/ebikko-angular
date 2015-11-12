@@ -1,2 +1,7 @@
-angular
-	.module('ebikko.login', ['ebikko.config', 'ebikko.users']);
+(function() {
+    'use strict';
+    
+    angular
+        .module('ebikko.login', ['ebikko.config', 'ebikko.users']);
+
+})();

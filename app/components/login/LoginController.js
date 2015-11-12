@@ -1,23 +1,28 @@
-angular
-    .module('ebikko.login')
-    .controller('LoginController', ['$http', '$location', 'ebikkoConfig', 'loginService', 'messageResolver',
-        LoginController
-    ]);
+(function() {
+    'use strict';
 
-function LoginController($http, $location, config, loginService, messageResolver) {
-    var self = this;
+    angular
+        .module('ebikko.login')
+        .controller('LoginController', ['$http', '$location', 'ebikkoConfig', 'loginService', 'messageResolver',
+            LoginController
+        ]);
 
-    self.username = '';
-    self.password = '';
+    function LoginController($http, $location, config, loginService, messageResolver) {
+        var self = this;
 
-    self.login = function() {
-        self.errorMessage = "";
+        self.username = '';
+        self.password = '';
 
-        loginService.login(this.username, this.password)
-            .then(function(response) {
-                $location.url("/menu");
-            }, function(response) {
-                self.errorMessage = messageResolver.resolveMessage(response.data.data.responsemsg).message;
-            });;
+        self.login = function() {
+            self.errorMessage = "";
+
+            loginService.login(this.username, this.password)
+                .then(function(response) {
+                    $location.url("/menu");
+                }, function(response) {
+                    self.errorMessage = messageResolver.resolveMessage(response.data.data.responsemsg).message;
+                });;
+        };
     };
-};
+
+})();
