@@ -10,7 +10,7 @@ angular
 
         $mdThemingProvider.theme('default')
             .primaryPalette('red')
-            .accentPalette('amber');
+            .accentPalette('orange');
 
         $httpProvider.defaults.withCredentials = true;
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
