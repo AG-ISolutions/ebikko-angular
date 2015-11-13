@@ -3,14 +3,12 @@
 
     angular
         .module('ebikko.nodes')
-        .controller('NodesController', ['$routeParams', 'nodeService', 'ngTreetableParams',
+        .controller('NodesController', ['nodeService', 'ngTreetableParams',
             NodesController
         ]);
 
-    function NodesController($routeParams, nodeService, ngTreetableParams) {
+    function NodesController(nodeService, ngTreetableParams) {
         var self = this;
-
-        self.type = $routeParams.type;
         var promise;
 
         switch (self.type) {
@@ -18,13 +16,24 @@
                 promise = nodeService.getRecentRecords();
                 break;
             case 'saved-search':
-                promise = nodeService.getSavedSearch($routeParams['type-id']);
-                nodeService.searchId = $routeParams['type-id'];
+                promise = nodeService.getSavedSearch(this.typeId);
+                nodeService.searchId = this.typeId;
                 break;
             default:
                 break;
         }
 
-        nodeService.tableDataPromise = promise;
+        self.dynamic_params = new ngTreetableParams({
+            getNodes: function(parent) {
+                return parent ? nodeService.getSavedSearch(nodeService.searchId, parent._id).then(returnResponse) : promise.then(returnResponse);
+            },
+            getTemplate: function(node) {
+                return 'tree_node';
+            }
+        });
+
+        function returnResponse(data) {
+            return data;
+        }
     }
 })();

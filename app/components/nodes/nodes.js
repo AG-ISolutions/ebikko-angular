@@ -2,6 +2,6 @@
     'use strict';
 
     angular
-        .module('ebikko.nodes', ['ngNewRouter', 'ebikko.login', 'ebikko.config', 'ebikko.menu', 'data-table', 'ngTreetable']);
+        .module('ebikko.nodes', ['ebikko.login', 'ebikko.config', 'ngTreetable']);
 
 })();

@@ -3,37 +3,26 @@
 
     angular
         .module('ebikko.menu')
-        .controller('MenuController', ['$router', '$mdSidenav', '$mdBottomSheet', '$mdDialog', '$location', 'loginService', '$parse', '$controller',
+        .controller('MenuController', ['$mdSidenav', '$mdBottomSheet', '$mdDialog', '$location', 'loginService',
             MenuController
         ])
 
-    function MenuController($router, $mdSidenav, $mdBottomSheet, $mdDialog, $location, loginService, $parse, $controller) {
-        this.title = "Ebikko";
-        this.router = $router;
+    function MenuController($mdSidenav, $mdBottomSheet, $mdDialog, $location, loginService) {
         var self = this;
+        self.title = "Ebikko";
 
-        this.tabs = [];
-        this.selectedMenuItem = {};
+        self.selectedMenuItem = {};
+        self.tabs = [];
 
-        this.menuItems = [{
+        self.menuItems = [{
             'name': 'All Meetings',
-            'component': "nodes({type: 'saved-search', 'type-id': 'ia4065fe384245cc85e0670b7bb10c15'})",
-            'id': 'all-meetings'
+            'content': "<nodes type='saved-search' type-id='ia4065fe384245cc85e0670b7bb10c15'/>",
         }, {
             'name': 'Recent Records',
-            'component': "nodes({type: 'recent-records', 'type-id': ''})",
-            'id': 'recent-records'
+            'content': "<nodes type='recent-records'/>"
         }];
 
-        $router.config([{
-            path: '/nodes/:type',
-            component: 'nodes'
-        }, {
-            path: '/nodes/:type/:type-id',
-            component: 'nodes'
-        }]);
-
-        this.selectMenuItem = function(menuItem) {
+        self.selectMenuItem = function(menuItem) {
             if (this.selectedMenuItem !== menuItem) {
                 var currentIndex = this.tabs.indexOf(menuItem);
                 if (currentIndex > -1) {
@@ -45,7 +34,7 @@
             this.toggleSidebar();
         }
 
-        this.toggleSidebar = function() {
+        self.toggleSidebar = function() {
             var pending = $mdBottomSheet.hide() || $q.when(true);
 
             pending.then(function() {
@@ -53,29 +42,27 @@
             });
         }
 
-        this.logout = function() {
+        self.logout = function() {
             loginService.logout()
                 .then(function(data) {
                     $location.url("/");
                 });
         }
 
-        this.selectTab = function(menuItem) {
+        self.selectTab = function(menuItem) {
             if (this.selectedMenuItem !== menuItem) {
                 this.title = menuItem.name;
                 this.selectedMenuItem = menuItem;
-                var url = generateUrlForComponent(menuItem.component);
-                $location.url(url);
             }
         }
 
         var originatorEv;
-        this.openSettings = function($mdOpenMenu, ev) {
+        self.openSettings = function($mdOpenMenu, ev) {
             originatorEv = ev;
             $mdOpenMenu(ev);
         }
 
-        this.showChangePassword = function(ev) {
+        self.showChangePassword = function(ev) {
             $mdDialog.show({
                 controller: 'changePasswordController',
                 controllerAs: 'cpc',
@@ -84,17 +71,6 @@
                 targetEvent: ev,
                 clickOutsideToClose: true
             });
-        }
-
-        var LINK_MICROSYNTAX_RE = /^(.+?)(?:\((.*)\))?$/;
-
-        function generateUrlForComponent(component) {
-            var parts = component.match(LINK_MICROSYNTAX_RE);
-            var routeName = parts[1];
-            var routeParams = parts[2];
-            var routeParamsGetter = $parse(routeParams);
-            var params = routeParamsGetter();
-            return self.router.generate(routeName, params);
         }
     }
 })();

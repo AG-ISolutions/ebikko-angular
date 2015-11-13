@@ -3,11 +3,11 @@
 
     angular
         .module('ebikko.nodes')
-        .service('nodeService', ['$http', '$q', 'userRepository', 'ebikkoConfig',
+        .service('nodeService', ['$http', 'userRepository', 'ebikkoConfig',
             NodeService
         ]);
 
-    function NodeService($http, $q, userRepository, config) {
+    function NodeService($http, userRepository, config) {
         var self = this;
         self.defaultColumns = [22, 12, 1, 4, 10, 4.1];
         self.defaultStart = 0;

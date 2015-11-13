@@ -1,9 +1,12 @@
 <style>
-    #menuTabs {
-        min-height: 50px;
-    }
-</style>
+#menuTabs {
+    min-height: 50px;
+}
+#tabsContainer {
+    min-height: 500px;
+}
 
+</style>
 <div layout="row" ng-cloak class="menu-bar">
     <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="false">
         <md-toolbar class="md-whiteframe-z1">
@@ -37,9 +40,10 @@
                 </md-menu>
             </span>
         </md-toolbar>
-        <md-tabs md-selected="selectedIndex" md-border-bottom id="menuTabs" ng-hide="menu.tabs.length == 0">
-            <md-tab ng-link="menu.component" md-on-select="menu.selectTab(tab)" md-active="menu.selectedMenuItem === tab" ng-repeat="tab in menu.tabs" ng-disabled="tab.disabled" label="{{tab.name}}"/>
+        <md-tabs md-border-bottom md-autoselect ng-hide="menu.tabs.length === 0" id="tabsContainer">
+            <md-tab ng-repeat="tab in menu.tabs" md-active="menu.selectedMenuItem == tab" ng-disabled="tab.disabled" label="{{tab.name}}">
+                <content-container content="tab.content"/>
+             </md-tab>
         </md-tabs>
-        <div ng-viewport></div>
     </div>
 </div>
