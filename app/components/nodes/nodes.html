@@ -1,5 +1,5 @@
 <script type="text/ng-template" id="tree_node">
-    <tr tt-node is-branch="!node._is_leaf">
+    <tr ng-click="nodes.selectNode(node)" tt-node is-branch="!node._is_leaf">
         <td><span ng-bind="node.date_last_modified"></span></td>
         <td ng-bind="node.assignee"></td>
         <td ng-bind="node.title"></td>
@@ -21,3 +21,4 @@
     </thead>
     <tbody></tbody>
 </table>
+

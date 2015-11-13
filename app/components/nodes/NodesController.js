@@ -3,11 +3,11 @@
 
     angular
         .module('ebikko.nodes')
-        .controller('NodesController', ['nodeService', 'ngTreetableParams',
+        .controller('NodesController', ['nodeService', 'ngTreetableParams', 'menuService', 
             NodesController
         ]);
 
-    function NodesController(nodeService, ngTreetableParams) {
+    function NodesController(nodeService, ngTreetableParams, menuService) {
         var self = this;
         var promise;
 
@@ -34,6 +34,15 @@
 
         function returnResponse(data) {
             return data;
+        }
+
+        self.selectNode = function(node) {
+            if (node._is_leaf) {
+                menuService.addTab({
+                    name: node.title,
+                    content: "<iframe src='" + nodeService.getContentUrl(node.node_id) + "'/>'"
+                });
+            }
         }
     }
 })();

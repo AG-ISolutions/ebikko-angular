@@ -3,35 +3,17 @@
 
     angular
         .module('ebikko.menu')
-        .controller('MenuController', ['$mdSidenav', '$mdBottomSheet', '$mdDialog', '$location', 'loginService',
+        .controller('MenuController', ['$mdSidenav', '$mdBottomSheet', '$mdDialog', '$location', 'loginService', 'menuService',
             MenuController
         ])
 
-    function MenuController($mdSidenav, $mdBottomSheet, $mdDialog, $location, loginService) {
+    function MenuController($mdSidenav, $mdBottomSheet, $mdDialog, $location, loginService, menuService) {
         var self = this;
-        self.title = "Ebikko";
-
         self.selectedMenuItem = {};
-        self.tabs = [];
-
-        self.menuItems = [{
-            'name': 'All Meetings',
-            'content': "<nodes type='saved-search' type-id='ia4065fe384245cc85e0670b7bb10c15'/>",
-        }, {
-            'name': 'Recent Records',
-            'content': "<nodes type='recent-records'/>"
-        }];
 
         self.selectMenuItem = function(menuItem) {
-            if (this.selectedMenuItem !== menuItem) {
-                var currentIndex = this.tabs.indexOf(menuItem);
-                if (currentIndex > -1) {
-                    this.tabs.splice(currentIndex, 1);
-                }
-                this.tabs.push(menuItem);
-                this.selectTab(menuItem);
-            }
-            this.toggleSidebar();
+            menuService.selectMenuItem(menuItem);
+            self.toggleSidebar();
         }
 
         self.toggleSidebar = function() {
@@ -47,13 +29,6 @@
                 .then(function(data) {
                     $location.url("/");
                 });
-        }
-
-        self.selectTab = function(menuItem) {
-            if (this.selectedMenuItem !== menuItem) {
-                this.title = menuItem.name;
-                this.selectedMenuItem = menuItem;
-            }
         }
 
         var originatorEv;
@@ -72,5 +47,9 @@
                 clickOutsideToClose: true
             });
         }
+
+        self.tabs = menuService.getTabs();
+        self.menuItems = menuService.getMenuItems();
+        self.selectedMenuItem = menuService.getSelectedMenuItem();
     }
 })();

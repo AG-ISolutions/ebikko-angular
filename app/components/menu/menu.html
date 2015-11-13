@@ -23,7 +23,7 @@
             <md-button class="menu" ng-click="menu.toggleSidebar()" aria-label="Show Menu" flex="10">
                 <md-icon md-svg-icon="menu"></md-icon>
             </md-button>
-            <h1 flex="80" layout="row" layout-align="center">{{menu.title}}</h1>
+            <h1 flex="80" layout="row" layout-align="center">Ebikko</h1>
             <span flex layout="column" layout-align="center center">
                 <md-menu>
                 <md-button class="md-icon-button" ng-click="menu.openSettings($mdOpenMenu, $event)" aria-label="Show Settings">
@@ -40,6 +40,7 @@
                 </md-menu>
             </span>
         </md-toolbar>
+
         <md-tabs md-border-bottom md-autoselect ng-hide="menu.tabs.length === 0" id="tabsContainer">
             <md-tab ng-repeat="tab in menu.tabs" md-active="menu.selectedMenuItem == tab" ng-disabled="tab.disabled" label="{{tab.name}}">
                 <content-container content="tab.content"/>

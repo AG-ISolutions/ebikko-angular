@@ -54,5 +54,17 @@
                 return response.data.results;
             })
         }
+
+        self.getContentUrl = function(nodeId) {
+            var json = {
+                'ebikko_session_id': userRepository.getSessionId(),
+                'method': 'CONTENT_VIEW',
+                'node_id': nodeId,
+                'version': 0,
+                'is_html5_viewer': false
+            }
+            var stringed = JSON.stringify(json);
+            return config.basePath + '/docviewer/Content?json=' + stringed;
+        }
     }
 })();
