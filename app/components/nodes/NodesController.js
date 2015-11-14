@@ -3,11 +3,11 @@
 
     angular
         .module('ebikko.nodes')
-        .controller('NodesController', ['nodeService', 'ngTreetableParams', 'menuService', 
+        .controller('NodesController', ['nodeService', 'ngTreetableParams', 'tabService',
             NodesController
         ]);
 
-    function NodesController(nodeService, ngTreetableParams, menuService) {
+    function NodesController(nodeService, ngTreetableParams, tabService) {
         var self = this;
         var promise;
 
@@ -38,7 +38,7 @@
 
         self.selectNode = function(node) {
             if (node._is_leaf) {
-                menuService.addTab({
+                tabService.addTab({
                     name: node.title,
                     content: "<iframe src='" + nodeService.getContentUrl(node.node_id) + "'/>'"
                 });

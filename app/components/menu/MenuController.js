@@ -3,17 +3,20 @@
 
     angular
         .module('ebikko.menu')
-        .controller('MenuController', ['$mdSidenav', '$mdBottomSheet', '$mdDialog', '$location', 'loginService', 'menuService',
+        .controller('MenuController', ['$mdSidenav', '$mdBottomSheet', '$mdDialog', '$location', 'loginService', 'tabService',
             MenuController
         ])
 
-    function MenuController($mdSidenav, $mdBottomSheet, $mdDialog, $location, loginService, menuService) {
+    function MenuController($mdSidenav, $mdBottomSheet, $mdDialog, $location, loginService, tabService) {
         var self = this;
-        self.selectedMenuItem = {};
 
         self.selectMenuItem = function(menuItem) {
-            menuService.selectMenuItem(menuItem);
+            tabService.addTab(menuItem);        
             self.toggleSidebar();
+        }
+
+        self.selectTab = function(tab){
+            tabService.selectTab(tab);
         }
 
         self.toggleSidebar = function() {
@@ -48,8 +51,17 @@
             });
         }
 
-        self.tabs = menuService.getTabs();
-        self.menuItems = menuService.getMenuItems();
-        self.selectedMenuItem = menuService.getSelectedMenuItem();
+        self.tabs = tabService.getTabs();
+        self.getSelectedTab = function() {
+            return tabService.getSelectedTab();
+        }
+
+        self.menuItems = [{
+            'name': 'All Meetings',
+            'content': "<nodes type='saved-search' type-id='f220cd0300c843b5b3ee6d969a464478'/>",
+        }, {
+            'name': 'Recent Records',
+            'content': "<nodes type='recent-records'/>"
+        }];
     }
 })();

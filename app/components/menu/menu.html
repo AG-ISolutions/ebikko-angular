@@ -10,11 +10,10 @@
 <div layout="row" ng-cloak class="menu-bar">
     <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="false">
         <md-toolbar class="md-whiteframe-z1">
-            <h1></h1>
         </md-toolbar>
         <md-list>
             <md-list-item ng-repeat="mi in menu.menuItems">
-                <md-button ng-class="{'md-primary': menu.selectedMenuItem === mi}" ng-click="menu.selectMenuItem(mi)">{{mi.name}}</md-button>
+                <md-button ng-class="{'md-primary': menu.getSelectedTab() === mi}" ng-click="menu.selectMenuItem(mi)">{{mi.name}}</md-button>
             </md-list-item>
         </md-list>
     </md-sidenav>
@@ -23,7 +22,7 @@
             <md-button class="menu" ng-click="menu.toggleSidebar()" aria-label="Show Menu" flex="10">
                 <md-icon md-svg-icon="menu"></md-icon>
             </md-button>
-            <h1 flex="80" layout="row" layout-align="center">Ebikko</h1>
+            <h1 flex="80" layout="row" layout-align="center">Ebikko Meeting Management System</h1>
             <span flex layout="column" layout-align="center center">
                 <md-menu>
                 <md-button class="md-icon-button" ng-click="menu.openSettings($mdOpenMenu, $event)" aria-label="Show Settings">
@@ -42,7 +41,7 @@
         </md-toolbar>
 
         <md-tabs md-border-bottom md-autoselect ng-hide="menu.tabs.length === 0" id="tabsContainer">
-            <md-tab ng-repeat="tab in menu.tabs" md-active="menu.selectedMenuItem == tab" ng-disabled="tab.disabled" label="{{tab.name}}">
+            <md-tab ng-repeat="tab in menu.tabs" md-active="menu.getSelectedTab() === tab" ng-disabled="tab.disabled" label="{{tab.name}}" md-on-select="menu.selectTab(tab)">
                 <content-container content="tab.content"/>
              </md-tab>
         </md-tabs>

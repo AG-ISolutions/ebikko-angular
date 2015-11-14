@@ -9,8 +9,15 @@ module.exports = function(config){
       'app/bower_components/angular-aria/angular-aria.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
       'app/bower_components/angular-material/angular-material.js',
-      'app/components/**/*.js',
-      'app/view*/**/*.js'
+      'app/bower_components/angular-animate/angular-animate.js',
+
+      'app/components/config/config.js',
+      'app/components/menu/menu.js',
+      'app/components/nodes/nodes.js',
+      'app/components/users/users.js',
+      'app/components/login/login.js',
+
+      'app/components/**/*.js'
     ],
 
     autoWatch : true,

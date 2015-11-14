@@ -27,11 +27,37 @@
     .x-ng-cloak {
         display: none !important;
     }
+
+    .fade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    opacity: 1;
+}
+.fade.ng-enter,
+.fade.ng-leave {
+    -webkit-transition: all 0.7s ease;
+    transition: all 0.7s ease;
+}
+.fade.ng-enter {
+    opacity: 0;
+}
+.fade.ng-enter-active {
+    opacity: 1;
+}
+.fade.ng-leave {
+    opacity: 1;
+}
+.fade.ng-leave-active {
+    opacity: 0;
+}
     </style>
 </head>
 
 <body ng-controller="AppController as app">
-    <div ng-viewport style="height:100%"></div>
+    <div ng-viewport style="height:100%" class="fade"></div>
 </body>
 
 <script src="./bower_components/angular/angular.js"></script>
@@ -53,7 +79,7 @@
 <script src="./components/menu/ChangePasswordController.js"></script>
 <script src="./components/menu/MenuController.js"></script>
 <script src="./components/menu/ContentContainer.js"></script>
-<script src="./components/menu/MenuService.js"></script>
+<script src="./components/menu/TabService.js"></script>
 
 <script src="./components/nodes/nodes.js"></script>
 <script src="./components/nodes/NodesController.js"></script>
