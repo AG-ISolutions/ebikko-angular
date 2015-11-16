@@ -2,21 +2,24 @@
 #menuTabs {
     min-height: 50px;
 }
+
 #tabsContainer {
     height: 100%;
     overflow: visible;
 }
+
 md-tab-content div {
     height: 750px;
 }
-md-tabs md-tabs-content-wrapper {
-    overflow:visible;
-    height:100%;
-}
-md-tabs-content-wrapper md-tab-content {
-    overflow:visible;
-    height:100%;
 
+md-tabs md-tabs-content-wrapper {
+    overflow: visible;
+    height: 100%;
+}
+
+md-tabs-content-wrapper md-tab-content {
+    overflow: visible;
+    height: 100%;
 }
 </style>
 <div layout="row" ng-cloak class="menu-bar">
@@ -52,9 +55,14 @@ md-tabs-content-wrapper md-tab-content {
             </span>
         </md-toolbar>
         <md-tabs md-border-bottom md-autoselect ng-hide="menu.tabs.length === 0" id="tabsContainer" style="height:100%;">
-            <md-tab ng-repeat="tab in menu.tabs" md-active="menu.getSelectedTab() === tab" ng-disabled="tab.disabled" label="{{tab.name}}" md-on-select="menu.selectTab(tab)" style="height:100%;">
-                <content-container content="tab.content"/>
-             </md-tab>
+            <md-tab ng-repeat="tab in menu.tabs" md-active="menu.getSelectedTab() === tab" ng-disabled="tab.disabled" md-on-select="menu.selectTab(tab)" style="height:100%;">
+                <md-tab-label>{{tab.name}}
+                    <md-icon md-svg-icon="close" ng-click="menu.closeTab(tab)"></md-icon>
+                </md-tab-label>
+                <md-tab-body>
+                    <content-container content="tab.content" />
+                </md-tab-body>
+            </md-tab>
         </md-tabs>
     </div>
 </div>

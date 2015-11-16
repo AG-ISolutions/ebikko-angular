@@ -73,5 +73,25 @@
             expect(tabService.getTabs()[0]).toEqual(exampleTab1);
             expect(tabService.getTabs()[1]).toEqual(exampleTab2);
         });
+
+        it("should remove tab and update selected tab", function() {
+            tabService.addTab(exampleTab1);
+            tabService.addTab(exampleTab2);
+
+            tabService.removeTab(exampleTab2);
+
+            expect(tabService.getTabs().length).toEqual(1);
+            expect(tabService.getTabs()[0]).toEqual(exampleTab1);
+            expect(tabService.getSelectedTab()).toEqual(exampleTab1);
+        });
+
+        it("should remove last tab and not select a tab", function() {
+            tabService.addTab(exampleTab1);
+
+            tabService.removeTab(exampleTab1);
+
+            expect(tabService.getTabs().length).toEqual(0);
+            expect(tabService.getSelectedTab()).toEqual({});
+        });
     })
 })();

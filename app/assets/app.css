@@ -40,6 +40,10 @@ md-sidenav md-list {
     padding: 0px 0px 8px 0px;
 }
 
+md-tabs .md-tab md-icon[md-svg-icon="close"] {
+    color: grey;
+    cursor:pointer;
+}
 
 /* Primary content area */
 
@@ -184,7 +188,6 @@ table.treetable tr {
 table.treetable td:not(.loading) svg {
     display: none;
 }
-
 
 /* Spinner */
 

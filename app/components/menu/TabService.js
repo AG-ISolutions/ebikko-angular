@@ -13,7 +13,8 @@
             addTab: addTab,
             getSelectedTab: getSelectedTab,
             getTabs: getTabs,
-            selectTab: selectTab
+            selectTab: selectTab,
+            removeTab: removeTab
         }
 
         return self;
@@ -43,6 +44,18 @@
             var currentIndex = self.tabs.indexOf(tab);
             if (currentIndex > -1 && self.selectedTab !== tab) {
                 self.selectedTab = self.tabs[currentIndex];
+            }
+        }
+
+        function removeTab(tab) {
+            var currentIndex = self.tabs.indexOf(tab);
+            if (currentIndex > -1) {
+                self.tabs.splice(currentIndex, 1);
+                if (self.tabs.length > 0) {
+                    self.selectedTab = self.tabs[currentIndex > 0 ? currentIndex - 1 : currentIndex];
+                } else {
+                    self.selectedTab = {};
+                }
             }
         }
     }
