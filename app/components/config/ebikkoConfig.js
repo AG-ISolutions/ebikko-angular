@@ -4,7 +4,7 @@
     angular
         .module('ebikko.config')
         .value('ebikkoConfig', {
-            basePath: 'http://localhost:8080/ebikkoweb'
+            basePath: 'http://localhost:8083'
         });
         
 })();

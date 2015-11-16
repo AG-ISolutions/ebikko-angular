@@ -44,7 +44,7 @@
             $mdDialog.show({
                 controller: 'changePasswordController',
                 controllerAs: 'cpc',
-                templateUrl: '/components/menu/changePassword.html',
+                templateUrl: './components/menu/changePassword.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose: true

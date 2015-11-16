@@ -544,13 +544,6 @@
     background-color: #ffccbc;
   }
 }
-table.treetable tr.collapsed span.indenter a {
-    background-image: url('/assets/svg/plus.svg');
-}
-
-table.treetable tr.expanded span.indenter a {
-    background-image: url('/assets/svg/minus.svg');
-}
 
 table.treetable span.indenter {
     display: inline-block;

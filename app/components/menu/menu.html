@@ -3,9 +3,21 @@
     min-height: 50px;
 }
 #tabsContainer {
-    min-height: 500px;
+    height: 100%;
+    overflow: visible;
 }
+md-tab-content div {
+    height: 750px;
+}
+md-tabs md-tabs-content-wrapper {
+    overflow:visible;
+    height:100%;
+}
+md-tabs-content-wrapper md-tab-content {
+    overflow:visible;
+    height:100%;
 
+}
 </style>
 <div layout="row" ng-cloak class="menu-bar">
     <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="false">
@@ -40,8 +52,8 @@
             </span>
         </md-toolbar>
 
-        <md-tabs md-border-bottom md-autoselect ng-hide="menu.tabs.length === 0" id="tabsContainer">
-            <md-tab ng-repeat="tab in menu.tabs" md-active="menu.getSelectedTab() === tab" ng-disabled="tab.disabled" label="{{tab.name}}" md-on-select="menu.selectTab(tab)">
+        <md-tabs md-border-bottom md-autoselect ng-hide="menu.tabs.length === 0" id="tabsContainer" style="height:100%;">
+            <md-tab ng-repeat="tab in menu.tabs" md-active="menu.getSelectedTab() === tab" ng-disabled="tab.disabled" label="{{tab.name}}" md-on-select="menu.selectTab(tab)" style="height:100%;">
                 <content-container content="tab.content"/>
              </md-tab>
         </md-tabs>

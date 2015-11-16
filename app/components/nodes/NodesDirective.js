@@ -12,7 +12,7 @@
 	        	controller: 'NodesController',
 	        	controllerAs: 'nodes',
 	        	bindToController: true,
-                templateUrl: '/components/nodes/nodes.html'
+                templateUrl: './components/nodes/nodes.html'
             };
         });
 })();

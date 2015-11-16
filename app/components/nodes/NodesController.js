@@ -29,6 +29,9 @@
             },
             getTemplate: function(node) {
                 return 'tree_node';
+            },
+            options: {
+                clickableNodeNames: true
             }
         });
 
@@ -40,7 +43,8 @@
             if (node._is_leaf) {
                 tabService.addTab({
                     name: node.title,
-                    content: "<iframe src='" + nodeService.getContentUrl(node.node_id) + "'/>'"
+                    content: 
+                        "<iframe src='" + nodeService.getContentUrl(node.node_id) + "'/>'"
                 });
             }
         }

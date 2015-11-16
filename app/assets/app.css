@@ -140,6 +140,7 @@ svg {
 
 .menu-bar {
     margin-bottom: 10px;
+    height:100%;
 }
 
 #loginForm .md-primary {
@@ -161,5 +162,17 @@ content-container iframe {
 }
 
 tr.clickable-row {
+    cursor: pointer;
+}
+
+table.treetable tr.collapsed span.indenter a {
+    background-image: url('svg/plus.svg');
+}
+
+table.treetable tr.expanded span.indenter a {
+    background-image: url('svg/minus.svg');
+}
+
+table.treetable tr {
     cursor: pointer;
 }
