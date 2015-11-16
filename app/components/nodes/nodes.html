@@ -1,6 +1,6 @@
 <script type="text/ng-template" id="tree_node">
     <tr ng-click="nodes.selectNode(node)" tt-node is-branch="!node._is_leaf">
-        <td><span ng-bind="node.title"></span></td>
+        <td ng-class="{loading: loading}"><span ng-bind="node.title"></span></td>
     </tr>
 </script>
 <table class="table table-hover" tt-table tt-params="nodes.dynamic_params">
