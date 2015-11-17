@@ -10,7 +10,8 @@
                 .defaultIconSet("./assets/svg/avatars.svg", 128)
                 .icon("menu", "./assets/svg/menu.svg", 24)
                 .icon("settings", "./assets/svg/settings.svg", 24)
-                .icon("close", "./assets/svg/ic_clear_black_24px.svg");
+                .icon("close", "./assets/svg/ic_clear_black_24px.svg", 24)
+                .icon("search", "./assets/svg/ic_search_black_24px.svg", 24);
 
             $mdThemingProvider.theme('default')
                 .primaryPalette('red')
