@@ -7,44 +7,6 @@ body {
     padding: 0px;
 }
 
-
-/* Toolbar area */
-
-.menu {
-    background-color: transparent;
-    border: none;
-    height: 38px;
-    margin: 16px;
-    width: 36px;
-}
-
-md-toolbar h1 {
-    margin: auto;
-}
-
-
-/* Sidenav area */
-
-md-list .md-button {
-    color: inherit;
-    font-weight: 500;
-    text-align: left;
-    width: 100%;
-}
-
-md-list .md-button.selected {
-    color: #03a9f4;
-}
-
-md-sidenav md-list {
-    padding: 0px 0px 8px 0px;
-}
-
-md-tabs .md-tab md-icon[md-svg-icon="close"] {
-    color: grey;
-    cursor:pointer;
-}
-
 /* Primary content area */
 
 #content {

@@ -5,7 +5,6 @@ module.exports = function(config){
 
     files : [
       'app/bower_components/angular/angular.js',
-      'app/bower_components/angular-route/angular-route.js',
       'app/bower_components/angular-aria/angular-aria.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
       'app/bower_components/angular-material/angular-material.js',
@@ -13,9 +12,11 @@ module.exports = function(config){
 
       'app/components/config/config.js',
       'app/components/menu/menu.js',
+      'app/components/users/Users.js',
       'app/components/nodes/nodes.js',
-      'app/components/users/users.js',
       'app/components/login/login.js',
+
+      'app/src/treetable/angular-treetable.js',
 
       'app/components/**/*.js'
     ],

@@ -3,17 +3,19 @@
 
     angular
         .module('ebikko.menu')
-        .controller('MenuController', ['$mdSidenav', '$mdBottomSheet', '$mdDialog', '$location', 'loginService', 'tabService',
+        .controller('MenuController', ['$mdSidenav', '$mdBottomSheet', '$mdDialog', '$location', 'loginService', 'tabService', 'nodeService',
             MenuController
         ])
 
-    function MenuController($mdSidenav, $mdBottomSheet, $mdDialog, $location, loginService, tabService) {
+    function MenuController($mdSidenav, $mdBottomSheet, $mdDialog, $location, loginService, tabService, nodeService) {
         var self = this;
 
         self.closeTab = closeTab;
+        self.downloadContent = downloadContent;
         self.getSelectedTab = getSelectedTab;
         self.logout = logout;
         self.openSettings = openSettings;
+        self.openTabMenu = openTabMenu;
         self.selectMenuItem = selectMenuItem;
         self.selectTab = selectTab;
         self.showChangePassword = showChangePassword;
@@ -21,9 +23,11 @@
 
         self.menuItems = [{
             'name': 'All Meetings',
+            'type': 'nodes',
             'content': "<nodes type='saved-search' type-id='f220cd0300c843b5b3ee6d969a464478'/>",
         }, {
             'name': 'Recent Records',
+            'type': 'nodes',
             'content': "<nodes type='recent-records'/>"
         }];
         self.tabs = tabService.getTabs();
@@ -73,6 +77,17 @@
 
         function closeTab(tab) {
             tabService.removeTab(tab);
+        }
+
+        function openTabMenu($mdOpenMenu, ev) {
+            $mdOpenMenu(ev);
+        }
+
+        function downloadContent() {
+            var tab = tabService.getSelectedTab();
+            nodeService.getDownloadUrl(tab.id).then(function(url){
+                window.open(url, '_blank', '');
+            });
         }
     }
 })();

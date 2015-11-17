@@ -8,12 +8,51 @@
         ]);
 
     function NodeService($http, userRepository, config) {
-        var self = this;
-        self.defaultColumns = [22, 12, 1, 4, 10, 4.1];
-        self.defaultStart = 0;
-        self.defaultLimit = 25;
+        var self = {
+            defaultColumns: [22, 12, 1, 4, 10, 4.1],
+            defaultStart: 0,
+            defaultLimit: 25,
 
-        self.getRecentRecords = function() {
+            getContentUrl: getContentUrl,
+            getDownloadUrl: getDownloadUrl,
+            getRecentRecords: getRecentRecords,
+            getSavedSearch: getSavedSearch
+        }
+
+        return self;
+
+        function getContentUrl(nodeId) {
+            var json = {
+                'ebikko_session_id': userRepository.getSessionId(),
+                'method': 'CONTENT_VIEW',
+                'node_id': nodeId,
+                'version': 0,
+                'is_html5_viewer': false
+            };
+            var stringed = JSON.stringify(json);
+            return config.basePath + '/docviewer/Content?json=' + stringed;
+        }
+
+        function getDownloadUrl(nodeId) {
+            var json = {
+                'ebikko_session_id': userRepository.getSessionId(),
+                'method': 'CONTENT_DOWNLOAD',
+                'node_id': nodeId,
+                'version': 1
+            };
+            var stringed = JSON.stringify(json);
+            return $http({
+                'method': 'GET',
+                'url': config.basePath + '/Content',
+                'params': {
+                    'json': json
+                }
+            }).then(function(response) {
+                return response.data.data.url;  
+            });
+        }
+
+        function getRecentRecords() {
             var json = {
                 'ebikko_session_id': userRepository.getSessionId(),
                 'selected_columns': self.defaultColumns,
@@ -32,7 +71,7 @@
             });
         }
 
-        self.getSavedSearch = function(searchId, parentId) {
+        function getSavedSearch(searchId, parentId) {
             var json = {
                 'ebikko_session_id': userRepository.getSessionId(),
                 'selected_columns': self.defaultColumns,
@@ -53,18 +92,6 @@
             }).then(function(response) {
                 return response.data.results;
             })
-        }
-
-        self.getContentUrl = function(nodeId) {
-            var json = {
-                'ebikko_session_id': userRepository.getSessionId(),
-                'method': 'CONTENT_VIEW',
-                'node_id': nodeId,
-                'version': 0,
-                'is_html5_viewer': false
-            }
-            var stringed = JSON.stringify(json);
-            return config.basePath + '/docviewer/Content?json=' + stringed;
         }
     }
 })();

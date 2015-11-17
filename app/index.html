@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./bower_components/angular-material/angular-material.css" />
     <link rel="stylesheet" href="./assets/app.css" />
+    <link rel="stylesheet" href="./components/menu/menu.css" />
     <link rel="stylesheet" href="./src/angular-data-table/dataTable.css" />
     <link rel="stylesheet" href="./src/angular-data-table/material.css" />
     <script src="./src/treetable/jquery.min.js"></script>
@@ -27,54 +28,54 @@
     .x-ng-cloak {
         display: none !important;
     }
-
+    
     .fade {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
-    opacity: 1;
-}
-.fade.ng-enter,
-.fade.ng-leave {
-    -webkit-transition: all 0.7s ease;
-    transition: all 0.7s ease;
-}
-.fade.ng-enter {
-    opacity: 0;
-}
-.fade.ng-enter-active {
-    opacity: 1;
-}
-.fade.ng-leave {
-    opacity: 1;
-}
-.fade.ng-leave-active {
-    opacity: 0;
-}
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        opacity: 1;
+    }
+    
+    .fade.ng-enter,
+    .fade.ng-leave {
+        -webkit-transition: all 0.7s ease;
+        transition: all 0.7s ease;
+    }
+    
+    .fade.ng-enter {
+        opacity: 0;
+    }
+    
+    .fade.ng-enter-active {
+        opacity: 1;
+    }
+    
+    .fade.ng-leave {
+        opacity: 1;
+    }
+    
+    .fade.ng-leave-active {
+        opacity: 0;
+    }
     </style>
 </head>
 
 <body ng-controller="AppController as app">
     <div ng-viewport style="height:100%" class="fade"></div>
 </body>
-
 <script src="./bower_components/angular/angular.js"></script>
 <script src="./bower_components/angular-new-router/dist/router.es5.js"></script>
 <script src="./bower_components/angular-animate/angular-animate.js"></script>
 <script src="./bower_components/angular-aria/angular-aria.js"></script>
-
 <script type="text/javascript" src="./bower_components/angular-material/angular-material.js"></script>
-
 <script src="./components/config/config.js"></script>
 <script src="./components/config/ebikkoConfig.js"></script>
 <script src="./components/config/MessageResolver.js"></script>
-
 <script src="./components/login/login.js"></script>
 <script src="./components/login/LoginController.js"></script>
 <script src="./components/login/LoginService.js"></script>
-
 <script src="./components/menu/menu.js"></script>
 <script src="./components/menu/ChangePasswordController.js"></script>
 <script src="./components/menu/MenuController.js"></script>
@@ -85,15 +86,11 @@
 <script src="./components/nodes/NodesController.js"></script>
 <script src="./components/nodes/NodeService.js"></script>
 <script src="./components/nodes/NodesDirective.js"></script>
-
 <script src="./components/users/users.js"></script>
 <script src="./components/users/UserService.js"></script>
 <script src="./components/users/UserRepository.js"></script>
-
 <script src="./src/angular-data-table/dataTable.helpers.min.js"></script>
 <script src="./app.js"></script>
-
-
 <!-- Tree Grid -->
 <script src="./src/treetable/jquery.treetable.js"></script>
 <script src="./src/treetable/angular-treetable.js"></script>
