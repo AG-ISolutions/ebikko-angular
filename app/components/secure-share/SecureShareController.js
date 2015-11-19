@@ -34,7 +34,7 @@
                     self.saving = false;
                     $mdDialog.hide();
                 }, function(response) {
-                    self.errors = [messageResolver.resolveMessage(response.data.data.responsemsg).message];
+                    self.errors = [messageResolver.resolveMessage(response.data.data.responsemsg)];
                     self.saving = false;
                 });
             }

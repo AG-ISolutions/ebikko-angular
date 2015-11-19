@@ -151,6 +151,21 @@ table.treetable td:not(.loading) svg {
     display: none;
 }
 
+md-dialog div.errors ul {
+    padding-left: 5px;
+}
+
+div.errors {
+    border: 1px solid;
+    margin: 10px 0px;
+    padding-left: 5px;
+}
+
+div.errors {
+    color: #D8000C;
+    background-color: #FFBABA;
+}
+
 /* Spinner */
 
 .spinner {

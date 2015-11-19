@@ -16,6 +16,7 @@ module.exports = function(config) {
             'components/nodes/nodes.js',
             'components/login/login.js',
             'components/secure-share/secureShare.js',
+            'components/change-password/changePassword.js',
 
             'src/treetable/angular-treetable.js',
 

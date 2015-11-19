@@ -96,7 +96,7 @@
             secureShareValidator.validate = succesfulValidation;
             var deferred = $q.defer();
             spyOn(secureShareService, 'secureShareNode').and.returnValue(deferred.promise);
-            spyOn(messageResolver, 'resolveMessage').and.returnValue(resolvedMessage);
+            spyOn(messageResolver, 'resolveMessage').and.returnValue("Resolved error message");
 
             var secureShareController = createController();
             secureShareController.secureShare();
@@ -113,7 +113,7 @@
             secureShareValidator.validate = succesfulValidation;
             var deferred = $q.defer();
             spyOn(secureShareService, 'secureShareNode').and.returnValue(deferred.promise);
-            spyOn(messageResolver, 'resolveMessage').and.returnValue(resolvedMessage);
+            spyOn(messageResolver, 'resolveMessage').and.returnValue("Resolved error message");
 
             var secureShareController = createController();
             secureShareController.secureShare();
@@ -156,11 +156,6 @@
                     "responseparam": [],
                 }
             }
-        };
-        var resolvedMessage = {
-            e: 'code',
-            message: 'Resolved error message',
-            type: 'danger'
         };
     });
 })();
