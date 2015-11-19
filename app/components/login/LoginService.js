@@ -74,9 +74,11 @@
                 'params': {
                     'json': json
                 }
-            }).success(function(data) {
+            }).then(function(data) {
                 userRepository.clearCurrentUser();
                 return data;
+            }, function(data) {
+                $location.url("/");
             });
         }
     }

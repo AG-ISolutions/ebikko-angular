@@ -3,11 +3,11 @@
 
     angular
         .module('ebikko.menu')
-        .controller('MenuController', ['$mdSidenav', '$mdBottomSheet', '$mdDialog', '$location', 'loginService', 'tabService', 'nodeService',
+        .controller('MenuController', ['$controller','$mdSidenav', '$mdBottomSheet', '$mdDialog', '$location', 'loginService', 'tabService', 'nodeService',
             MenuController
         ])
 
-    function MenuController($mdSidenav, $mdBottomSheet, $mdDialog, $location, loginService, tabService, nodeService) {
+    function MenuController($controller, $mdSidenav, $mdBottomSheet, $mdDialog, $location, loginService, tabService, nodeService) {
         var self = this;
 
         self.closeTab = closeTab;
@@ -19,6 +19,7 @@
         self.selectMenuItem = selectMenuItem;
         self.selectTab = selectTab;
         self.showChangePassword = showChangePassword;
+        self.showSecureShare = showSecureShare;
         self.toggleSidebar = toggleSidebar;
 
         self.menuItems = [{
@@ -58,6 +59,21 @@
 
         function openSettings($mdOpenMenu, ev) {
             $mdOpenMenu(ev);
+        }
+
+        function showSecureShare(ev) {
+            $mdDialog.show({
+                controller: 'secureShareController',
+                controllerAs: 'ssc',
+                bindToController: true,
+                locals: {
+                    nodeId: tabService.getSelectedTab().id
+                },
+                templateUrl: './components/secure-share/secureShare.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true
+            });
         }
 
         function showChangePassword(ev) {

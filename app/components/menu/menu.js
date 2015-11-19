@@ -2,6 +2,6 @@
     'use strict';
 
     angular
-        .module('ebikko.menu', ['ngMaterial', 'ebikko.config', 'ebikko.users', 'ebikko.login', 'ebikko.nodes']);
+        .module('ebikko.menu', ['ngMaterial', 'ebikko.config', 'ebikko.users', 'ebikko.login', 'ebikko.nodes', 'ebikko.secure-share']);
 
 })();

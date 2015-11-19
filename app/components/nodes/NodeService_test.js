@@ -16,7 +16,6 @@
         }));
 
         beforeEach(inject(function($httpBackend, _nodeService_) {
-            // $httpBackend = $injector.get('$httpBackend');
             nodeService = _nodeService_;
             httpBackend = $httpBackend;
         }));

@@ -1,0 +1,38 @@
+md-dialog md-content.secureShare form {
+    width: 100%;
+}
+
+md-content.secureShare {
+    min-width: 350px;
+}
+
+md-content.secureShare form md-datepicker button.md-datepicker-button {
+    display: none;
+}
+
+md-content.secureShare form md-datepicker div.md-datepicker-input-container {
+    margin-left: 2px;
+}
+
+md-content.secureShare form md-checkbox {
+    margin-left: 0px;
+}
+
+md-content.secureShare input.md-datepicker-input {
+    width: 100%;
+}
+
+md-content.secureShare div.errors ul {
+    padding-left: 5px;
+}
+
+div.errors {
+    border: 1px solid;
+    margin: 10px 0px;
+    padding-left: 5px;
+}
+
+div.errors {
+    color: #D8000C;
+    background-color: #FFBABA;
+}

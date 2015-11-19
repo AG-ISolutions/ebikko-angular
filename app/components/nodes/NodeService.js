@@ -15,6 +15,7 @@
 
             getContentUrl: getContentUrl,
             getDownloadUrl: getDownloadUrl,
+
             getRecentRecords: getRecentRecords,
             getSavedSearch: getSavedSearch
         }
@@ -48,7 +49,7 @@
                     'json': json
                 }
             }).then(function(response) {
-                return response.data.data.url;  
+                return response.data.data.url;
             });
         }
 
@@ -91,7 +92,7 @@
                 }
             }).then(function(response) {
                 return response.data.results;
-            })
+            });
         }
     }
 })();

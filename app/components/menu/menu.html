@@ -13,7 +13,7 @@
             <md-button class="menu" ng-click="menu.toggleSidebar()" aria-label="Show Menu" flex="10">
                 <md-icon md-svg-icon="menu"></md-icon>
             </md-button>
-            <h1 flex="80" layout="row" layout-align="center">Ebikko Meeting Management System</h1>
+            <h1 flex="80" layout="row" layout-align="center">Tricor Meeting Management System</h1>
             <span flex="10" layout="column" layout-align="center center">
                 <md-menu>
                     <md-button class="md-icon-button" ng-click="menu.openSettings($mdOpenMenu, $event)" aria-label="Show Settings">
@@ -53,7 +53,7 @@
                     </md-button>
                 </md-menu-item>
                 <md-menu-item>
-                    <md-button>
+                    <md-button ng-click="menu.showSecureShare($event)">
                         <md-icon md-svg-icon="share"></md-icon>
                         Secure Share</md-button>
                 </md-menu-item>
@@ -65,5 +65,4 @@
             </md-menu-content>
         </md-menu>
     </div>
-</div>
 </div>

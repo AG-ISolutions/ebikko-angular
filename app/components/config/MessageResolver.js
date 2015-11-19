@@ -19,6 +19,10 @@
             message: 'Username already in use',
             type: 'danger'
         }, {
+            e: 'EBW-18-19', 
+            message: 'Please specify at least one recipient\'s email.',
+            type: 'danger'
+        }, {
             e: 'EBW-22-20',
             message: 'Login disabled for this User',
             type: 'danger'
@@ -49,7 +53,7 @@
             console.log("Warning - unable to resolve message " + key);
             return {
                 e: key,
-                message: key,
+                message: "An unknown error occured, please try again",
                 type: key
             }
         }

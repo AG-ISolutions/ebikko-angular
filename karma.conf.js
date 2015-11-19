@@ -1,43 +1,49 @@
-module.exports = function(config){
-  config.set({
+module.exports = function(config) {
+    config.set({
 
-    basePath : './',
+        basePath: './app',
 
-    files : [
-      'app/bower_components/angular/angular.js',
-      'app/bower_components/angular-aria/angular-aria.js',
-      'app/bower_components/angular-mocks/angular-mocks.js',
-      'app/bower_components/angular-material/angular-material.js',
-      'app/bower_components/angular-animate/angular-animate.js',
+        files: [
+            'bower_components/angular/angular.js',
+            'bower_components/angular-aria/angular-aria.js',
+            'bower_components/angular-mocks/angular-mocks.js',
+            'bower_components/angular-material/angular-material.js',
+            'bower_components/angular-animate/angular-animate.js',
 
-      'app/components/config/config.js',
-      'app/components/menu/menu.js',
-      'app/components/users/Users.js',
-      'app/components/nodes/nodes.js',
-      'app/components/login/login.js',
+            'components/config/config.js',
+            'components/menu/menu.js',
+            'components/users/Users.js',
+            'components/nodes/nodes.js',
+            'components/login/login.js',
+            'components/secure-share/secureShare.js',
 
-      'app/src/treetable/angular-treetable.js',
+            'src/treetable/angular-treetable.js',
 
-      'app/components/**/*.js'
-    ],
+            'components/**/*.js',
+            'components/**/*.html'
+        ],
 
-    autoWatch : true,
+        autoWatch: true,
 
-    frameworks: ['jasmine'],
+        frameworks: ['jasmine'],
 
-    browsers : ['Chrome'],
+        browsers: ['Chrome'],
 
-    plugins : [
+        plugins: [
             'karma-chrome-launcher',
             'karma-firefox-launcher',
             'karma-jasmine',
-            'karma-junit-reporter'
-            ],
+            'karma-junit-reporter',
+            'karma-ng-html2js-preprocessor'
+        ],
 
-    junitReporter : {
-      outputFile: 'test_out/unit.xml',
-      suite: 'unit'
-    }
+        preprocessors: {
+            'components/**/*.html': ['ng-html2js']
+        },
 
-  });
+        junitReporter: {
+            outputFile: 'test_out/unit.xml',
+            suite: 'unit'
+        }
+    });
 };
