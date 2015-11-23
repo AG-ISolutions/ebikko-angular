@@ -36,7 +36,9 @@ module.exports = function(grunt) {
         },
 
         jshint: {
-            all: ['Gruntfile.js', 'app/components/**/*.js', 'app/src/**/*.js']
+            all: {
+                src: ['Gruntfile.js', 'app/components/**/*.js', 'app/src/**/*.js']
+            }
         },
 
         karma: {
@@ -60,6 +62,16 @@ module.exports = function(grunt) {
             }
         },
 
+        watch: {
+            scripts: {
+                files: ['Gruntfile.js', 'app/components/**/*.js', 'app/src/**/*.js'],
+                tasks: ['karma:unit', 'jshint'],
+                options: {
+                    nospawn: true,
+                },
+            }
+        },
+
         uglify: {
             dist: {
                 files: {
@@ -71,11 +83,16 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', ['clean', 'compress']);
 
+    grunt.event.on('watch', function(action, filepath) {
+        grunt.config(['jshint', 'all'], [filepath]);
+    });
+
     grunt.loadNpmTasks('grunt-bower-task');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-html2js');
     grunt.loadNpmTasks('grunt-karma');

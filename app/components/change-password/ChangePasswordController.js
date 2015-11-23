@@ -20,8 +20,8 @@
             self.errors = [];
 
             userService
-                .changePassword(this.oldPassword, this.newPassword, this.repeatNewPassword)
-                .then(function(data) {
+                .changePassword(self.oldPassword, self.newPassword, self.repeatNewPassword)
+                .then(function() {
                     $mdToast.show(
                         $mdToast.simple()
                         .content('Password succesfully changed')
@@ -29,14 +29,14 @@
                         .hideDelay(3000)
                     );
                     $mdDialog.hide();
-                }, function(data) {
-                    var msg = data.data.data.responsemsg;
-                    if (msg.startsWith("EBW-")) {
-                        self.errors.push(messageResolver.resolveMessage(msg, data.data.data.responseparam));
+                }, function(response) {
+                    var msg = response.data.data.responsemsg;
+                    if (msg.lastIndexOf("EBW-", 0) === 0) {
+                        self.errors.push(messageResolver.resolveMessage(msg, response.data.data.responseparam));
                     } else {
                         self.errors.push(msg);
                     }
-                });;
+                });
         }
     }
 })();
