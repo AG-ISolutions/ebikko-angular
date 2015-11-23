@@ -1,11 +1,3 @@
-md-dialog md-content.secureShare form {
-    width: 100%;
-}
-
-md-content.secureShare {
-    min-width: 350px;
-}
-
 md-content.secureShare form md-datepicker button.md-datepicker-button {
     display: none;
 }

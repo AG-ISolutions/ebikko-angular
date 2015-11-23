@@ -1,27 +1,40 @@
 module.exports = function(config) {
     config.set({
 
-        basePath: './app',
+        basePath: './',
 
         files: [
-            'bower_components/angular/angular.js',
-            'bower_components/angular-aria/angular-aria.js',
-            'bower_components/angular-mocks/angular-mocks.js',
-            'bower_components/angular-material/angular-material.js',
-            'bower_components/angular-animate/angular-animate.js',
+            'app/bower_components/jquery/dist/jquery.js',
+            'app/bower_components/jasmine-jquery/lib/jasmine-jquery.js',
+            'app/bower_components/angular/angular.js',
+            'app/bower_components/angular-aria/angular-aria.js',
+            'app/bower_components/angular-mocks/angular-mocks.js',
+            'app/bower_components/angular-material/angular-material.js',
+            'app/bower_components/angular-animate/angular-animate.js',
 
-            'components/config/config.js',
-            'components/menu/menu.js',
-            'components/users/Users.js',
-            'components/nodes/nodes.js',
-            'components/login/login.js',
-            'components/secure-share/secureShare.js',
-            'components/change-password/changePassword.js',
+            'app/src/validation/validation.js',
 
-            'src/treetable/angular-treetable.js',
+            'app/components/config/config.js',
+            'app/components/menu/menu.js',
+            'app/components/users/Users.js',
+            'app/components/nodes/nodes.js',
+            'app/components/login/login.js',
+            'app/components/secure-share/secureShare.js',
+            'app/components/change-password/changePassword.js',
+            'app/components/email-record/emailRecord.js',
 
-            'components/**/*.js',
-            'components/**/*.html'
+            'app/src/treetable/angular-treetable.js',
+            'app/src/validation/**/*.js',
+
+            'app/components/**/*.js',
+            'app/components/**/*.html',
+
+            {
+                pattern: 'test/fixtures/*.json',
+                watched: true,
+                served: true,
+                included: false
+            }
         ],
 
         autoWatch: true,
@@ -39,7 +52,7 @@ module.exports = function(config) {
         ],
 
         preprocessors: {
-            'components/**/*.html': ['ng-html2js']
+            'app/components/**/*.html': ['ng-html2js']
         },
 
         junitReporter: {

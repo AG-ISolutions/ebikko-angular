@@ -166,6 +166,16 @@ div.errors {
     background-color: #FFBABA;
 }
 
+/* Dialogs */
+
+md-dialog md-content form {
+    width: 100%;
+}
+
+md-dialog {
+    min-width: 35%;
+}
+
 /* Spinner */
 
 .spinner {

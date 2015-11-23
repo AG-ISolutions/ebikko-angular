@@ -3,7 +3,7 @@
 
     angular
         .module('ebikko.menu')
-        .controller('MenuController', ['$controller','$mdSidenav', '$mdBottomSheet', '$mdDialog', '$location', 'loginService', 'tabService', 'nodeService',
+        .controller('MenuController', ['$controller', '$mdSidenav', '$mdBottomSheet', '$mdDialog', '$location', 'loginService', 'tabService', 'nodeService',
             MenuController
         ])
 
@@ -19,6 +19,7 @@
         self.selectMenuItem = selectMenuItem;
         self.selectTab = selectTab;
         self.showChangePassword = showChangePassword;
+        self.showEmailRecord = showEmailRecord;
         self.showSecureShare = showSecureShare;
         self.toggleSidebar = toggleSidebar;
 
@@ -87,6 +88,23 @@
             });
         }
 
+        function showEmailRecord(ev) {
+            $mdDialog.show({
+                controller: 'EmailRecordController',
+                controllerAs: 'erc',
+                bindToController: true,
+                locals: {
+                    nodeId: tabService.getSelectedTab().id,
+                    title:  tabService.getSelectedTab().title,
+                    file_name: tabService.getSelectedTab().file_name
+                },
+                templateUrl: './components/email-record/emailRecord.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true
+            });
+        }
+
         function getSelectedTab() {
             return tabService.getSelectedTab();
         }
@@ -101,7 +119,7 @@
 
         function downloadContent() {
             var tab = tabService.getSelectedTab();
-            nodeService.getDownloadUrl(tab.id).then(function(url){
+            nodeService.getDownloadUrl(tab.id).then(function(url) {
                 window.open(url, '_blank', '');
             });
         }

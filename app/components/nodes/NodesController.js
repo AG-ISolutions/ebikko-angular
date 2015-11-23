@@ -52,6 +52,8 @@
                     name: node.title,
                     type: 'node',
                     id: node.node_id,
+                    title: node.title,
+                    file_name: node.file_name,
                     content: "<iframe src='" + nodeService.getContentUrl(node.node_id) + "'/>'"
                 });
             }

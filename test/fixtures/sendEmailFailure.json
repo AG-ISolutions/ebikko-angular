@@ -1,0 +1,21 @@
+{
+    "data": {
+        "success": false,
+        "code": 300,
+        "data": {
+            "responsemsg": "Add / Update Node failed!null"
+        }
+    },
+    "status": 500,
+    "config": {
+        "method": "POST",
+        "transformRequest": [null],
+        "transformResponse": [null],
+        "url": "/SendEmail?json={\"ebikko_session_id\":\"hee98ef69304429bbd8d0a5ae7a49c77\",\"method\":\"EMAIL_LINK\",\"sender\":\"\",\"cc_list\":[],\"bcc_list\":[],\"attachments\":[{\"title\":\"\",\"file_name\":\"\",\"version\":0}]}",
+        "headers": {
+            "Accept": "application/json, text/plain, */*"
+        },
+        "withCredentials": true
+    },
+    "statusText": "Internal Server Error"
+}
