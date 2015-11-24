@@ -7,21 +7,23 @@ module.exports = function(grunt) {
             install: {}
         },
 
+        clean: {
+            temp: {
+                src: ['dist']
+            }
+        },
+
         compress: {
             dist: {
                 options: {
                     archive: 'dist/<%= pkg.name %>-<%= pkg.version %>.zip'
                 },
                 files: [{
-                    src: ['app/**', '!**/test/**'],
+                    expand: true,
+                    cwd: './app',
+                    src: ['**/*', '!**/test/**'],
                     dest: '/'
                 }]
-            }
-        },
-
-        clean: {
-            temp: {
-                src: ['dist']
             }
         },
 
