@@ -1,5 +1,5 @@
 (function() {
-    "use strict"
+    "use strict";
 
     angular
         .module('ebikko.secure-share')
@@ -24,13 +24,13 @@
         }
 
         function secureShare() {
-            this.errors = [];
-            var validationResponse = secureShareValidator.validate(this.ss);
+            self.errors = [];
+            var validationResponse = secureShareValidator.validate(self.ss);
             if (validationResponse.hasErrors) {
                 self.errors = validationResponse.errors;
             } else {
                 self.saving = true;
-                secureShareService.secureShareNode(this.ss).then(function() {
+                secureShareService.secureShareNode(self.ss).then(function() {
                     self.saving = false;
                     $mdDialog.hide();
                 }, function(response) {

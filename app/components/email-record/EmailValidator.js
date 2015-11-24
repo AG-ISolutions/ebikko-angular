@@ -1,5 +1,5 @@
 (function() {
-    "use strict"
+    "use strict";
 
     angular
         .module('ebikko.email-record')
@@ -22,7 +22,7 @@
         	return {
                 errors: errors,
                 hasErrors: errors.length > 0
-            }
+            };
         }
     }
 })();

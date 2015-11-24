@@ -1,11 +1,11 @@
 (function() {
-    "use strict"
+    "use strict";
 
     describe("Unit tests for the ChangePasswordController", function() {
 
         beforeEach(module('ebikko.change-password'));
 
-        var $controller, $q, $rootScope, messageResolver;
+        var $controller, $q, $rootScope;
 
         beforeEach(inject(function(_$controller_, _$q_, _$rootScope_) {
             $controller = _$controller_;

@@ -13,7 +13,7 @@ module.exports = function(grunt) {
                     archive: 'dist/<%= pkg.name %>-<%= pkg.version %>.zip'
                 },
                 files: [{
-                    src: ['app/**'],
+                    src: ['app/**', '!**/test/**'],
                     dest: '/'
                 }]
             }
@@ -37,7 +37,7 @@ module.exports = function(grunt) {
 
         jshint: {
             all: {
-                src: ['Gruntfile.js', 'app/components/**/*.js', 'app/src/**/*.js']
+                src: ['Gruntfile.js', 'app/components/**/*.js', 'app/src/**/*.js', '!app/src/treetable/*']
             }
         },
 

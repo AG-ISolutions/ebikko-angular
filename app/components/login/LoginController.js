@@ -21,8 +21,8 @@
                     $location.url("/menu");
                 }, function(response) {
                     self.errorMessage = messageResolver.resolveMessage(response.data.data.responsemsg);
-                });;
+                });
         };
-    };
+    }
 
 })();

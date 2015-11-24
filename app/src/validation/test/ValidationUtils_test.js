@@ -1,5 +1,5 @@
 (function() {
-    "use strict"
+    "use strict";
 
     describe('Unit tests for Validation utils', function() {
         var validationUtils;

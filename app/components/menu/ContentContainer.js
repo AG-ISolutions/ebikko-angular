@@ -17,5 +17,5 @@
                 restrict: 'E',
                 link: link
             };
-        }])
+        }]);
 })();

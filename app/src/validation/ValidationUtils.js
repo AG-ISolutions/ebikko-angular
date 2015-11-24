@@ -1,5 +1,5 @@
 (function() {
-    "use strict"
+    "use strict";
 
     angular
         .module('ebikko.validation')
@@ -19,7 +19,7 @@
         function isUndefined(val) {
             var invalid = (val === null || val === undefined);
             if (!invalid && typeof val === "string"){
-                invalid = val.trim() === "" 
+                invalid = val.trim() === "";
             }
 
             return invalid;

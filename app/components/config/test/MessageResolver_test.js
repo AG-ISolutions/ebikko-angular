@@ -1,5 +1,5 @@
 (function() {
-    "use strict"
+    "use strict";
 
     describe('Unit tests for Message Resolver service', function() {
         var messageResolver;
@@ -19,7 +19,7 @@
         it('should resolve messages with parameters', function() {
         	var resolvedMessage = messageResolver.resolveMessage("EBW-22-11", ["8"]);
 
-        	expect(resolvedMessage).toEqual("Password must contain at least 8 characters long.")
+        	expect(resolvedMessage).toEqual("Password must contain at least 8 characters long.");
         });
     });
 })();

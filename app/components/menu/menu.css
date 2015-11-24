@@ -71,6 +71,7 @@ div.quickSearch input {
     background-position: right center;
     background-repeat: no-repeat;
     outline-style: none;
+    padding-right: 24px;
 }
 
 div.quickSearch input:focus {

@@ -1,5 +1,5 @@
 (function() {
-    "use strict"
+    "use strict";
 
     describe("Unit tests for the EmailRecordController", function() {
 
@@ -7,7 +7,7 @@
 
         beforeEach(module('ebikko.email-record'));
 
-        var $controller, $q, $rootScope, messageResolver, emailValidator;
+        var $controller, $q, $rootScope;
 
         var $mdDialog = {
             cancel: function() {},

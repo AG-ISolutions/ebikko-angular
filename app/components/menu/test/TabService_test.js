@@ -93,5 +93,5 @@
             expect(tabService.getTabs().length).toEqual(0);
             expect(tabService.getSelectedTab()).toEqual({});
         });
-    })
+    });
 })();

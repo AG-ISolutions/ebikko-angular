@@ -1,5 +1,5 @@
 (function() {
-    "use strict"
+    "use strict";
 
     describe("Unit tests for the SecureShareController", function() {
 
@@ -14,10 +14,10 @@
         var secureShareService = {
             secureShareNode: function() {}
         };
-        var secureShareValidator = {
+        secureShareValidator = {
             validate: function() {}
         };
-        var messageResolver = {
+        messageResolver = {
             resolveMessage: function() {}
         };
 

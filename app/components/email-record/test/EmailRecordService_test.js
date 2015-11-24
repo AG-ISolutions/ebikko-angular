@@ -1,5 +1,5 @@
 (function() {
-    "use strict"
+    "use strict";
 
     describe('Unit tests for Email Record Service', function() {
         var httpBackend, emailRecordService;
@@ -14,8 +14,8 @@
                     return '123';
                 };
                 this.getPrincipalDetails = function() {
-                    return getJSONFixture('principalDetails.json')
-                }
+                    return getJSONFixture('principalDetails.json');
+                };
             });
         }));
 

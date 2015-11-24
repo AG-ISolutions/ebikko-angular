@@ -44,7 +44,7 @@
                             'json': params
                         }
                     }).success(function(data) {
-                        if (data.results[0].profile_name.match(config.userProfileMatch) != null) {
+                        if (data.results[0].profile_name.match(config.userProfileMatch) !== null) {
                             userRepository.setPrincipalDetails(data);
                         } else {
                             var p = self.logout();
@@ -54,7 +54,7 @@
                         }
                     });
                 });
-            }
+            };
             /**
              *@ngdoc method
              *@name EbikkoServices.ebikkoLoginService.ebikkoLoginService
@@ -80,6 +80,6 @@
             }, function(data) {
                 $location.url("/");
             });
-        }
+        };
     }
 })();

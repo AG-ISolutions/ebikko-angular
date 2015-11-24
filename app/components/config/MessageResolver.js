@@ -96,7 +96,7 @@
                 e: key,
                 message: "An unknown error occured, please try again",
                 type: key
-            }
-        }
+            };
+        };
     }
 })();

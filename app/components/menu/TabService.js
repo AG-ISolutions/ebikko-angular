@@ -15,7 +15,7 @@
             getTabs: getTabs,
             selectTab: selectTab,
             removeTab: removeTab
-        }
+        };
 
         return self;
 

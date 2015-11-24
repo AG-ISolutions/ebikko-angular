@@ -1,5 +1,5 @@
 (function() {
-    "use strict"
+    "use strict";
 
     describe('Unit tests for Secure Share Service', function() {
         var httpBackend, secureShareService;
@@ -17,7 +17,7 @@
                             principal_id: 111
                         }]
                     };
-                }
+                };
             });
         }));
 

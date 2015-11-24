@@ -1,5 +1,5 @@
 (function() {
-    "use strict"
+    "use strict";
 
     angular
         .module('ebikko.email-record')
@@ -36,7 +36,7 @@
             };
             var paramsAsString = Object.keys(urlParams).map(function(k) {
                 return encodeURIComponent(k) + "=" + encodeURIComponent(urlParams[k]);
-            }).join('&')
+            }).join('&');
 
             var stringed = JSON.stringify(json);
             return $http({

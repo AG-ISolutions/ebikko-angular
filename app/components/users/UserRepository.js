@@ -10,17 +10,17 @@
         var principalDetails = null;
         var self = this;
 
-        this.setCurrentUser = function(loginDetails) {
+        self.setCurrentUser = function(loginDetails) {
             currentUser = loginDetails;
-        }
+        };
 
-        this.getCurrentUser = function() {
+        self.getCurrentUser = function() {
             return currentUser;
-        }
+        };
 
-        this.getCurrentUserName = function() {
+        self.getCurrentUserName = function() {
             return self.currentUser.principal_details[0].fullname;
-        }
+        };
 
         self.setPrincipalDetails = function(loginDetails) {
             self.principalDetails = loginDetails;
@@ -28,12 +28,12 @@
 
         self.getPrincipalDetails = function() {
             return self.principalDetails;
-        }
+        };
 
         self.clearCurrentUser = function() {
             currentUser = null;
             principalDetails = null;
-        }
+        };
 
         self.getSessionId = function() {
             return self.getCurrentUser().ebikko_session_id;
