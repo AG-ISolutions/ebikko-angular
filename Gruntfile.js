@@ -83,10 +83,6 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', ['clean', 'compress']);
 
-    grunt.event.on('watch', function(action, filepath) {
-        grunt.config(['jshint', 'all'], [filepath]);
-    });
-
     grunt.loadNpmTasks('grunt-bower-task');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-clean');
