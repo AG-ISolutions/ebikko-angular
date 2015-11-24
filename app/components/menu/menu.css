@@ -2,22 +2,7 @@
     min-height: 50px;
 }
 
-#tabsContainer {
-    height: 100%;
-    overflow: visible;
-}
-
 md-tab-content div:first-child {
-    height: 650px;
-}
-
-md-tabs md-tabs-content-wrapper {
-    overflow: visible;
-    height: 100%;
-}
-
-md-tabs-content-wrapper md-tab-content {
-    overflow: visible;
     height: 100%;
 }
 
@@ -29,7 +14,6 @@ md-icon[md-svg-icon="close"] {
     position: relative;
     top: -1px;
 }
-
 
 /* Toolbar area */
 
@@ -44,7 +28,6 @@ md-icon[md-svg-icon="close"] {
 md-toolbar h1 {
     margin: auto;
 }
-
 
 /* Sidenav area */
 
@@ -61,6 +44,9 @@ md-list .md-button.selected {
 
 md-sidenav md-list {
     padding: 0px 0px 8px 0px;
+}
+md-tab-content {
+    height: 100%;
 }
 
 md-tabs .md-tab md-icon[md-svg-icon="close"] {
