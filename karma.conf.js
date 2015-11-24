@@ -30,7 +30,7 @@ module.exports = function(config) {
             'app/components/**/*.html',
 
             {
-                pattern: 'test/fixtures/*.json',
+                pattern: 'test/fixtures/**/*.json',
                 watched: true,
                 served: true,
                 included: false

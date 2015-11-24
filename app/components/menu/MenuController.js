@@ -5,7 +5,7 @@
         .module('ebikko.menu')
         .controller('MenuController', ['$controller', '$mdSidenav', '$mdBottomSheet', '$mdDialog', '$location', 'loginService', 'tabService', 'nodeService',
             MenuController
-        ])
+        ]);
 
     function MenuController($controller, $mdSidenav, $mdBottomSheet, $mdDialog, $location, loginService, tabService, nodeService) {
         var self = this;
@@ -16,17 +16,19 @@
         self.logout = logout;
         self.openSettings = openSettings;
         self.openTabMenu = openTabMenu;
+        self.quickSearch = quickSearch;
         self.selectMenuItem = selectMenuItem;
         self.selectTab = selectTab;
         self.showChangePassword = showChangePassword;
         self.showEmailRecord = showEmailRecord;
+        self.showSearch = false;
         self.showSecureShare = showSecureShare;
         self.toggleSidebar = toggleSidebar;
 
         self.menuItems = [{
             'name': 'All Meetings',
             'type': 'nodes',
-            'content': "<nodes type='saved-search' type-id='f220cd0300c843b5b3ee6d969a464478'/>",
+            'content': "<nodes type='saved-search' type-id='f220cd0300c843b5b3ee6d969a464478'/>"
         }, {
             'name': 'Recent Records',
             'type': 'nodes',
@@ -62,6 +64,17 @@
             $mdOpenMenu(ev);
         }
 
+        function quickSearch() {
+            if (!(self.searchQuery === null || self.searchQuery === undefined || self.searchQuery === '')) {
+                tabService.addTab({
+                    name: 'Search',
+                    type: 'nodes',
+                    content: "<nodes type='search' type-id='"+self.searchQuery+"' />"
+                });
+                self.showSearch = false;
+            }
+        }
+
         function showSecureShare(ev) {
             $mdDialog.show({
                 controller: 'secureShareController',
@@ -95,7 +108,7 @@
                 bindToController: true,
                 locals: {
                     nodeId: tabService.getSelectedTab().id,
-                    title:  tabService.getSelectedTab().title,
+                    title: tabService.getSelectedTab().title,
                     file_name: tabService.getSelectedTab().file_name
                 },
                 templateUrl: './components/email-record/emailRecord.html',

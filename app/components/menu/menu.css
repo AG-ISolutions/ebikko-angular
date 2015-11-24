@@ -75,3 +75,24 @@ md-menu.tab-menu {
     top: 62px;
     left: 92%;
 }
+div.quickSearch input {
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    transition: all .25s linear;
+    width: 28px;
+    background: url("../../assets/svg/ic_search_white_24px.svg");
+    background-position: right center;
+    background-repeat: no-repeat;
+    outline-style: none;
+}
+
+div.quickSearch input:focus {
+    width: 100%;
+}
+
+div.quickSearch md-icon {
+    margin: 5px;
+}
+
+

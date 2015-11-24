@@ -3,6 +3,8 @@
 
     describe('Unit tests for Node Service', function() {
 
+        jasmine.getJSONFixtures().fixturesPath = 'base/test/fixtures/';
+
         var httpBackend, nodeService;
 
         beforeEach(module('ebikko.nodes'));
@@ -40,6 +42,16 @@
             httpBackend.flush();
 
             expect(url).toEqual('/testUrl');
+        });
+
+        it("should perform search", function() {
+            httpBackend
+                .when('GET', /NodeListing(.*)("method":"SEARCH")(.*)("search_method":"TEXT_SEARCH")(.*)("query":"searchString")(.*)/)
+                .respond(200, getJSONFixture('nodes/quickSearch.json'));
+
+            nodeService.search('searchString');
+
+            httpBackend.flush();
         });
 
         afterEach(function() {

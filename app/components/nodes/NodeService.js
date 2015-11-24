@@ -15,10 +15,11 @@
 
             getContentUrl: getContentUrl,
             getDownloadUrl: getDownloadUrl,
-
             getRecentRecords: getRecentRecords,
-            getSavedSearch: getSavedSearch
-        }
+            getSavedSearch: getSavedSearch,
+
+            search: search
+        };
 
         return self;
 
@@ -90,6 +91,24 @@
                     'start': self.defaultStart,
                     'anode': parentId ? parentId : ''
                 }
+            }).then(function(response) {
+                return response.data.results;
+            });
+        }
+
+        function search(searchString) {
+            var json = {
+                'ebikko_session_id': userRepository.getSessionId(),
+                'method': 'SEARCH',
+                'search_method': 'TEXT_SEARCH',
+                'selected_columns': self.defaultColumns,
+                'query': searchString
+            };
+            var stringed = JSON.stringify(json);
+            return $http({
+                'method': 'GET',
+                'url': config.basePath + '/NodeListing?json=' + stringed +
+                    '&limit=' + self.defaultLimit + '&start=' + self.defaultStart
             }).then(function(response) {
                 return response.data.results;
             });

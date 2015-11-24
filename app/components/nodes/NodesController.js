@@ -10,36 +10,44 @@
     function NodesController(nodeService, ngTreetableParams, tabService) {
         var self = this;
 
-        self.selectNode = selectNode;
-        self.dynamic_params = new ngTreetableParams({
+        self.activate = activate;
+        self.dynamic_params = new ngTreetableParams({ // jshint ignore:line
             getNodes: function(parent) {
-                return parent ? nodeService.getSavedSearch(nodeService.searchId, parent._id).then(returnResponse) : promise.then(returnResponse);
+                return parent ? 
+                    nodeService.getSavedSearch(self.typeId, parent._id).then(returnResponse) : 
+                    promise.then(returnResponse);
             },
             getTemplate: function(node) {
                 return 'tree_node';
             },
             options: {
                 clickableNodeNames: true,
-                expanderTemplate: 
-                    "<svg class='spinner' width='20px' height='20px' viewBox='0 0 66 66' xmlns='http://www.w3.org/2000/svg'>" +
+                expanderTemplate: "<svg class='spinner' width='20px' height='20px' viewBox='0 0 66 66' xmlns='http://www.w3.org/2000/svg'>" +
                     "<circle class='path' fill='none' stroke-width='6' stroke-linecap='round' cx='33' cy='33' r='30'></circle>" +
                     "</svg>" +
                     "<a href='#'>&nbsp;</a>"
             }
         });
-        
+        self.selectNode = selectNode;
+
         var promise;
 
-        switch (self.type) {
-            case 'recent-records':
-                promise = nodeService.getRecentRecords();
-                break;
-            case 'saved-search':
-                promise = nodeService.getSavedSearch(this.typeId);
-                nodeService.searchId = this.typeId;
-                break;
-            default:
-                break;
+        self.activate();
+
+        function activate() {
+            switch (self.type) {
+                case 'recent-records':
+                    promise = nodeService.getRecentRecords();
+                    break;
+                case 'saved-search':
+                    promise = nodeService.getSavedSearch(self.typeId);
+                    break;
+                case 'search':
+                    promise = nodeService.search(self.typeId);
+                    break;
+                default:
+                    break;
+            }
         }
 
         function returnResponse(data) {
