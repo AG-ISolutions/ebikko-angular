@@ -16,7 +16,7 @@ module.exports = function(config) {
 
             'app/components/config/config.js',
             'app/components/menu/menu.js',
-            'app/components/users/Users.js',
+            'app/components/users/users.js',
             'app/components/nodes/nodes.js',
             'app/components/login/login.js',
             'app/components/secure-share/secureShare.js',

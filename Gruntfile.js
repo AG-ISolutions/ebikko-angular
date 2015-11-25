@@ -83,7 +83,7 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('default', ['clean', 'compress']);
+    grunt.registerTask('default', ['jshint', 'karma:unit', 'clean', 'compress']);
 
     grunt.loadNpmTasks('grunt-bower-task');
     grunt.loadNpmTasks('grunt-contrib-jshint');
