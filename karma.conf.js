@@ -15,6 +15,8 @@ module.exports = function(config) {
             'app/src/validation/validation.js',
 
             'app/components/config/config.js',
+                        'app/components/forgot-password/forgotPassword.js',
+
             'app/components/menu/menu.js',
             'app/components/users/users.js',
             'app/components/nodes/nodes.js',
@@ -41,7 +43,7 @@ module.exports = function(config) {
 
         frameworks: ['jasmine'],
 
-        browsers: ['PhantomJS'],
+        browsers: ['Chrome'],
 
         plugins: [
             'karma-phantomjs-launcher',

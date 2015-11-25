@@ -68,6 +68,12 @@
             e: 'EBW-22-21',
             message: 'You can\'t use the same previous password.Please use a different password.'
         }, {
+            e: 'EBW-23-13',
+            message: 'Username or email mismatch. Either the username doesn\'t exist or you\'ve entered invalid email address.'
+        }, {
+            e: 'EBW-23-14',
+            message: 'This user doesn\'t have email saved in the system. Please contact our administrator for manual Password Recovery.'
+        }, {
             e: 'Logout successfully',
             message: 'Logout Complete, Please enter Username and Password',
             type: 'success'

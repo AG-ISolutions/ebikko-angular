@@ -39,7 +39,7 @@ module.exports = function(grunt) {
 
         jshint: {
             all: {
-                src: ['Gruntfile.js', 'app/components/**/*.js', 'app/src/**/*.js', '!app/src/treetable/*']
+                src: ['Gruntfile.js', 'karma.conf.js', 'app/components/**/*.js', 'app/src/**/*.js', '!app/src/treetable/*']
             }
         },
 
@@ -66,7 +66,7 @@ module.exports = function(grunt) {
 
         watch: {
             scripts: {
-                files: ['Gruntfile.js', 'app/components/**/*.js', 'app/src/**/*.js'],
+                files: ['Gruntfile.js', 'karma.conf.js', 'app/app.js', 'app/components/**/*.js', 'app/src/**/*.js'],
                 tasks: ['karma:unit', 'jshint'],
                 options: {
                     nospawn: true,

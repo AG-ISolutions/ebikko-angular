@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('ebikko', ['ngMaterial', 'ngNewRouter', 'ebikko.users', 'ebikko.login', 'ebikko.config', 'ebikko.menu', 'ebikko.nodes'])
+        .module('ebikko', ['ngMaterial', 'ngNewRouter', 'ebikko.users', 'ebikko.login', 'ebikko.config', 'ebikko.menu', 'ebikko.nodes', 'ebikko.forgot-password'])
         .controller('AppController', ['$router', AppController])
         .config(['$mdThemingProvider', '$mdIconProvider', '$httpProvider', '$mdDateLocaleProvider',
             function($mdThemingProvider, $mdIconProvider, $httpProvider, $mdDateLocaleProvider) {
@@ -44,6 +44,9 @@
         }, {
             path: '/menu',
             component: 'menu'
+        }, {
+            path: '/forgotPassword',
+            component: 'forgotPassword'
         }]);
     }
 

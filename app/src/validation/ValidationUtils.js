@@ -7,7 +7,8 @@
 
     function ValidationUtils() {
         var self = {
-            errorMessageIfUndefined: errorMessageIfUndefined
+            errorMessageIfUndefined: errorMessageIfUndefined,
+            isUndefined: isUndefined
         };
 
         function errorMessageIfUndefined(val, field, errors) {

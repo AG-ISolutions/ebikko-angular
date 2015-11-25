@@ -108,13 +108,21 @@ svg {
     height: 100%;
 }
 
-#loginForm .md-primary {
+div.loginPage {
+    height: 100%;
+}
+div.loginPage md-whiteframe {
+    min-height:40%;
+}
+div.loginPage button.md-primary {
     margin-left: 0px;
     width: 100%;
 }
-
-#loginForm label {
-    font-size: 1.2em;
+div.loginPage div.secondaryLink {
+    width: 100%;
+}
+div.loginPage md-content {
+    padding-bottom: 0px;
 }
 
 .password-error {

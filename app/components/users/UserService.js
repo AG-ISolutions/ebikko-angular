@@ -6,8 +6,14 @@
         .service('userService', ['$http', 'userRepository', 'ebikkoConfig', UserService]);
 
     function UserService($http, userRepository, config) {
+        var self = {
+            changePassword: changePassword,
+            resetPassword: resetPassword
+        };
 
-        this.changePassword = function(currentPassword, newPassword, repeatNewPassword) {
+        return self;
+
+        function changePassword(currentPassword, newPassword, repeatNewPassword) {
             var json = {
                 'old_password': currentPassword,
                 'new_password': newPassword,
@@ -16,12 +22,22 @@
             };
             return $http({
                 'method': 'Post',
-                'url': config.basePath + '/ChangePassword',
-                'params': {
-                    'json': json
-                }
+                'url': config.basePath + '/ChangePassword?json='+JSON.stringify(json)
             });
-        };
+        }
+
+        function resetPassword(username, repo, email) {
+            var json = {
+                'username': username,
+                'repo_id': repo,
+                'email': email,
+                'hasAlliase': true
+            };
+            return $http({
+                'method': 'Post',
+                'url': '/PasswordRecovery?json='+JSON.stringify(json)
+            });
+        }
     }
 
 })();
