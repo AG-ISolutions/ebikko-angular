@@ -93,5 +93,15 @@
             expect(tabService.getTabs().length).toEqual(0);
             expect(tabService.getSelectedTab()).toEqual({});
         });
+
+        it("should remove all tabs", function() {
+            tabService.addTab(exampleTab1);
+            tabService.addTab(exampleTab2);
+
+            tabService.clearTabs();
+
+            expect(tabService.getTabs().length).toEqual(0);
+            expect(tabService.getSelectedTab()).toEqual({});
+        });
     });
 })();

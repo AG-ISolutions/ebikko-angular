@@ -51,7 +51,7 @@
             </md-button>
             <md-menu-content width="3">
                 <md-menu-item>
-                    <md-button ng-click="menu.showEmailRecord($event)">
+                    <md-button ng-click="menu.showEmailRecord($event)" ng-disabled="!menu.hasEmail()">
                         <md-icon md-svg-icon="email"></md-icon>
                         Email
                     </md-button>

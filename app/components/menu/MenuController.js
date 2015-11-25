@@ -3,11 +3,11 @@
 
     angular
         .module('ebikko.menu')
-        .controller('MenuController', ['$controller', '$mdSidenav', '$mdBottomSheet', '$mdDialog', '$location', 'loginService', 'tabService', 'nodeService',
+        .controller('MenuController', ['$controller', '$mdSidenav', '$mdBottomSheet', '$mdDialog', '$location', 'loginService', 'tabService', 'nodeService', 'userRepository',
             MenuController
         ]);
 
-    function MenuController($controller, $mdSidenav, $mdBottomSheet, $mdDialog, $location, loginService, tabService, nodeService) {
+    function MenuController($controller, $mdSidenav, $mdBottomSheet, $mdDialog, $location, loginService, tabService, nodeService, userRepository) {
         var self = this;
 
         self.closeTab = closeTab;
@@ -21,7 +21,10 @@
         self.selectTab = selectTab;
         self.showChangePassword = showChangePassword;
         self.showEmailRecord = showEmailRecord;
+
         self.showSearch = false;
+        self.hasEmail = hasEmail;
+
         self.showSecureShare = showSecureShare;
         self.toggleSidebar = toggleSidebar;
 
@@ -35,6 +38,11 @@
             'content': "<nodes type='recent-records'/>"
         }];
         self.tabs = tabService.getTabs();
+
+        function hasEmail() {
+            return userRepository.getPrincipalDetails() 
+            && userRepository.getPrincipalDetails().results[0].email;
+        }
 
         function selectMenuItem(menuItem) {
             tabService.addTab(menuItem);
@@ -56,6 +64,7 @@
         function logout() {
             loginService.logout()
                 .then(function(data) {
+                    tabService.clearTabs();
                     $location.url("/");
                 });
         }
@@ -69,7 +78,7 @@
                 tabService.addTab({
                     name: 'Search',
                     type: 'nodes',
-                    content: "<nodes type='search' type-id='"+self.searchQuery+"' />"
+                    content: "<nodes type='search' type-id='" + self.searchQuery + "' />"
                 });
                 self.showSearch = false;
             }

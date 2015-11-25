@@ -11,6 +11,7 @@
             selectedTab: {},
 
             addTab: addTab,
+            clearTabs: clearTabs,
             getSelectedTab: getSelectedTab,
             getTabs: getTabs,
             selectTab: selectTab,
@@ -30,6 +31,11 @@
                 self.tabs.push(tab);
                 self.selectedTab = tab;
             }
+        }
+
+        function clearTabs() {
+            self.tabs = [];
+            self.selectedTab = {};
         }
 
         function getSelectedTab() {

@@ -8,29 +8,20 @@
         beforeEach(module('ebikko.email-record'));
 
         var $controller, $q, $rootScope;
-
-        var $mdDialog = {
-            cancel: function() {},
-            hide: function() {}
-        };
-        var emailRecordService = {
-            emailRecord: function() {}
-        };
-        var emailValidator = {
-            validate: function() {}
-        };
-        var messageResolver = {
-            resolveMessage: function() {}
-        };
+        var $mdDialog,emailRecordService,emailValidator,messageResolver;
 
         beforeEach(inject(function(_$controller_, _$q_, _$rootScope_) {
             $controller = _$controller_;
             $q = _$q_;
             $rootScope = _$rootScope_;
+
+            $mdDialog = jasmine.createSpyObj('$mdDialog', ['hide', 'cancel']);
+            emailRecordService = jasmine.createSpyObj('emailRecordService', ['emailRecord']);
+            emailValidator = jasmine.createSpyObj('emailValidator', ['validate']);
+            messageResolver = jasmine.createSpyObj('messageResolver', ['resolveMessage']);
         }));
 
         it("should hide the dialog when cancel is clicked", function() {
-            spyOn($mdDialog, 'cancel');
             var emailRecordController = createController();
 
             emailRecordController.cancel();
@@ -40,8 +31,8 @@
 
         it("should call the email record service and set saving to true when send is clicked and validation passes", function() {
             var emailRecordController = createController();
-            spyOn(emailRecordService, "emailRecord").and.returnValue($q.defer().promise);
-            spyOn(emailValidator, "validate").and.returnValue(successfulValidation);
+            emailRecordService.emailRecord.and.returnValue($q.defer().promise);
+            emailValidator.validate.and.returnValue(successfulValidation);
             var email = {
                 message: "message"
             };
@@ -56,20 +47,19 @@
         it("should not call the email record service when the validation fails", function() {
             var emailRecordController = createController();
             emailRecordController.email = {};
-            spyOn(emailValidator, "validate").and.returnValue(failingValidation);
-            spyOn(emailRecordService, "emailRecord");
+            emailValidator.validate.and.returnValue(failingValidation);
 
             emailRecordController.send();
 
             expect(emailValidator.validate).toHaveBeenCalled();
             expect(emailRecordController.errors).toContain("Error message");
-            expect(emailRecordService.emailRecord.calls.count()).toEqual(0);
+            expect(emailRecordService.emailRecord).not.toHaveBeenCalled();
         });
 
         it("should display error message and set saving to false when send fails", function() {
             var deferred = $q.defer();
-            spyOn(emailRecordService, 'emailRecord').and.returnValue(deferred.promise);
-            spyOn(emailValidator, 'validate').and.returnValue(successfulValidation);
+            emailRecordService.emailRecord.and.returnValue(deferred.promise);
+            emailValidator.validate.and.returnValue(successfulValidation);
 
             var emailRecordController = createController();
 
@@ -84,9 +74,8 @@
 
         it("should hide the dialog and saving saving to false when the email send succeeds", function() {
             var deferred = $q.defer();
-            spyOn(emailRecordService, 'emailRecord').and.returnValue(deferred.promise);
-            spyOn(emailValidator, 'validate').and.returnValue(successfulValidation);
-            spyOn($mdDialog, 'hide');
+            emailRecordService.emailRecord.and.returnValue(deferred.promise);
+            emailValidator.validate.and.returnValue(successfulValidation);
 
             var emailRecordController = createController();
 

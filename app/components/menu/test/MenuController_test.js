@@ -8,12 +8,15 @@
         beforeEach(module('ebikko.menu'));
 
         var menuController;
-        var tabService;
+        var tabService, userRepository;
 
         beforeEach(inject(function(_$controller_) {
-        	tabService = jasmine.createSpyObj('tabService', ['addTab', 'getTabs']);
+            tabService = jasmine.createSpyObj('tabService', ['addTab', 'getTabs']);
+            userRepository = jasmine.createSpyObj('userRepository', ['getPrincipalDetails']);
+
             menuController = _$controller_('MenuController', {
-            	tabService: tabService
+                tabService: tabService,
+                userRepository: userRepository
             });
         }));
 
@@ -24,19 +27,37 @@
             menuController.quickSearch();
 
             expect(tabService.addTab).toHaveBeenCalledWith({
-            	name: 'Search',
-            	type: 'nodes',
-            	content: "<nodes type='search' type-id='search query' />",
+                name: 'Search',
+                type: 'nodes',
+                content: "<nodes type='search' type-id='search query' />",
             });
             expect(menuController.showSearch).toBeFalsy();
         });
 
         it("should not add a new tab when quick search is empty", function() {
-        	menuController.searchQuery = '';
+            menuController.searchQuery = '';
 
-        	menuController.quickSearch();
+            menuController.quickSearch();
 
-        	expect(tabService.addTab.calls.count()).toEqual(0);
+            expect(tabService.addTab.calls.count()).toEqual(0);
+        });
+
+        it("should disable the email option when the user does not have an email address", function() {
+            userRepository.getPrincipalDetails.and.returnValue(getJSONFixture('principalDetails_withoutEmail.json'));
+
+            expect(menuController.hasEmail()).toBeFalsy();
+        });
+
+        it("should disable the email option when there are no user details", function() {
+            userRepository.getPrincipalDetails.and.returnValue(undefined);
+
+            expect(menuController.hasEmail()).toBeFalsy();            
+        })
+
+        it("should enable the email option whe the user does have an email address", function() {
+            userRepository.getPrincipalDetails.and.returnValue(getJSONFixture('principalDetails.json'));
+
+            expect(menuController.hasEmail()).toBeTruthy();
         });
     });
 
