@@ -52,7 +52,7 @@
             userRepository.getPrincipalDetails.and.returnValue(undefined);
 
             expect(menuController.hasEmail()).toBeFalsy();            
-        })
+        });
 
         it("should enable the email option whe the user does have an email address", function() {
             userRepository.getPrincipalDetails.and.returnValue(getJSONFixture('principalDetails.json'));

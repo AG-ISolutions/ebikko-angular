@@ -40,8 +40,7 @@
         self.tabs = tabService.getTabs();
 
         function hasEmail() {
-            return userRepository.getPrincipalDetails() 
-            && userRepository.getPrincipalDetails().results[0].email;
+            return userRepository.getPrincipalDetails() && userRepository.getPrincipalDetails().results[0].email;
         }
 
         function selectMenuItem(menuItem) {
