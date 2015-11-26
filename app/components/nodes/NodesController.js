@@ -55,7 +55,7 @@
         }
 
         function selectNode(node) {
-            if (node._is_leaf) {
+            if (node._is_leaf && node.is_electronic) {
                 tabService.addTab({
                     name: node.title,
                     type: 'node',

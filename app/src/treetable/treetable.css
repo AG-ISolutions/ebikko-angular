@@ -89,7 +89,8 @@
 .table-striped > tbody > tr:nth-child(odd) > th {
   background-color: #f5f5f5;
 }
-.table-hover > tbody > tr:hover > td,
+.table-hover > tbody > tr.hasContent:hover > td,
+.table-hover > tbody > tr:not(.isLeaf):hover > td,
 .table-hover > tbody > tr:hover > th {
   background-color: rgba(0, 0, 0, 0.12);
 }

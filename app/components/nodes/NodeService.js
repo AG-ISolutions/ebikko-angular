@@ -9,7 +9,7 @@
 
     function NodeService($http, userRepository, config) {
         var self = {
-            defaultColumns: [22, 12, 1, 4, 10, 4.1],
+            defaultColumns: [22, 12, 1, 4, 10, 4.1, 5.1],
             defaultStart: 0,
             defaultLimit: 25,
 
@@ -29,7 +29,7 @@
                 'method': 'CONTENT_VIEW',
                 'node_id': nodeId,
                 'version': 0,
-                'is_html5_viewer': false
+                'is_html5_viewer': true
             };
             var stringed = JSON.stringify(json);
             return config.basePath + '/docviewer/Content?json=' + stringed;
