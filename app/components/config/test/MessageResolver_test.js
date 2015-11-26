@@ -21,5 +21,11 @@
 
         	expect(resolvedMessage).toEqual("Password must contain at least 8 characters long.");
         });
+
+        it('should return message for unresolvable codes', function() {
+            var resolvedMessage = messageResolver.resolveMessage(null);
+
+            expect(resolvedMessage).toEqual("An unknown error occured, please try again");
+        });
     });
 })();

@@ -173,6 +173,11 @@ div.errors {
     background-color: #FFBABA;
 }
 
+div.loginPage div.errors ul {
+    padding-left: 20px; 
+    padding-right: 10px;
+}
+
 /* Dialogs */
 
 md-dialog md-content form {

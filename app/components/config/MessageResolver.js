@@ -98,11 +98,7 @@
                 }
             }
             console.log("Warning - unable to resolve message " + key);
-            return {
-                e: key,
-                message: "An unknown error occured, please try again",
-                type: key
-            };
+            return "An unknown error occured, please try again";
         };
     }
 })();
