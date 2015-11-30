@@ -4,7 +4,10 @@
         <td ng-bind="node.node_type_name"></td>
     </tr>
 </script>
-<table class="table table-hover" tt-table tt-params="nodes.dynamic_params">
+<div layout="row" layout-sm="column" layout-align="space-around" ng-show="nodes.pageLoading">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>
+<table class="table table-hover" tt-table tt-params="nodes.dynamic_params" ng-hide="nodes.pageLoading">
     <thead>
         <tr>
             <th><span class="indenter"></span>Title</th>
@@ -13,3 +16,8 @@
     </thead>
     <tbody></tbody>
 </table>
+<span ng-hide="nodes.pageLoading">
+    <md-button ng-disabled="nodes.start == 0" ng-click="nodes.previous()">Previous</md-button>
+    <md-button ng-disabled="nodes.start + nodes.limit >= nodes.count" ng-click="nodes.next()">Next</md-button>
+    Showing {{nodes.start + 1}} - {{nodes.start + nodes.limit > nodes.count ? nodes.count : nodes.start + nodes.limit}} of {{nodes.count}}
+</span>

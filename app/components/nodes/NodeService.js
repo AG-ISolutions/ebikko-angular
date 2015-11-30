@@ -54,22 +54,20 @@
             });
         }
 
-        function getRecentRecords() {
+        function getRecentRecords(start, limit) {
             var json = {
                 'ebikko_session_id': userRepository.getSessionId(),
                 'selected_columns': self.defaultColumns,
                 'method': 'RECENTLY_UPDATED'
             };
+            var stringed = JSON.stringify(json);
             return $http({
                 'method': 'GET',
-                'url': config.basePath + '/NodeListing',
+                'url': config.basePath + '/NodeListing?json='+stringed,
                 'params': {
-                    'json': json,
-                    'limit': self.defaultLimit,
-                    'start': self.defaultStart
+                    'start': start,
+                    'limit': limit
                 }
-            }).then(function(response) {
-                return response.data.results;
             });
         }
 
@@ -91,8 +89,6 @@
                     'start': self.defaultStart,
                     'anode': parentId ? parentId : ''
                 }
-            }).then(function(response) {
-                return response.data.results;
             });
         }
 
@@ -109,8 +105,6 @@
                 'method': 'GET',
                 'url': config.basePath + '/NodeListing?json=' + stringed +
                     '&limit=' + self.defaultLimit + '&start=' + self.defaultStart
-            }).then(function(response) {
-                return response.data.results;
             });
         }
     }

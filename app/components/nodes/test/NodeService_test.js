@@ -36,7 +36,7 @@
 
             var url;
             nodeService.getDownloadUrl('123').then(function(response) {
-            	url = response;
+                url = response;
             });
 
             httpBackend.flush();
@@ -49,9 +49,30 @@
                 .when('GET', /NodeListing(.*)("method":"SEARCH")(.*)("search_method":"TEXT_SEARCH")(.*)("query":"searchString")(.*)/)
                 .respond(200, getJSONFixture('nodes/quickSearch.json'));
 
-            nodeService.search('searchString');
+            var searchResults;
+            searchResults = nodeService.search('searchString').then(function(response){
+                searchResults = response;
+            });
 
             httpBackend.flush();
+            expect(searchResults.data.data.count).toEqual(3);
+        });
+
+        it("should get recent records", function() {
+            var start = 10;
+            var limit = 5;
+
+            httpBackend
+                .when('GET', /NodeListing(.*)("method":"RECENTLY_UPDATED")(.*)(limit=5&start=10)(.*)/)
+                .respond(200, getJSONFixture('nodes/recentRecords.json'));
+
+            var recentRecords; 
+            nodeService.getRecentRecords(start, limit).then(function(response) {
+                recentRecords = response;
+            });
+
+            httpBackend.flush();
+            expect(recentRecords.data.data.count).toEqual(3);
         });
 
         afterEach(function() {

@@ -6,11 +6,10 @@
 
         beforeEach(module('ebikko.nodes'));
 
-        var nodeService = jasmine.createSpyObj('nodeService', ['getRecentRecords', 'getSavedSearch', 'search', 'getContentUrl']);
-        var tabService;
-        var nodesController;
+        var nodeService, tabService, nodesController;
 
         beforeEach(inject(function(_$controller_) {
+            nodeService = jasmine.createSpyObj('nodeService', ['getRecentRecords', 'getSavedSearch', 'search', 'getContentUrl']);
             tabService = jasmine.createSpyObj('tabService', ['addTab']);
             nodesController = _$controller_('NodesController', {
                 nodeService: nodeService,
@@ -76,6 +75,37 @@
 
             expect(tabService.addTab).not.toHaveBeenCalled();
         });
+
+        it("should default the start and page size", function() {
+            nodesController.activate();
+
+            expect(nodesController.start).toEqual(0);
+            expect(nodesController.limit).toEqual(25);
+        });
+
+        it("should update the start number and call the service again when next is called", function() {
+            nodesController.type = 'recent-records';
+            nodesController.activate();
+            nodesController.dynamic_params = jasmine.createSpyObj('dynamic_params', ['refresh']);
+
+            nodesController.next();
+
+            expect(nodeService.getRecentRecords).toHaveBeenCalledWith(25, 25);
+            expect(nodesController.dynamic_params.refresh).toHaveBeenCalled();
+        });
+
+        it("should update the start number and call the service again when previous is called", function() {
+            nodesController.type = 'recent-records';
+            nodesController.activate();
+            nodesController.start = 25;
+            nodesController.limit = 25;
+            nodesController.dynamic_params = jasmine.createSpyObj('dynamic_params', ['refresh']);
+
+            nodesController.previous();
+
+            expect(nodeService.getRecentRecords).toHaveBeenCalledWith(0, 25);
+            expect(nodesController.dynamic_params.refresh).toHaveBeenCalled();
+        });    
 
         function createController() {
             return $controller('NodesController', {
