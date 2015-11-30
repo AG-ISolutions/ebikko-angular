@@ -24,8 +24,8 @@
             <md-button class="md-raised" ng-click="erc.cancel()">Cancel</md-button>
             <md-button class="md-raised md-primary" ng-click="erc.send()">Send</md-button>
         </div>
-        <div layout="row" layout-sm="column" layout-align="space-around" ng-show="erc.saving">
-            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        <div layout="row" layout-sm="column" layout-align="center center" ng-show="erc.saving">
+            <md-progress-circular md-mode="indeterminate" md-diameter="100"></md-progress-circular>
         </div>
     </form>
 </md-content>

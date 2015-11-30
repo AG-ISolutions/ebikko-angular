@@ -35,8 +35,8 @@
             <md-button class="md-raised" ng-click="ssc.cancel()">Cancel</md-button>
             <md-button class="md-raised md-primary" ng-click="ssc.secureShare()">Send</md-button>
         </div>
-        <div layout="row" layout-sm="column" layout-align="space-around" ng-show="ssc.saving">
-            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        <div layout="row" layout-sm="column" layout-align="center center" ng-show="ssc.saving">
+            <md-progress-circular md-mode="indeterminate" md-diameter="100"></md-progress-circular>
         </div>
     </form>
 </md-content>

@@ -2,7 +2,7 @@
     min-height: 50px;
 }
 
-md-tab-content div:first-child {
+md-tab-content div[md-tabs-template] {
     height: 100%;
 }
 
