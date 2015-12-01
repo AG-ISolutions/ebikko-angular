@@ -12,10 +12,10 @@ module.exports = function(config) {
             'app/bower_components/angular-material/angular-material.js',
             'app/bower_components/angular-animate/angular-animate.js',
 
-            'app/src/validation/validation.js',
+            'app/shared/validation/validation.js',
 
             'app/components/config/config.js',
-                        'app/components/forgot-password/forgotPassword.js',
+            'app/components/forgot-password/forgotPassword.js',
 
             'app/components/menu/menu.js',
             'app/components/users/users.js',
@@ -24,9 +24,10 @@ module.exports = function(config) {
             'app/components/secure-share/secureShare.js',
             'app/components/change-password/changePassword.js',
             'app/components/email-record/emailRecord.js',
+            'app/components/node-properties/nodeProperties.js',
 
-            'app/src/treetable/angular-treetable.js',
-            'app/src/validation/**/*.js',
+            'app/shared/treetable/angular-treetable.js',
+            'app/shared/validation/**/*.js',
 
             'app/components/**/*.js',
             'app/components/**/*.html',

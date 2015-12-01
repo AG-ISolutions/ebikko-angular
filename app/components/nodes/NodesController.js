@@ -14,6 +14,7 @@
         self.next = next;
         self.previous = previous;
         self.selectNode = selectNode;
+        self.viewProperties = viewProperties;
 
         var promise;
 
@@ -34,7 +35,7 @@
                         promise.then(function(data) {
                             self.pageLoading = false;
                             return extractResults(data, true);
-                        }, function(data){
+                        }, function(data) {
                             self.pageLoading = false;
                             self.count = 0;
                         });
@@ -97,6 +98,17 @@
                     title: node.title,
                     file_name: node.file_name,
                     content: "<iframe src='" + nodeService.getContentUrl(node.node_id) + "'/>'"
+                });
+            }
+        }
+
+        function viewProperties(node) {
+            if (node._is_leaf) {
+                tabService.addTab({
+                    name: 'P - ' + node.title,
+                    type: 'node-properties',
+                    id: node.node_id + '-properties',
+                    content: "<node-properties node-id='" + node.node_id + "'/>"
                 });
             }
         }

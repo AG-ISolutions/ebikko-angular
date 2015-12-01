@@ -2,13 +2,14 @@
     'use strict';
 
     angular
-        .module('ebikko', ['ngMaterial', 'ngNewRouter', 'ebikko.users', 'ebikko.login', 'ebikko.config', 'ebikko.menu', 'ebikko.nodes', 'ebikko.forgot-password'])
+        .module('ebikko', ['ngMaterial', 'ngNewRouter', 'ebikko.users', 'ebikko.login', 'ebikko.config', 'ebikko.menu', 'ebikko.nodes', 'ebikko.forgot-password', 'ebikko.node-properties'])
         .controller('AppController', ['$router', AppController])
         .config(['$mdThemingProvider', '$mdIconProvider', '$httpProvider', '$mdDateLocaleProvider',
             function($mdThemingProvider, $mdIconProvider, $httpProvider, $mdDateLocaleProvider) {
 
                 $mdIconProvider
                     .defaultIconSet("./assets/svg/avatars.svg", 128)
+                    .icon("info", "./assets/svg/ic_info_outline_black_24px.svg", 24)
                     .icon("menu", "./assets/svg/menu.svg", 24)
                     .icon("settings", "./assets/svg/settings.svg", 24)
                     .icon("close", "./assets/svg/ic_clear_black_24px.svg", 24)

@@ -105,7 +105,29 @@
 
             expect(nodeService.getRecentRecords).toHaveBeenCalledWith(0, 25);
             expect(nodesController.dynamic_params.refresh).toHaveBeenCalled();
-        });    
+        });
+
+        it("should add tab for the nodes properties", function() {
+            var node = {
+                node_id: '123',
+                _is_leaf: true
+            };
+
+            nodesController.viewProperties(node);
+
+            expect(tabService.addTab).toHaveBeenCalled();
+        });
+
+        it("should not add property tab for non leaf nodes", function() {
+            var node = {
+                node_id: '123',
+                _is_leaf: false
+            };
+
+            nodesController.viewProperties(node);
+
+            expect(tabService.addTab).not.toHaveBeenCalled();
+        });
 
         function createController() {
             return $controller('NodesController', {

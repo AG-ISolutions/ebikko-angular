@@ -7,6 +7,7 @@ body {
     padding: 0px;
 }
 
+
 /* Primary content area */
 
 #content {
@@ -111,16 +112,20 @@ svg {
 div.loginPage {
     height: 100%;
 }
+
 div.loginPage md-whiteframe {
-    min-height:40%;
+    min-height: 40%;
 }
+
 div.loginPage button.md-primary {
     margin-left: 0px;
     width: 100%;
 }
+
 div.loginPage div.secondaryLink {
     width: 100%;
 }
+
 div.loginPage md-content {
     padding-bottom: 0px;
 }
@@ -146,7 +151,16 @@ table.treetable tr.expanded span.indenter a {
     background-image: url('svg/minus.svg');
 }
 
-table.treetable tr.hasContent td, table.treetable tr:not(.isLeaf) td{
+table.treetable tr.hasContent td,
+table.treetable tr:not(.isLeaf) td {
+    cursor: pointer;
+}
+
+table.treetable tr:not(.isLeaf) md-icon[md-svg-icon="info"] {
+    color: transparent;
+}
+
+table.treetable tr.isLeaf) md-icon[md-svg-icon="info"] {
     cursor: pointer;
 }
 
@@ -170,9 +184,10 @@ div.errors {
 }
 
 div.loginPage div.errors ul {
-    padding-left: 20px; 
+    padding-left: 20px;
     padding-right: 10px;
 }
+
 
 /* Dialogs */
 
@@ -183,6 +198,7 @@ md-dialog md-content form {
 md-dialog {
     min-width: 35%;
 }
+
 
 /* Spinner */
 

@@ -1,7 +1,10 @@
 <script type="text/ng-template" id="tree_node">
-    <tr ng-click="nodes.selectNode(node)" tt-node is-branch="!node._is_leaf" ng-class="{hasContent: node.is_electronic, isLeaf: node._is_leaf}">
-        <td ng-class="{loading: loading}"><span ng-bind="node.title"></span></td>
-        <td ng-bind="node.node_type_name"></td>
+    <tr tt-node is-branch="!node._is_leaf" ng-class="{hasContent: node.is_electronic, isLeaf: node._is_leaf}">
+        <td ng-class="{loading: loading}" ng-click="nodes.selectNode(node)"><span ng-bind="node.title"></span></td>
+        <td layout="center start">
+            <md-icon md-svg-icon="info" ng-click="nodes.viewProperties(node)" ></md-icon>
+        </td>
+        <td ng-bind="node.node_type_name" ng-click="nodes.selectNode(node)"></td>
     </tr>
 </script>
 <div layout="row" layout-sm="column" layout-align="center center" ng-show="nodes.pageLoading">
@@ -11,6 +14,7 @@
     <thead>
         <tr>
             <th><span class="indenter"></span>Title</th>
+            <th></th>
             <th>Type</th>
         </tr>
     </thead>

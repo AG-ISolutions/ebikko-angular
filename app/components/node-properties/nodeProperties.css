@@ -1,0 +1,17 @@
+md-content.nodeProperties {
+    padding: 10px;
+}
+
+div.propertyName {
+    font-weight: bold;
+    display: inline-block;
+    width: 25%;
+}
+
+div.propertyTitle {
+    display: inline-block;
+}
+
+div.propertyContainer {
+	padding-top: 10px;
+}
