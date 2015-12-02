@@ -118,17 +118,6 @@
             expect(tabService.addTab).toHaveBeenCalled();
         });
 
-        it("should not add property tab for non leaf nodes", function() {
-            var node = {
-                node_id: '123',
-                _is_leaf: false
-            };
-
-            nodesController.viewProperties(node);
-
-            expect(tabService.addTab).not.toHaveBeenCalled();
-        });
-
         function createController() {
             return $controller('NodesController', {
                 nodeService: nodeService

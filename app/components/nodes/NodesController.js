@@ -45,6 +45,7 @@
                 },
                 options: {
                     clickableNodeNames: true,
+                    column: 1,
                     expanderTemplate: "<svg class='spinner' width='20px' height='20px' viewBox='0 0 66 66' xmlns='http://www.w3.org/2000/svg'>" +
                         "<circle class='path' fill='none' stroke-width='6' stroke-linecap='round' cx='33' cy='33' r='30'></circle>" +
                         "</svg>" +
@@ -103,14 +104,13 @@
         }
 
         function viewProperties(node) {
-            if (node._is_leaf) {
-                tabService.addTab({
-                    name: 'P - ' + node.title,
-                    type: 'node-properties',
-                    id: node.node_id + '-properties',
-                    content: "<node-properties node-id='" + node.node_id + "'/>"
-                });
-            }
+            tabService.addTab({
+                name: node.title,
+                type: 'node-properties',
+                id: node.node_id + '-properties',
+                content: "<node-properties node-id='" + node.node_id + "'/>"
+            });
+
         }
     }
 })();

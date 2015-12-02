@@ -210,6 +210,10 @@
                 "group_name": "General",
                 "property_id": "3",
                 "name": "Notes"
+            }, {
+                "group_name": "General",
+                "property_id": "1a2b3c",
+                "name": "Principal"
             }],
             "groups": [{
                 "group_name": "General"

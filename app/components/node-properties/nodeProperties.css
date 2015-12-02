@@ -6,10 +6,12 @@ div.propertyName {
     font-weight: bold;
     display: inline-block;
     width: 25%;
+    float:left;
 }
 
-div.propertyTitle {
+div.propertyValue {
     display: inline-block;
+    white-space:pre-wrap;
 }
 
 div.propertyContainer {

@@ -19,7 +19,7 @@
 
             var response = processor.processResults(nodeDetails, results);
 
-            expect(response.length).toEqual(4);
+            expect(response.length).toEqual(5);
         });
 
         it('should look up the values for dynamic properties from the node single values', function() {
@@ -64,6 +64,19 @@
                 id: '6',
                 value: '2014/GGGG/2',
                 name: 'Folder'
+            });
+        });
+
+        it('should only display the username of principals', function() {
+            var results = getJSONFixture('nodes/nodeProperties.json');
+            var nodeDetails = getJSONFixture('nodes/nodeDetails.json');
+
+            var response = processor.processResults(nodeDetails, results);
+
+            expect(response).toContain({
+                id: '1a2b3c',
+                value: 'John',
+                name: 'Principal'
             });
         });
     });

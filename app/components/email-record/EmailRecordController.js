@@ -27,7 +27,11 @@
                 self.errors = validationResponse.errors;
             } else {
                 self.saving = true;
-                emailRecordService.emailRecord(self.email).then(function(response) {
+
+                // The copy prevents the user seeing the '<br/>'s in the text box
+                var emailCopy = angular.copy(self.email);
+                emailCopy.message = emailCopy.message.replace("\n", "<br/>");
+                emailRecordService.emailRecord(emailCopy).then(function(response) {
                     $mdDialog.hide();
                     self.saving = false;
                 }, function(response) {

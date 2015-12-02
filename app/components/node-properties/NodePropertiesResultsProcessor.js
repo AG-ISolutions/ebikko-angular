@@ -28,14 +28,16 @@
                     id: propertyId
                 };
 
-                result.value = extractValueFromArray(nodeProperties, propertyId, 'value');
-                if (result.value === null) {
+                var matchingProperties = findInArray(nodeProperties, propertyId);
+                if (matchingProperties.length > 0) {
+                    result.value = processPropertyValue(matchingProperties[0]);                    
+                } else {
                     result.value = node[getPropertyKey(propertyId)];
                 }
 
                 result.name = extractValueFromArray(attributes, isNaN(propertyId) ? propertyId : parseInt(propertyId), 'alias');
                 if (result.name === null || result.name === '') {
-                    result.name = propertyGroup.name;
+                    result.name = decodeURIComponent(propertyGroup.name);
                 }
 
                 results.push(result);
@@ -59,6 +61,14 @@
 
         function getPropertyKey(propertyId) {
             return staticProperties()[propertyId];
+        }
+
+        function processPropertyValue(property) {
+            if (property.property_type == 1200) {
+                return property.value.split(',')[1];
+            } else {
+                return property.value;
+            }
         }
 
         function staticProperties() {

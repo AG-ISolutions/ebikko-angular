@@ -111,6 +111,10 @@
                 "property_id": "f4c1cf812d254f26a2460d67e3f09b4f",
                 "property_type": 500,
                 "value": "2015-12-30"
+            }, {
+                "property_id": "1a2b3c",
+                "property_type": 1200,
+                "value": "00000000000000,John"
             }],
             "multi_values": []
         }],

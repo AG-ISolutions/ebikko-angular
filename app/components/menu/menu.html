@@ -35,10 +35,12 @@
             <div flex="2"></div>
         </md-toolbar>
         <md-tabs flex="grow" md-border-bottom md-autoselect ng-hide="menu.tabs.length === 0">
-            <md-tab ng-repeat="tab in menu.tabs" md-active="menu.getSelectedTab() === tab" md-on-select="menu.selectTab(tab)" style="height:100%;">
+            <md-tab ng-repeat="tab in menu.tabs" md-active="menu.getSelectedTab() === tab" md-on-select="menu.selectTab(tab)" ng-class="tabTest">
                 <md-tab-label>
-                    {{tab.name}}
-                    <md-icon md-svg-icon="close" ng-click="menu.closeTab(tab)"></md-icon>
+                    <span class="tab-label-{{tab.type}}">
+                        {{tab.name}}
+                        <md-icon md-svg-icon="close" ng-click="menu.closeTab(tab)"></md-icon>
+                    </span>
                 </md-tab-label>
                 <md-tab-body>
                     <content-container content="tab.content" />

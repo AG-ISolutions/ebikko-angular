@@ -8,7 +8,7 @@
         beforeEach(module('ebikko.email-record'));
 
         var $controller, $q, $rootScope;
-        var $mdDialog,emailRecordService,emailValidator,messageResolver;
+        var $mdDialog, emailRecordService, emailValidator, messageResolver;
 
         beforeEach(inject(function(_$controller_, _$q_, _$rootScope_) {
             $controller = _$controller_;
@@ -62,6 +62,10 @@
             emailValidator.validate.and.returnValue(successfulValidation);
 
             var emailRecordController = createController();
+            var email = {
+                message: "message"
+            };
+            emailRecordController.email = email;
 
             emailRecordController.send();
 
@@ -78,6 +82,10 @@
             emailValidator.validate.and.returnValue(successfulValidation);
 
             var emailRecordController = createController();
+            var email = {
+                message: "message"
+            };
+            emailRecordController.email = email;
 
             emailRecordController.send();
 
