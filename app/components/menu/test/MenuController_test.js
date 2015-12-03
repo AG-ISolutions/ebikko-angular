@@ -8,15 +8,17 @@
         beforeEach(module('ebikko.menu'));
 
         var menuController;
-        var tabService, userRepository;
+        var tabService, userRepository, menuService;
 
         beforeEach(inject(function(_$controller_) {
             tabService = jasmine.createSpyObj('tabService', ['addTab', 'getTabs']);
             userRepository = jasmine.createSpyObj('userRepository', ['getPrincipalDetails']);
+            menuService = jasmine.createSpyObj('menuService', ['getMenuItems']);
 
             menuController = _$controller_('MenuController', {
                 tabService: tabService,
-                userRepository: userRepository
+                userRepository: userRepository,
+                menuService: menuService
             });
         }));
 
@@ -60,5 +62,4 @@
             expect(menuController.hasEmail()).toBeTruthy();
         });
     });
-
 })();

@@ -19,7 +19,6 @@
 
             loginService.login(self.username, self.password)
                 .then(function(response) {
-                    $location.url("/menu");
                 }, function(response) {
                     self.errorMessage = messageResolver.resolveMessage(response.data.data.responsemsg);
                 });

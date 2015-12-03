@@ -4,10 +4,10 @@
     angular
         .module('ebikko.menu')
         .controller('MenuController', ['$controller', '$mdSidenav', '$mdBottomSheet', '$mdDialog', '$location', 'loginService', 'tabService', 'nodeService', 'userRepository',
-            MenuController
+            'menuService', MenuController
         ]);
 
-    function MenuController($controller, $mdSidenav, $mdBottomSheet, $mdDialog, $location, loginService, tabService, nodeService, userRepository) {
+    function MenuController($controller, $mdSidenav, $mdBottomSheet, $mdDialog, $location, loginService, tabService, nodeService, userRepository, menuService) {
         var self = this;
 
         self.closeTab = closeTab;
@@ -28,16 +28,13 @@
         self.showSecureShare = showSecureShare;
         self.toggleSidebar = toggleSidebar;
 
-        self.menuItems = [{
-            'name': 'All Meetings',
-            'type': 'nodes',
-            'content': "<nodes type='saved-search' type-id='f220cd0300c843b5b3ee6d969a464478'/>"
-        }, {
-            'name': 'Recent Records',
-            'type': 'nodes',
-            'content': "<nodes type='recent-records'/>"
-        }];
         self.tabs = tabService.getTabs();
+
+        self.activate = function() {
+            menuService.getMenuItems().then(function(menuItems) {
+                self.menuItems = menuItems;
+            });
+        };
 
         function hasEmail() {
             return userRepository.getPrincipalDetails() && userRepository.getPrincipalDetails().results[0].email;
