@@ -23,6 +23,10 @@ span.tab-label-node-properties {
 
 /* Toolbar area */
 
+md-tabs-wrapper {
+    margin-right: 40px;
+}
+
 .menu {
     background-color: transparent;
     border: none;
@@ -65,7 +69,7 @@ md-tabs .md-tab md-icon[md-svg-icon="close"] {
 md-menu.tab-menu {
     position: absolute;
     top: 62px;
-    left: 92%;
+    left: 96%;
 }
 div.quickSearch input {
     color: white;
