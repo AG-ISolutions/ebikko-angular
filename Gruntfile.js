@@ -37,6 +37,26 @@ module.exports = function(grunt) {
             }
         },
 
+        connect: {
+            options: {
+                port: 9000,
+                hostname: 'localhost'
+            },
+            livereload: {
+                options: {
+                    livereload: 35729,
+                    open: true,
+                    base: ['app']
+
+                }
+            },
+            test: {
+                options: {
+                    base: ['app']
+                }
+            }
+        },
+
         jshint: {
             all: {
                 src: ['Gruntfile.js', 'karma.conf.js', 'app/components/**/*.js', 'app/src/**/*.js', '!app/src/treetable/*']
@@ -64,6 +84,28 @@ module.exports = function(grunt) {
             }
         },
 
+        protractor: {
+            options: {
+                configFile: "./e2e/protractor.conf.js", // Default config file
+                // keepAlive: true, // If false, the grunt process stops when the test fails.
+                noColor: false, // If true, protractor will not use colors in its output.
+                // debug: true,
+                args: {
+
+                }
+            },
+            e2e: {
+                options: {
+                    keepAlive: false
+                }
+            },
+            continuous: {
+                options: {
+                    keepAlive: true
+                }
+            }
+        },
+
         watch: {
             scripts: {
                 files: ['Gruntfile.js', 'karma.conf.js', 'app/app.js', 'app/components/**/*.js', 'app/src/**/*.js'],
@@ -84,6 +126,7 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('default', ['jshint', 'karma:unit', 'clean', 'compress']);
+    grunt.registerTask('e2e-test', ['connect:test', 'protractor:continuous']);
 
     grunt.loadNpmTasks('grunt-bower-task');
     grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -94,4 +137,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-html2js');
     grunt.loadNpmTasks('grunt-karma');
+    grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-protractor-runner');
+
 };

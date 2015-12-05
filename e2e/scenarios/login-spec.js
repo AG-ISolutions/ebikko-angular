@@ -5,7 +5,7 @@
     describe('login page tests', function() {
 
         beforeEach(function() {
-            browser.get('/app');
+            browser.get('/');
         })
 
         it('should navigate to forgot password and back again', function() {
