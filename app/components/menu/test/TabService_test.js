@@ -103,5 +103,15 @@
             expect(tabService.getTabs().length).toEqual(0);
             expect(tabService.getSelectedTab()).toEqual({});
         });
+
+        it("should toggle between fullscreen and not fullscreen", function() {
+            tabService.addTab(exampleTab1);
+
+            tabService.toggleFullscreen();
+            expect(tabService.getSelectedTab().fullscreen).toBeTruthy();
+
+            tabService.toggleFullscreen();
+            expect(tabService.getSelectedTab().fullscreen).toBeFalsy();
+        });
     });
 })();

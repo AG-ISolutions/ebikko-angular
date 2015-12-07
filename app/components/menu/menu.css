@@ -1,3 +1,10 @@
+/* Page Header */
+
+div.menuButtons button.md-icon-button {
+    margin: 0px;
+}
+
+
 /* Tabs */
 
 #menuTabs {
@@ -39,6 +46,7 @@ md-toolbar h1 {
     margin: auto;
 }
 
+
 /* Sidenav area */
 
 md-list .md-button {
@@ -55,6 +63,7 @@ md-list .md-button.selected {
 md-sidenav md-list {
     padding: 0px 0px 8px 0px;
 }
+
 md-tab-content {
     height: 100%;
 }
@@ -71,6 +80,7 @@ md-menu.tab-menu {
     top: 62px;
     left: 96%;
 }
+
 div.quickSearch input {
     color: white;
     border: 1px solid white;
@@ -82,6 +92,7 @@ div.quickSearch input {
     background-repeat: no-repeat;
     outline-style: none;
     padding-right: 24px;
+    margin-right: 10px;
 }
 
 div.quickSearch input:focus {
@@ -92,4 +103,16 @@ div.quickSearch md-icon {
     margin: 5px;
 }
 
+.fullscreen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-color: white;
+    z-index: 10;
+}
 
+md-toast {
+    z-index: 15;
+}

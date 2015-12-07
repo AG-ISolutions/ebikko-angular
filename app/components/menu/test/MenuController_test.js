@@ -11,7 +11,7 @@
         var tabService, userRepository, menuService;
 
         beforeEach(inject(function(_$controller_) {
-            tabService = jasmine.createSpyObj('tabService', ['addTab', 'getTabs']);
+            tabService = jasmine.createSpyObj('tabService', ['addTab', 'getTabs', 'toggleFullscreen']);
             userRepository = jasmine.createSpyObj('userRepository', ['getPrincipalDetails']);
             menuService = jasmine.createSpyObj('menuService', ['getMenuItems']);
 
@@ -60,6 +60,12 @@
             userRepository.getPrincipalDetails.and.returnValue(getJSONFixture('principalDetails.json'));
 
             expect(menuController.hasEmail()).toBeTruthy();
+        });
+
+        it("should toggle the active tab in and out of fullscreen", function() {
+            menuController.toggleFullscreen();
+            
+            expect(tabService.toggleFullscreen).toHaveBeenCalled(); 
         });
     });
 })();

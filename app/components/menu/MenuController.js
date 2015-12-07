@@ -3,15 +3,16 @@
 
     angular
         .module('ebikko.menu')
-        .controller('MenuController', ['$controller', '$mdSidenav', '$mdBottomSheet', '$mdDialog', '$location', 'loginService', 'tabService', 'nodeService', 'userRepository',
+        .controller('MenuController', ['$mdSidenav', '$mdBottomSheet', '$mdDialog', '$mdToast', '$location', 'loginService', 'tabService', 'nodeService', 'userRepository',
             'menuService', MenuController
         ]);
 
-    function MenuController($controller, $mdSidenav, $mdBottomSheet, $mdDialog, $location, loginService, tabService, nodeService, userRepository, menuService) {
+    function MenuController($mdSidenav, $mdBottomSheet, $mdDialog, $mdToast, $location, loginService, tabService, nodeService, userRepository, menuService) {
         var self = this;
 
         self.closeTab = closeTab;
         self.downloadContent = downloadContent;
+        self.toggleFullscreen = toggleFullscreen;
         self.getSelectedTab = getSelectedTab;
         self.logout = logout;
         self.openSettings = openSettings;
@@ -47,6 +48,10 @@
 
         function selectTab(tab) {
             tabService.selectTab(tab);
+        }
+
+        function toggleFullscreen() {
+            tabService.toggleFullscreen();
         }
 
         function toggleSidebar() {

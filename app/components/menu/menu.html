@@ -13,11 +13,14 @@
             <md-button class="menu" ng-click="menu.toggleSidebar()" aria-label="Show Menu" flex="2">
                 <md-icon md-svg-icon="menu"></md-icon>
             </md-button>
-            <h1 flex="92" layout="row" layout-align="center">Ebikko Meeting Management System</h1>
+            <h1 flex="92" layout="row" layout-align="center">Tricor Meeting Management System</h1>
             <div layout="row" layout-align="end center" flex="10" class="quickSearch">
                 <input type="text" ng-model="menu.searchQuery" ng-keypress="($event.which === 13) ? menu.quickSearch() : 0" aria-label="Search" onblur="this.value=''">
             </div>
-            <div layout="row" layout-align="center center" flex="2">
+            <div layout="row" layout-align="center center" flex="2" class="menuButtons">
+                <md-button class="md-icon-button" aria-label="Fullscreen">
+                    <md-icon md-svg-icon="fullscreen" ng-click="menu.toggleFullscreen()"></md-icon>
+                </md-button>
                 <md-menu>
                     <md-button class="md-icon-button" ng-click="menu.openSettings($mdOpenMenu, $event)" aria-label="Show Settings">
                         <md-icon md-svg-icon="settings"></md-icon>
@@ -43,7 +46,7 @@
                     </span>
                 </md-tab-label>
                 <md-tab-body>
-                    <content-container content="tab.content" />
+                    <content-container content="tab.content" ng-class="{fullscreen: tab.fullscreen}" />
                 </md-tab-body>
             </md-tab>
         </md-tabs>

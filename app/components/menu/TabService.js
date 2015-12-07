@@ -3,9 +3,9 @@
 
     angular
         .module('ebikko.menu')
-        .service('tabService', [TabService]);
+        .service('tabService', ['$mdToast', TabService]);
 
-    function TabService() {
+    function TabService($mdToast) {
         var self = {
             tabs: [],
             selectedTab: {},
@@ -14,8 +14,9 @@
             clearTabs: clearTabs,
             getSelectedTab: getSelectedTab,
             getTabs: getTabs,
+            removeTab: removeTab,
             selectTab: selectTab,
-            removeTab: removeTab
+            toggleFullscreen: toggleFullscreen
         };
 
         return self;
@@ -46,11 +47,13 @@
             return self.tabs;
         }
 
-        function selectTab(tab) {
-            var currentIndex = self.tabs.indexOf(tab);
-            if (currentIndex > -1 && self.selectedTab !== tab) {
-                self.selectedTab = self.tabs[currentIndex];
-            }
+        function refreshIframe() {
+            setTimeout(function() {
+                var elem = document.querySelector('md-tab-content.md-active iframe');
+                if (elem) {
+                    elem.contentWindow.location.reload(true);
+                }
+            }, 250);
         }
 
         function removeTab(tab) {
@@ -61,6 +64,34 @@
                     self.selectedTab = self.tabs[currentIndex > 0 ? currentIndex - 1 : currentIndex];
                 } else {
                     self.selectedTab = {};
+                }
+            }
+        }
+
+        function selectTab(tab) {
+            var currentIndex = self.tabs.indexOf(tab);
+            if (currentIndex > -1 && self.selectedTab !== tab) {
+                self.selectedTab = self.tabs[currentIndex];
+            }
+        }
+
+        function toggleFullscreen() {
+            if (self.selectedTab !== {}) {
+                self.selectedTab.fullscreen = !self.selectedTab.fullscreen;
+
+                refreshIframe();
+
+                if (self.selectedTab.fullscreen) {
+                    var toast = $mdToast.simple()
+                        .textContent('Fullscreen mode')
+                        .action('Close')
+                        .highlightAction(false)
+                        .hideDelay(0);
+
+                    $mdToast.show(toast).then(function(response) {
+                        toggleFullscreen();
+                        refreshIframe();
+                    });
                 }
             }
         }
