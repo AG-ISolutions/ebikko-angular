@@ -47,15 +47,6 @@
             return self.tabs;
         }
 
-        function refreshIframe() {
-            setTimeout(function() {
-                var elem = document.querySelector('md-tab-content.md-active iframe');
-                if (elem) {
-                    elem.contentWindow.location.reload(true);
-                }
-            }, 250);
-        }
-
         function removeTab(tab) {
             var currentIndex = self.tabs.indexOf(tab);
             if (currentIndex > -1) {
@@ -76,24 +67,11 @@
         }
 
         function toggleFullscreen() {
-            if (self.selectedTab !== {}) {
+            if (Object.keys(self.selectedTab).length !== 0) {
                 self.selectedTab.fullscreen = !self.selectedTab.fullscreen;
-
-                refreshIframe();
-
-                if (self.selectedTab.fullscreen) {
-                    var toast = $mdToast.simple()
-                        .textContent('Fullscreen mode')
-                        .action('Close')
-                        .highlightAction(false)
-                        .hideDelay(0);
-
-                    $mdToast.show(toast).then(function(response) {
-                        toggleFullscreen();
-                        refreshIframe();
-                    });
-                }
             }
+
+            return self.selectedTab.fullscreen;
         }
     }
 })();

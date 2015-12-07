@@ -3,16 +3,15 @@
 
     angular
         .module('ebikko.menu')
-        .controller('MenuController', ['$mdSidenav', '$mdBottomSheet', '$mdDialog', '$mdToast', '$location', 'loginService', 'tabService', 'nodeService', 'userRepository',
+        .controller('MenuController', ['$document', '$mdSidenav', '$mdBottomSheet', '$mdDialog', '$mdToast', '$location', 'loginService', 'tabService', 'nodeService', 'userRepository',
             'menuService', MenuController
         ]);
 
-    function MenuController($mdSidenav, $mdBottomSheet, $mdDialog, $mdToast, $location, loginService, tabService, nodeService, userRepository, menuService) {
+    function MenuController($document, $mdSidenav, $mdBottomSheet, $mdDialog, $mdToast, $location, loginService, tabService, nodeService, userRepository, menuService) {
         var self = this;
 
         self.closeTab = closeTab;
         self.downloadContent = downloadContent;
-        self.toggleFullscreen = toggleFullscreen;
         self.getSelectedTab = getSelectedTab;
         self.logout = logout;
         self.openSettings = openSettings;
@@ -22,6 +21,7 @@
         self.selectTab = selectTab;
         self.showChangePassword = showChangePassword;
         self.showEmailRecord = showEmailRecord;
+        self.toggleFullscreen = toggleFullscreen;
 
         self.showSearch = false;
         self.hasEmail = hasEmail;
@@ -41,6 +41,15 @@
             return userRepository.getPrincipalDetails() && userRepository.getPrincipalDetails().results[0].email;
         }
 
+        function refreshIframe() {
+            setTimeout(function() {
+                var elem = document.querySelector('md-tab-content.md-active iframe');
+                if (elem) {
+                    elem.contentWindow.location.reload(true);
+                }
+            }, 250);
+        }
+
         function selectMenuItem(menuItem) {
             tabService.addTab(menuItem);
             self.toggleSidebar();
@@ -51,7 +60,35 @@
         }
 
         function toggleFullscreen() {
-            tabService.toggleFullscreen();
+            var inFullScreenMode = tabService.toggleFullscreen();
+            if (inFullScreenMode) {
+                $document.bind('keydown', function(event) {
+                    if (event.keyCode == 27) {
+                        tabService.toggleFullscreen();
+                        $mdToast.cancel();
+                        $document.unbind('keydown');
+                    }
+                });
+
+                refreshIframe();
+
+                var toast = $mdToast.simple()
+                    .textContent('Fullscreen mode')
+                    .action('Close')
+                    .highlightAction(false)
+                    .position('bottom right')
+                    .hideDelay(0);
+
+                $mdToast.show(toast).then(function(response) {
+                    tabService.toggleFullscreen();
+                    refreshIframe();
+                    $document.unbind('keydown');
+                });
+
+                angular.element(document.querySelector('md-tab-content.md-active content-container'));
+            } else {
+                $mdToast.cancel();
+            }
         }
 
         function toggleSidebar() {
@@ -147,4 +184,6 @@
             });
         }
     }
+
+
 })();

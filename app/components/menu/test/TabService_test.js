@@ -107,11 +107,13 @@
         it("should toggle between fullscreen and not fullscreen", function() {
             tabService.addTab(exampleTab1);
 
-            tabService.toggleFullscreen();
+            var inFullscreen = tabService.toggleFullscreen();
             expect(tabService.getSelectedTab().fullscreen).toBeTruthy();
+            expect(inFullscreen).toBeTruthy();
 
-            tabService.toggleFullscreen();
+            inFullscreen = tabService.toggleFullscreen();
             expect(tabService.getSelectedTab().fullscreen).toBeFalsy();
+            expect(inFullscreen).toBeFalsy();
         });
     });
 })();

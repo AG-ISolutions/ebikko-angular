@@ -116,3 +116,7 @@ div.quickSearch md-icon {
 md-toast {
     z-index: 15;
 }
+
+content-container:focus {
+    outline: none;
+}
