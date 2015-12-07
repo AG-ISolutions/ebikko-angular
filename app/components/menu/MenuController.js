@@ -10,15 +10,12 @@
     function MenuController($document, $mdSidenav, $mdBottomSheet, $mdDialog, $mdToast, $location, loginService, tabService, nodeService, userRepository, menuService) {
         var self = this;
 
-        self.closeTab = closeTab;
         self.downloadContent = downloadContent;
-        self.getSelectedTab = getSelectedTab;
         self.logout = logout;
         self.openSettings = openSettings;
         self.openTabMenu = openTabMenu;
         self.quickSearch = quickSearch;
         self.selectMenuItem = selectMenuItem;
-        self.selectTab = selectTab;
         self.showChangePassword = showChangePassword;
         self.showEmailRecord = showEmailRecord;
         self.toggleFullscreen = toggleFullscreen;
@@ -28,8 +25,6 @@
 
         self.showSecureShare = showSecureShare;
         self.toggleSidebar = toggleSidebar;
-
-        self.tabs = tabService.getTabs();
 
         self.activate = function() {
             menuService.getMenuItems().then(function(menuItems) {
@@ -55,40 +50,31 @@
             self.toggleSidebar();
         }
 
-        function selectTab(tab) {
-            tabService.selectTab(tab);
-        }
-
         function toggleFullscreen() {
-            var inFullScreenMode = tabService.toggleFullscreen();
-            if (inFullScreenMode) {
-                $document.bind('keydown', function(event) {
-                    if (event.keyCode == 27) {
-                        tabService.toggleFullscreen();
-                        $mdToast.cancel();
-                        $document.unbind('keydown');
-                    }
-                });
-
-                refreshIframe();
-
-                var toast = $mdToast.simple()
-                    .textContent('Fullscreen mode')
-                    .action('Close')
-                    .highlightAction(false)
-                    .position('bottom right')
-                    .hideDelay(0);
-
-                $mdToast.show(toast).then(function(response) {
+            tabService.toggleFullscreen();
+            $document.bind('keydown', function(event) {
+                if (event.keyCode == 27) {
                     tabService.toggleFullscreen();
+                    $mdToast.cancel();
                     refreshIframe();
                     $document.unbind('keydown');
-                });
+                }
+            });
 
-                angular.element(document.querySelector('md-tab-content.md-active content-container'));
-            } else {
-                $mdToast.cancel();
-            }
+            refreshIframe();
+
+            var toast = $mdToast.simple()
+                .textContent('Fullscreen mode')
+                .action('Close')
+                .highlightAction(false)
+                .position('bottom right')
+                .hideDelay(0);
+
+            $mdToast.show(toast).then(function(response) {
+                tabService.toggleFullscreen();
+                refreshIframe();
+                $document.unbind('keydown');
+            });
         }
 
         function toggleSidebar() {
@@ -163,14 +149,6 @@
                 targetEvent: ev,
                 clickOutsideToClose: true
             });
-        }
-
-        function getSelectedTab() {
-            return tabService.getSelectedTab();
-        }
-
-        function closeTab(tab) {
-            tabService.removeTab(tab);
         }
 
         function openTabMenu($mdOpenMenu, ev) {

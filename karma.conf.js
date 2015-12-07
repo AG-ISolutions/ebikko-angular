@@ -18,6 +18,7 @@ module.exports = function(config) {
             'app/components/forgot-password/forgotPassword.js',
 
             'app/components/menu/menu.js',
+            'app/components/menu/tabs/tabs.js',
             'app/components/users/users.js',
             'app/components/nodes/nodes.js',
             'app/components/login/login.js',
@@ -25,12 +26,14 @@ module.exports = function(config) {
             'app/components/change-password/changePassword.js',
             'app/components/email-record/emailRecord.js',
             'app/components/node-properties/nodeProperties.js',
+            'app/shared/services/shared-services.js',
 
             'app/shared/treetable/angular-treetable.js',
             'app/shared/validation/**/*.js',
 
             'app/components/**/*.js',
             'app/components/**/*.html',
+            'app/shared/**/*.js',
 
             {
                 pattern: 'test/fixtures/**/*.json',

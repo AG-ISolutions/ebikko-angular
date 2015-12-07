@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('ebikko.menu')
+        .module('ebikko.shared-services')
         .service('tabService', ['$mdToast', TabService]);
 
     function TabService($mdToast) {

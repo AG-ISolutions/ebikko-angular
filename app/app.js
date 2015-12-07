@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('ebikko', ['ngMaterial', 'ngNewRouter', 'ebikko.users', 'ebikko.login', 'ebikko.config', 'ebikko.menu', 'ebikko.nodes', 'ebikko.forgot-password', 'ebikko.node-properties'])
+        .module('ebikko', ['ngMaterial', 'ngNewRouter', 'ebikko.users', 'ebikko.login', 'ebikko.config', 'ebikko.menu', 'ebikko.nodes', 'ebikko.forgot-password', 'ebikko.node-properties', 'ebikko.tabs'])
         .controller('AppController', ['$router', AppController])
         .config(['$mdThemingProvider', '$mdIconProvider', '$httpProvider', '$mdDateLocaleProvider',
             function($mdThemingProvider, $mdIconProvider, $httpProvider, $mdDateLocaleProvider) {

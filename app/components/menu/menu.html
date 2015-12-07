@@ -37,19 +37,9 @@
             </div>
             <div flex="2"></div>
         </md-toolbar>
-        <md-tabs flex="grow" md-border-bottom md-autoselect ng-hide="menu.tabs.length === 0">
-            <md-tab ng-repeat="tab in menu.tabs" md-active="menu.getSelectedTab() === tab" md-on-select="menu.selectTab(tab)" ng-class="tabTest">
-                <md-tab-label>
-                    <span class="tab-label-{{tab.type}}">
-                        {{tab.name}}
-                        <md-icon md-svg-icon="close" ng-click="menu.closeTab(tab)"></md-icon>
-                    </span>
-                </md-tab-label>
-                <md-tab-body>
-                    <content-container content="tab.content" ng-class="{fullscreen: tab.fullscreen}" />
-                </md-tab-body>
-            </md-tab>
-        </md-tabs>
+
+        <ebikko-tabs flex="grow" layout="column"></ebikko-tabs>
+
         <md-menu class="tab-menu" ng-show="menu.getSelectedTab().type === 'node'">
             <md-button class="md-icon-button" ng-click="menu.openTabMenu($mdOpenMenu, $event)" aria-label="Show Menu">
                 <md-icon md-svg-icon="menu"></md-icon>
