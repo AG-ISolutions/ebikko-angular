@@ -39,29 +39,6 @@
         </md-toolbar>
 
         <ebikko-tabs flex="grow" layout="column"></ebikko-tabs>
-
-        <md-menu class="tab-menu" ng-show="menu.getSelectedTab().type === 'node'">
-            <md-button class="md-icon-button" ng-click="menu.openTabMenu($mdOpenMenu, $event)" aria-label="Show Menu">
-                <md-icon md-svg-icon="menu_secondary"></md-icon>
-            </md-button>
-            <md-menu-content width="3">
-                <md-menu-item>
-                    <md-button ng-click="menu.showEmailRecord($event)" ng-disabled="!menu.hasEmail()">
-                        <md-icon md-svg-icon="email"></md-icon>
-                        Email
-                    </md-button>
-                </md-menu-item>
-                <md-menu-item>
-                    <md-button ng-click="menu.showSecureShare($event)">
-                        <md-icon md-svg-icon="share"></md-icon>
-                        Secure Share</md-button>
-                </md-menu-item>
-                <md-menu-item>
-                    <md-button ng-click="menu.downloadContent()">
-                        <md-icon md-svg-icon="download"></md-icon>
-                        Download</md-button>
-                </md-menu-item>
-            </md-menu-content>
-        </md-menu>
+        <ebikko-node-menu ng-show="menu.getSelectedTab().type === 'node'"></ebikko-node-menu>
     </div>
 </div>

@@ -2,6 +2,6 @@
     'use strict';
     
     angular
-        .module('ebikko.login', ['ebikko.config', 'ebikko.users']);
+        .module('ebikko.login', ['ebikko.config', 'ebikko.shared-services']);
 
 })();

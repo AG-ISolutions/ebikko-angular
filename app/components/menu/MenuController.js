@@ -10,21 +10,16 @@
     function MenuController($document, $mdSidenav, $mdBottomSheet, $mdDialog, $mdToast, $location, loginService, tabService, nodeService, userRepository, menuService) {
         var self = this;
 
-        self.downloadContent = downloadContent;
         self.getSelectedTab = getSelectedTab;
         self.logout = logout;
         self.openSettings = openSettings;
-        self.openTabMenu = openTabMenu;
         self.quickSearch = quickSearch;
         self.selectMenuItem = selectMenuItem;
         self.showChangePassword = showChangePassword;
-        self.showEmailRecord = showEmailRecord;
         self.toggleFullscreen = toggleFullscreen;
 
         self.showSearch = false;
-        self.hasEmail = hasEmail;
 
-        self.showSecureShare = showSecureShare;
         self.toggleSidebar = toggleSidebar;
 
         self.activate = function() {
@@ -32,10 +27,6 @@
                 self.menuItems = menuItems;
             });
         };
-
-        function hasEmail() {
-            return userRepository.getPrincipalDetails() && userRepository.getPrincipalDetails().results[0].email;
-        }
 
         function getSelectedTab() {
             return tabService.getSelectedTab();
@@ -93,11 +84,7 @@
         }
 
         function logout() {
-            loginService.logout()
-                .then(function(data) {
-                    tabService.clearTabs();
-                    $location.url("/");
-                });
+            loginService.logout();
         }
 
         function openSettings($mdOpenMenu, ev) {
@@ -115,21 +102,6 @@
             }
         }
 
-        function showSecureShare(ev) {
-            $mdDialog.show({
-                controller: 'secureShareController',
-                controllerAs: 'ssc',
-                bindToController: true,
-                locals: {
-                    nodeId: tabService.getSelectedTab().id
-                },
-                templateUrl: './components/secure-share/secureShare.html',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose: true
-            });
-        }
-
         function showChangePassword(ev) {
             $mdDialog.show({
                 controller: 'ChangePasswordController',
@@ -140,35 +112,6 @@
                 clickOutsideToClose: true
             });
         }
-
-        function showEmailRecord(ev) {
-            $mdDialog.show({
-                controller: 'EmailRecordController',
-                controllerAs: 'erc',
-                bindToController: true,
-                locals: {
-                    nodeId: tabService.getSelectedTab().id,
-                    title: tabService.getSelectedTab().title,
-                    file_name: tabService.getSelectedTab().file_name
-                },
-                templateUrl: './components/email-record/emailRecord.html',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose: true
-            });
-        }
-
-        function openTabMenu($mdOpenMenu, ev) {
-            $mdOpenMenu(ev);
-        }
-
-        function downloadContent() {
-            var tab = tabService.getSelectedTab();
-            nodeService.getDownloadUrl(tab.id).then(function(url) {
-                window.open(url, '_blank', '');
-            });
-        }
     }
-
 
 })();

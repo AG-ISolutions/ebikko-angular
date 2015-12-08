@@ -44,24 +44,6 @@
             expect(tabService.addTab.calls.count()).toEqual(0);
         });
 
-        it("should disable the email option when the user does not have an email address", function() {
-            userRepository.getPrincipalDetails.and.returnValue(getJSONFixture('principalDetails_withoutEmail.json'));
-
-            expect(menuController.hasEmail()).toBeFalsy();
-        });
-
-        it("should disable the email option when there are no user details", function() {
-            userRepository.getPrincipalDetails.and.returnValue(undefined);
-
-            expect(menuController.hasEmail()).toBeFalsy();            
-        });
-
-        it("should enable the email option whe the user does have an email address", function() {
-            userRepository.getPrincipalDetails.and.returnValue(getJSONFixture('principalDetails.json'));
-
-            expect(menuController.hasEmail()).toBeTruthy();
-        });
-
         it("should toggle the active tab in and out of fullscreen", function() {
             menuController.toggleFullscreen();
             

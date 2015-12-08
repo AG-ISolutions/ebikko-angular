@@ -2,6 +2,6 @@
 	"use strict";
 
 	angular
-		.module('ebikko.forgot-password', ['ebikko.validation', 'ebikko.users', 'ebikko.config']);
+		.module('ebikko.forgot-password', ['ebikko.validation', 'ebikko.config']);
 
 })();

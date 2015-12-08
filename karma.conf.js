@@ -19,6 +19,7 @@ module.exports = function(config) {
 
             'app/components/menu/menu.js',
             'app/components/menu/tabs/tabs.js',
+            'app/components/menu/node-menu/node-menu.js',
             'app/components/users/users.js',
             'app/components/nodes/nodes.js',
             'app/components/login/login.js',

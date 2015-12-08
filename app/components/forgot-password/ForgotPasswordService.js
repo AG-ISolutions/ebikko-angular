@@ -3,9 +3,9 @@
 
     angular
         .module('ebikko.forgot-password')
-        .service('forgotPasswordService', ['$http', 'userRepository', ForgotPasswordService]);
+        .service('forgotPasswordService', ['$http', ForgotPasswordService]);
 
-    function ForgotPasswordService($http, userRepository) {
+    function ForgotPasswordService($http) {
         var self = {
             resetPassword: resetPassword
         };

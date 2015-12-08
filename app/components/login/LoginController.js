@@ -18,8 +18,7 @@
             self.errorMessage = "";
 
             loginService.login(self.username, self.password)
-                .then(function(response) {
-                }, function(response) {
+                .then(function(response) {}, function(response) {
                     self.errorMessage = messageResolver.resolveMessage(response.data.data.responsemsg);
                 });
         }

@@ -2,8 +2,8 @@
     'use strict';
 
     angular
-        .module('ebikko', ['ngMaterial', 'ngNewRouter', 'ebikko.users', 'ebikko.login', 'ebikko.config', 'ebikko.menu', 'ebikko.nodes', 'ebikko.forgot-password', 'ebikko.node-properties', 'ebikko.tabs'])
-        .controller('AppController', ['$router', AppController])
+        .module('ebikko', ['ngMaterial', 'ngNewRouter', 'ebikko.login', 'ebikko.config', 'ebikko.menu', 'ebikko.nodes', 'ebikko.forgot-password', 'ebikko.node-properties', 'ebikko.tabs'])
+        .controller('AppController', ['$router', '$rootScope', 'tabService', 'userRepository', AppController])
         .config(['$mdThemingProvider', '$mdIconProvider', '$httpProvider', '$mdDateLocaleProvider',
             function($mdThemingProvider, $mdIconProvider, $httpProvider, $mdDateLocaleProvider) {
 
@@ -37,7 +37,7 @@
             }
         ]);
 
-    function AppController($router) {
+    function AppController($router, $rootScope, tabService, userRepository) {
         $router.config([{
             path: '/',
             redirectTo: '/login'
@@ -51,6 +51,17 @@
             path: '/forgotPassword',
             component: 'forgotPassword'
         }]);
+
+        $rootScope.$on('loginSuccess', function() {
+            tabService.clearTabs();
+            $router.navigate('menu');
+        });
+
+        $rootScope.$on('logoutSuccess', function() {
+            tabService.clearTabs();
+            userRepository.clearCurrentUser();
+            $router.navigate('login');
+        });
     }
 
 })();
