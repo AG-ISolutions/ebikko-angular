@@ -23,20 +23,24 @@
                 'method': 'GET',
                 'url': '/Gadget?json=' + stringed
             }).then(function(response) {
-                var menuItems = [{
-                    'name': 'Recent Records',
-                    'type': 'nodes',
-                    'content': "<nodes type='recent-records'/>"
-                }];
+                var menuItems = [];
 
                 angular.forEach(response.data.Portlets, function(portlet, key) {
                     if (portlet.columnType === 'SAVEDSEARCH') {
                         menuItems.push({
                             'name': portlet.title,
                             'type': 'nodes',
-                            'content': "<nodes type='saved-search' type-id='"+portlet.columnDetails+"'/>"
+                            'content': "<nodes type='saved-search' type-id='"+portlet.columnDetails+"'/>",
+                            'id': portlet.id
                         });
                     }
+                });
+
+                menuItems.push({
+                    'name': 'Recent Records',
+                    'type': 'nodes',
+                    'content': "<nodes type='recent-records'/>",
+                    'id': 'recent-records'
                 });
 
                 return menuItems;

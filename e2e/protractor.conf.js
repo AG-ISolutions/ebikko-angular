@@ -1,14 +1,14 @@
 exports.config = {
 
   specs: [
-    './scenarios/login-spec.js'
+    './scenarios/nodes-spec.js'
   ],
   
   capabilities: {
     'browserName': 'chrome'
   },
   
-  baseUrl: 'http://localhost:9000/',
+  baseUrl: 'http://192.168.1.207/ebikko-angular',
 
   framework: 'jasmine'
 };
