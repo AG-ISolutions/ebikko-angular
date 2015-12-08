@@ -4,7 +4,7 @@
             Meeting Manager Login
         </md-toolbar>
         <md-content layout-padding layout="row" layout-align="center center">
-            <form name="loginForm" id="loginForm">
+            <form name="loginForm" id="loginForm" ng-submit="login.login()">
                 <md-input-container class="md-block" flex="100">
                     <label>Username</label>
                     <input ng-model="login.username">
@@ -14,7 +14,7 @@
                     <input type="password" ng-model="login.password">
                 </md-input-container>
                 <div class="password-error">{{login.errorMessage}}</div>
-                <md-button class="md-raised md-primary" ng-click="login.login()">Login</md-button>
+                <md-button type="submit" class="md-raised md-primary">Login</md-button>
             </form>
         </md-content>
         <div class="secondaryLink" flex="100" layout="row" layout-align="end center">
