@@ -3,9 +3,9 @@
 
     angular
         .module('ebikko.change-password')
-        .controller('ChangePasswordController', ['$mdDialog', '$mdToast', 'userService', 'messageResolver', ChangePasswordController]);
+        .controller('ChangePasswordController', ['$mdDialog', '$mdToast', 'changePasswordService', 'messageResolver', ChangePasswordController]);
 
-    function ChangePasswordController($mdDialog, $mdToast, userService, messageResolver) {
+    function ChangePasswordController($mdDialog, $mdToast, changePasswordService, messageResolver) {
         var self = this;
 
         self.cancel = cancel;
@@ -19,7 +19,7 @@
         function changePassword() {
             self.errors = [];
 
-            userService
+            changePasswordService
                 .changePassword(self.oldPassword, self.newPassword, self.repeatNewPassword)
                 .then(function() {
                     $mdToast.show(

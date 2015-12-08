@@ -7,24 +7,10 @@
 
     function UserService($http, userRepository, config) {
         var self = {
-            changePassword: changePassword,
             resetPassword: resetPassword
         };
 
         return self;
-
-        function changePassword(currentPassword, newPassword, repeatNewPassword) {
-            var json = {
-                'old_password': currentPassword,
-                'new_password': newPassword,
-                'retype_password': repeatNewPassword,
-                'ebikko_session_id': userRepository.getSessionId()
-            };
-            return $http({
-                'method': 'Post',
-                'url': config.basePath + '/ChangePassword?json='+JSON.stringify(json)
-            });
-        }
 
         function resetPassword(username, repo, email) {
             var json = {

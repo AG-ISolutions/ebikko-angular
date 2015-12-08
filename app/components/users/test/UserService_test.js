@@ -21,16 +21,6 @@
             httpBackend = $httpBackend;
         }));
 
-        it('should send change password request', function() {
-            httpBackend
-                .expectPOST(/\/ChangePassword(.*)("old_password":"oldpassword")(.*)("new_password":"newpassword")(.*)/)
-                .respond(200);
-
-            userService.changePassword('oldpassword', 'newpassword', 'newpassword');
-
-            httpBackend.flush();        	
-        });
-
         it('should send reset password request', function() {
             httpBackend
                 .expectPOST(/\/PasswordRecovery(.*)("username":"username")(.*)("repo_id":"test_repo")(.*)("email":"email@address.com")(.*)/)

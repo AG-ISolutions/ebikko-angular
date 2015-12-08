@@ -26,7 +26,7 @@
             var deferred = $q.defer();
             spyOn($mdDialog, 'hide');
             spyOn($mdToast, 'show');
-            spyOn(userService, 'changePassword').and.returnValue(deferred.promise);
+            spyOn(changePasswordService, 'changePassword').and.returnValue(deferred.promise);
             var changePasswordController = createController();
 
             changePasswordController.changePassword();
@@ -40,7 +40,7 @@
 
         it("should display a resolved error message if the change password fails", function() {
             var deferred = $q.defer();
-            spyOn(userService, 'changePassword').and.returnValue(deferred.promise);
+            spyOn(changePasswordService, 'changePassword').and.returnValue(deferred.promise);
             spyOn(messageResolver, 'resolveMessage').and.callThrough();
             var changePasswordController = createController();
 
@@ -55,7 +55,7 @@
 
         it("should support error responses from server with coded message", function() {
             var deferred = $q.defer();
-            spyOn(userService, 'changePassword').and.returnValue(deferred.promise);
+            spyOn(changePasswordService, 'changePassword').and.returnValue(deferred.promise);
             var changePasswordController = createController();
 
             changePasswordController.changePassword();
@@ -66,7 +66,7 @@
             expect(changePasswordController.errors).toContain("Current Password required");
         });
 
-        var userService = {
+        var changePasswordService = {
             changePassword: function() {}
         };
         var $mdToast = {
@@ -98,7 +98,7 @@
             return $controller('ChangePasswordController', {
                 $mdDialog: $mdDialog,
                 $mdToast: $mdToast,
-                userService: userService,
+                changePasswordService: changePasswordService,
                 messageResolver: messageResolver
             });
         }
