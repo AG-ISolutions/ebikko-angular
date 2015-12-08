@@ -1,12 +1,12 @@
 (function() {
     "use strict";
 
-    describe('Unit tests for User Service', function() {
-        var httpBackend, userService;
+    describe('Unit tests for Forgot Password Service', function() {
+        var httpBackend, forgotPasswordService;
 
         jasmine.getJSONFixtures().fixturesPath = 'base/test/fixtures/';
 
-        beforeEach(module('ebikko.users'));
+        beforeEach(module('ebikko.forgot-password'));
 
         beforeEach(module(function($provide) {
             $provide.service('userRepository', function() {
@@ -16,8 +16,8 @@
             });
         }));
 
-        beforeEach(inject(function($httpBackend, _userService_) {
-            userService = _userService_;
+        beforeEach(inject(function($httpBackend, _forgotPasswordService_) {
+            forgotPasswordService = _forgotPasswordService_;
             httpBackend = $httpBackend;
         }));
 
@@ -26,7 +26,7 @@
                 .expectPOST(/\/PasswordRecovery(.*)("username":"username")(.*)("repo_id":"test_repo")(.*)("email":"email@address.com")(.*)/)
                 .respond(200);
 
-            userService.resetPassword('username', 'test_repo', 'email@address.com');
+            forgotPasswordService.resetPassword('username', 'test_repo', 'email@address.com');
 
             httpBackend.flush();
         });

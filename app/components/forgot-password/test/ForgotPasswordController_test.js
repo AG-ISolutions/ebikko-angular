@@ -6,7 +6,7 @@
         jasmine.getJSONFixtures().fixturesPath = 'base/test/fixtures/';
 
         var controller, $q, $rootScope;
-        var userService = jasmine.createSpyObj('userService', ['resetPassword']);
+        var forgotPasswordService = jasmine.createSpyObj('forgotPasswordService', ['resetPassword']);
         var validator = jasmine.createSpyObj('validator', ['validate']);
 
         beforeEach(module('ebikko.forgot-password'));
@@ -15,7 +15,7 @@
             $q = _$q_;
             $rootScope = _$rootScope_;
             controller = _$controller_('ForgotPasswordController', {
-                userService: userService,
+                forgotPasswordService: forgotPasswordService,
                 forgotPasswordValidator: validator
             });
         }));
@@ -38,7 +38,7 @@
             });
 
             var deferred = $q.defer();
-            userService.resetPassword.and.returnValue(deferred.promise);
+            forgotPasswordService.resetPassword.and.returnValue(deferred.promise);
 
             controller.form.username = 'username@test_repo';
             controller.form.email = 'email@address.com';
@@ -46,7 +46,7 @@
             controller.submit();
 
             expect(controller.saving).toBeTruthy();
-            expect(userService.resetPassword).toHaveBeenCalledWith('username', 'test_repo', 'email@address.com');
+            expect(forgotPasswordService.resetPassword).toHaveBeenCalledWith('username', 'test_repo', 'email@address.com');
 
             deferred.resolve();
             $rootScope.$digest();
@@ -60,7 +60,7 @@
             });
 
             var deferred = $q.defer();
-            userService.resetPassword.and.returnValue(deferred.promise);
+            forgotPasswordService.resetPassword.and.returnValue(deferred.promise);
 
             controller.form.username = 'username@test_repo';
             controller.form.email = 'email@address.com';

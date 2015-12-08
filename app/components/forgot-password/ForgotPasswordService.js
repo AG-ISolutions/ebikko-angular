@@ -2,10 +2,10 @@
     'use strict';
 
     angular
-        .module('ebikko.users')
-        .service('userService', ['$http', 'userRepository', 'ebikkoConfig', UserService]);
+        .module('ebikko.forgot-password')
+        .service('forgotPasswordService', ['$http', 'userRepository', ForgotPasswordService]);
 
-    function UserService($http, userRepository, config) {
+    function ForgotPasswordService($http, userRepository) {
         var self = {
             resetPassword: resetPassword
         };

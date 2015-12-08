@@ -3,9 +3,9 @@
 
     angular
         .module('ebikko.forgot-password')
-        .controller('ForgotPasswordController', ['forgotPasswordValidator', 'userService', 'messageResolver', '$location', ForgotPasswordController]);
+        .controller('ForgotPasswordController', ['forgotPasswordValidator', 'forgotPasswordService', 'messageResolver', '$location', ForgotPasswordController]);
 
-    function ForgotPasswordController(validator, userService, messageResolver, $location) {
+    function ForgotPasswordController(validator, forgotPasswordService, messageResolver, $location) {
         var self = this;
 
         self.saving = false;
@@ -21,7 +21,7 @@
             } else {
                 self.saving = true;
                 var splitString = self.form.username.split("@");
-                userService
+                forgotPasswordService
                     .resetPassword(splitString[0], splitString[1], self.form.email)
                     .then(function(response) {
                         self.saving = false;
