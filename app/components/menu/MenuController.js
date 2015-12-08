@@ -11,6 +11,7 @@
         var self = this;
 
         self.downloadContent = downloadContent;
+        self.getSelectedTab = getSelectedTab;
         self.logout = logout;
         self.openSettings = openSettings;
         self.openTabMenu = openTabMenu;
@@ -36,6 +37,10 @@
             return userRepository.getPrincipalDetails() && userRepository.getPrincipalDetails().results[0].email;
         }
 
+        function getSelectedTab() {
+            return tabService.getSelectedTab();
+        }
+
         function refreshIframe() {
             setTimeout(function() {
                 var elem = document.querySelector('md-tab-content.md-active iframe');
@@ -51,30 +56,32 @@
         }
 
         function toggleFullscreen() {
-            tabService.toggleFullscreen();
-            $document.bind('keydown', function(event) {
-                if (event.keyCode == 27) {
+            var inFullScreen = tabService.toggleFullscreen();
+            if (inFullScreen) {
+                $document.bind('keydown', function(event) {
+                    if (event.keyCode == 27) {
+                        tabService.toggleFullscreen();
+                        $mdToast.cancel();
+                        refreshIframe();
+                        $document.unbind('keydown');
+                    }
+                });
+
+                refreshIframe();
+
+                var toast = $mdToast.simple()
+                    .textContent('Fullscreen mode')
+                    .action('Close')
+                    .highlightAction(false)
+                    .position('bottom right')
+                    .hideDelay(0);
+
+                $mdToast.show(toast).then(function(response) {
                     tabService.toggleFullscreen();
-                    $mdToast.cancel();
                     refreshIframe();
                     $document.unbind('keydown');
-                }
-            });
-
-            refreshIframe();
-
-            var toast = $mdToast.simple()
-                .textContent('Fullscreen mode')
-                .action('Close')
-                .highlightAction(false)
-                .position('bottom right')
-                .hideDelay(0);
-
-            $mdToast.show(toast).then(function(response) {
-                tabService.toggleFullscreen();
-                refreshIframe();
-                $document.unbind('keydown');
-            });
+                });
+            }
         }
 
         function toggleSidebar() {
