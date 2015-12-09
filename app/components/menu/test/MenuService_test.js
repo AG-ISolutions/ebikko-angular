@@ -44,11 +44,14 @@
             expect(menuItems).toContain({
                 'name': 'Testgadget',
                 'type': 'nodes',
-                'content': "<nodes type='saved-search' type-id='b78d02eeced0429098bf14ced7585ff5'/>"
-            }, {
+                'content': "<nodes type='saved-search' type-id='b78d02eeced0429098bf14ced7585ff5'/>",
+                'id': 'h036c42666014b3499ac4ae871f145ce'
+            });
+            expect(menuItems).toContain({
                 'name': 'Recent Records',
                 'type': 'nodes',
-                'content': "<nodes type='recent-records'/>"
+                'content': "<nodes type='recent-records'/>",
+                'id': 'recent-records'
             });
         });
 
