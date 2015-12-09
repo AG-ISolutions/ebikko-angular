@@ -55,7 +55,7 @@
             if (isMultiValue) {
                 value = [];
                 angular.forEach(matchingPropertyValues[0].values, function(property, key) {
-                    value.push(property.value)
+                    value.push(property.value);
                 });
             } else {
                 value = processPropertyValue(matchingPropertyValues[0]);
