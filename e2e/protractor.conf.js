@@ -1,7 +1,7 @@
 exports.config = {
 
   specs: [
-    './scenarios/nodes-spec.js'
+    './scenarios/*.js'
   ],
   
   capabilities: {
