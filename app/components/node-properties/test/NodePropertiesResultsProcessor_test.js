@@ -19,7 +19,7 @@
 
             var response = processor.processResults(nodeDetails, results);
 
-            expect(response.length).toEqual(5);
+            expect(response.length).toEqual(6);
         });
 
         it('should look up the values for dynamic properties from the node single values', function() {
@@ -31,7 +31,8 @@
             expect(response).toContain({
                 id: 'f4c1cf812d254f26a2460d67e3f09b4f',
                 value: '2015-12-30',
-                name: 'Date of the Meeting'
+                name: 'Date of the Meeting',
+                isMultiValue: false
             });
         });
 
@@ -44,13 +45,15 @@
             expect(response).toContain({
                 id: '1',
                 value: 'Test contain in folder',
-                name: 'Title'
+                name: 'Title',
+                isMultiValue: false
             });
 
             expect(response).toContain({
                 id: '3',
                 value: 'Some test notes',
-                name: 'Notes'
+                name: 'Notes',
+                isMultiValue: false
             });
         });
 
@@ -63,7 +66,8 @@
             expect(response).toContain({
                 id: '6',
                 value: '2014/GGGG/2',
-                name: 'Folder'
+                name: 'Folder',
+                isMultiValue: false
             });
         });
 
@@ -76,7 +80,22 @@
             expect(response).toContain({
                 id: '1a2b3c',
                 value: 'John',
-                name: 'Principal'
+                name: 'Principal',
+                isMultiValue: false
+            });
+        });
+
+        it('should support multi value properties', function() {
+            var results = getJSONFixture('nodes/nodeProperties.json');
+            var nodeDetails = getJSONFixture('nodes/nodeDetails.json');
+
+            var response = processor.processResults(nodeDetails, results);
+
+            expect(response).toContain({
+                id: '222',
+                value: ['Michelle', 'Steve'],
+                name: 'Recipient',
+                isMultiValue: true
             });
         });
     });

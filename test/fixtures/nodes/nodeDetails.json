@@ -116,7 +116,19 @@
                 "property_type": 1200,
                 "value": "00000000000000,John"
             }],
-            "multi_values": []
+            "multi_values": [{
+                "property_id": "222",
+                "property_type": 1200,
+                "values": [{
+                    "property_id": "abc",
+                    "property_type": 1200,
+                    "value": "Michelle"
+                }, {
+                    "property_id": "def",
+                    "property_type": 1200,
+                    "value": "Steve"
+                }]
+            }]
         }],
         "can_update_security_settings": true,
         "can_changeAcl": true

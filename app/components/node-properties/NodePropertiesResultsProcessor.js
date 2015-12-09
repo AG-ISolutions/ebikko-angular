@@ -16,7 +16,7 @@
             var results = [];
 
             var propertyGroups = nodeTypeDetails.data.results[0].property_group;
-            var properties = nodeTypeDetails.data.results[0].properties;
+            var customProperties = nodeTypeDetails.data.results[0].properties;
             var attributes = nodeTypeDetails.data.results[0].attributes;
 
             var node = nodeDetails.data.results[0];
@@ -24,13 +24,16 @@
 
             angular.forEach(propertyGroups, function(propertyGroup, key) {
                 var propertyId = propertyGroup.property_id;
+                var isMultiValue = customProperties && extractValueFromArray(customProperties, propertyId, 'is_multi_value');
+                var isCustomProperty = isMultiValue !== null && isMultiValue !== undefined;
+
                 var result = {
-                    id: propertyId
+                    id: propertyId,
+                    isMultiValue: isCustomProperty && isMultiValue
                 };
 
-                var matchingProperties = findInArray(nodeProperties, propertyId);
-                if (matchingProperties.length > 0) {
-                    result.value = processPropertyValue(matchingProperties[0]);                    
+                if (isCustomProperty) {
+                    result.value = extractCustomPropertyValue(isMultiValue, propertyId, node);
                 } else {
                     result.value = node[getPropertyKey(propertyId)];
                 }
@@ -46,6 +49,20 @@
             return results;
         }
 
+        function extractCustomPropertyValue(isMultiValue, propertyId, node) {
+            var value;
+            var matchingPropertyValues = findInArray(isMultiValue ? node.multi_values : node.single_value, propertyId);
+            if (isMultiValue) {
+                value = [];
+                angular.forEach(matchingPropertyValues[0].values, function(property, key) {
+                    value.push(property.value)
+                });
+            } else {
+                value = processPropertyValue(matchingPropertyValues[0]);
+            }
+            return value;
+        }
+
         function extractValueFromArray(array, filterValue, extractValue) {
             var matchingObjects = findInArray(array, filterValue);
             if (matchingObjects.length > 0) {
@@ -56,7 +73,9 @@
         }
 
         function findInArray(array, value) {
-            return $filter('filter')(array, { 'property_id': value}, true);
+            return $filter('filter')(array, {
+                'property_id': value
+            }, true);
         }
 
         function getPropertyKey(propertyId) {

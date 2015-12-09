@@ -1,6 +1,7 @@
 <md-content class="nodeProperties">
     <div ng-repeat="property in nodeProperties.data" class="propertyContainer">
         <div class="propertyName">{{property.name}}</div>
-        <div class="propertyValue">{{property.value}}</div>
+        <div class="propertyValue" ng-if="!property.isMultiValue">{{property.value}}</div>
+        <div class="propertyValue" ng-if="property.isMultiValue">{{property.value.join(', ')}}</div>
     </div>
 </md-content>

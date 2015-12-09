@@ -156,7 +156,7 @@ table.treetable tr:not(.isLeaf) td {
     cursor: pointer;
 }
 
-table.treetable tr.isLeaf) md-icon[md-svg-icon="info"] {
+table.treetable tr.isLeaf md-icon[md-svg-icon="info"] {
     cursor: pointer;
 }
 
