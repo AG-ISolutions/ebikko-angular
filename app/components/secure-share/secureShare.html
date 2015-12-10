@@ -1,9 +1,8 @@
 <md-content layout-padding layout="row" layout-align="left center" class="secureShare">
     <form name="secureShareForm">
-        <md-input-container class="md-block" flex="100">
-            <label>Email</label>
-            <input type="email" ng-model="ssc.ss.emails">
-        </md-input-container>
+
+        <ebikko-email-search model="ssc.ss.principals"></ebikko-email-search/>
+
         <md-input-container class="md-block" flex="100">
             <label>Password</label>
             <input type="password" ng-model="ssc.ss.password">

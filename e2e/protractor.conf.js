@@ -8,7 +8,7 @@ exports.config = {
     'browserName': 'chrome'
   },
   
-  baseUrl: 'http://192.168.1.207/ebikko-angular',
+  baseUrl: 'http://localhost:8080/app',
 
   framework: 'jasmine'
 };

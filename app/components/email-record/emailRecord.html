@@ -1,9 +1,12 @@
 <md-content layout-padding layout="row" layout-align="left center" class="emailRecord">
     <form name="emailRecordForm">
-        <md-input-container class="md-block" flex="100">
-            <label>To</label>
-            <input type="text" ng-model="erc.email.to">
-        </md-input-container>
+
+        <ebikko-email-search model="erc.email.principals"></ebikko-email-search/>
+
+        <!-- <md-input-container class="md-block" flex="100"> -->
+            <!-- <label>To</label> -->
+            <!-- <input type="text" ng-model="erc.email.to"> -->
+        <!-- </md-input-container> -->
         <md-input-container class="md-block" flex="100">
             <label>Subject</label>
             <input type="text" ng-model="erc.email.subject">

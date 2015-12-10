@@ -13,10 +13,12 @@
         it("should accept valid secure shares", function() {
             var secureShare = {
                 nodeId: '123',
-                emails: 'test@test.com',
+                principals: [{
+                    'email': 'test1'
+                }],
                 expiry_date: new Date(),
                 password: 'password',
-                repeatPassword: 'password'               
+                repeatPassword: 'password'
             };
 
             var response = secureShareValidator.validate(secureShare);
@@ -26,30 +28,30 @@
         });
 
         it("should reject secure shares without the required fields", function() {
-        	var secureShare = {};
+            var secureShare = {};
 
-        	var response = secureShareValidator.validate(secureShare);
+            var response = secureShareValidator.validate(secureShare);
 
-        	expect(response.hasErrors).toEqual(true);
-        	expect(response.errors).toContain("Node ID cannot be blank");
-        	expect(response.errors).toContain("Email cannot be blank");
-        	expect(response.errors).toContain("Password cannot be blank");
-        	expect(response.errors).toContain("Expiry date cannot be blank");
+            expect(response.hasErrors).toEqual(true);
+            expect(response.errors).toContain("Node ID cannot be blank");
+            expect(response.errors).toContain("Email cannot be blank");
+            expect(response.errors).toContain("Password cannot be blank");
+            expect(response.errors).toContain("Expiry date cannot be blank");
         });
 
         it("should reject secure shares when the passwords do not match", function() {
-        	var secureShare = {
-        		nodeId: '123',
-        		emails: 'test@test.com',
-        		expiry_date: new Date(),
-        		password: 'password1',
-        		repeatPassword: 'password2'
-        	};
+            var secureShare = {
+                nodeId: '123',
+                emails: 'test@test.com',
+                expiry_date: new Date(),
+                password: 'password1',
+                repeatPassword: 'password2'
+            };
 
-        	var response = secureShareValidator.validate(secureShare);
+            var response = secureShareValidator.validate(secureShare);
 
-        	expect(response.hasErrors).toEqual(true);
-        	expect(response.errors).toContain("Passwords do not match");
+            expect(response.hasErrors).toEqual(true);
+            expect(response.errors).toContain("Passwords do not match");
         });
     });
 })();

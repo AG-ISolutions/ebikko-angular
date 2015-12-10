@@ -20,13 +20,13 @@ module.exports = function(config) {
             'app/components/menu/menu.js',
             'app/components/menu/tabs/tabs.js',
             'app/components/menu/node-menu/node-menu.js',
-            'app/components/users/users.js',
             'app/components/nodes/nodes.js',
             'app/components/login/login.js',
             'app/components/secure-share/secureShare.js',
             'app/components/change-password/changePassword.js',
             'app/components/email-record/emailRecord.js',
             'app/components/node-properties/nodeProperties.js',
+            'app/components/email-search/emailSearch.js',
             'app/shared/services/shared-services.js',
 
             'app/shared/treetable/angular-treetable.js',
@@ -60,12 +60,17 @@ module.exports = function(config) {
         ],
 
         preprocessors: {
-            'app/components/**/*.html': ['ng-html2js']
+            'app/components/email-search/emailSearch.html': ['ng-html2js']
         },
 
         junitReporter: {
             outputFile: 'test_out/unit.xml',
             suite: 'unit'
+        },
+
+        ngHtml2JsPreprocessor: {
+            stripPrefix: 'app/',
+            moduleName: 'test-templates'
         }
     });
 };

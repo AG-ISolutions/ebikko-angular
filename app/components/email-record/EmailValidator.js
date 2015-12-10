@@ -15,7 +15,7 @@
         function validate(email) {
 
         	var errors = [];
-            validationUtils.errorMessageIfUndefined(email.to, "To", errors);
+            validationUtils.errorMessageIfEmpty(email.principals, "To", errors);
             validationUtils.errorMessageIfUndefined(email.subject, "Subject", errors);
             validationUtils.errorMessageIfUndefined(email.message, "Message", errors);
 

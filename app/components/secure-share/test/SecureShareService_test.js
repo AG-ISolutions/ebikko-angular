@@ -28,7 +28,8 @@
 
         it('should send post to secure share', function() {
             var opts = {
-                nodeId: 'abc-def'
+                nodeId: 'abc-def',
+                principals: []
             };
             httpBackend
                 .expectPOST(/\/Pin(.*)("ebikko_session_id":"123")(.*)("method":"PIN_SEND")(.*)("node_ids":\["abc-def"\])(.*)("principal_id":111)(.*)/)
@@ -41,7 +42,8 @@
 
         it('should send undefined use_only_once as false', function() {
             var opts = {
-                nodeId: 'abc-def'
+                nodeId: 'abc-def',
+                principals: []
             };
 
             httpBackend
@@ -50,7 +52,26 @@
 
             secureShareService.secureShareNode(opts);
 
-            httpBackend.flush();            
+            httpBackend.flush();
+        });
+
+        it('should send emails semi-colon delimited', function() {
+            var opts = {
+                nodeId: 'abc',
+                principals: [{
+                    'email': 'test1'
+                }, {
+                    'email': 'test2'
+                }]
+            };
+
+            httpBackend
+                .expectPOST(/\/Pin(.*)("emails":"test1;test2")(.*)/)
+                .respond(200);
+
+            secureShareService.secureShareNode(opts);
+
+            httpBackend.flush();
         });
 
         afterEach(function() {

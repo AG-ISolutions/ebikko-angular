@@ -17,7 +17,7 @@
                 'ebikko_session_id': userRepository.getSessionId(),
                 'method': email.email_as_content ? "EMAIL_CONTENT" : "EMAIL_LINK",
                 'sender': userRepository.getPrincipalDetails().results[0].email,
-                'receiver_list': [email.to],
+                'receiver_list': email.principals.map(transformPrincipalsToEmails),
                 'subject': email.subject,
                 'cc_list': [],
                 'bcc_list': [],
@@ -43,6 +43,10 @@
                 'method': 'POST',
                 'url': '/SendEmail?json=' + stringed + '&' + paramsAsString
             });
+        }
+
+        function transformPrincipalsToEmails(principal) {
+            return principal.email;
         }
     }
 })();

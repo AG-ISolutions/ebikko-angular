@@ -26,7 +26,7 @@
 
         it('should send post to email record', function() {
             var email = {
-
+                principals: []
             };
             httpBackend
                 .expectPOST(/\/SendEmail(.*)("ebikko_session_id":"123")(.*)("method":"EMAIL_LINK")(.*)("sender":"testemail@email.com")(.*)/)
@@ -39,11 +39,30 @@
 
         it('should send as EMAIL_CONTENT when email as content is true', function() {
             var email = {
-                'email_as_content': true
+                'email_as_content': true,
+                principals: []
             };
 
             httpBackend
                 .expectPOST(/\/SendEmail(.*)("method":"EMAIL_CONTENT")(.*)/)
+                .respond(200);
+
+            emailRecordService.emailRecord(email);
+
+            httpBackend.flush();
+        });
+
+        it('should transform the principals into a list of email addresses', function() {
+            var email = {
+                'principals': [{
+                    'email': 'email1'
+                }, {
+                    'email': 'email2'
+                }]
+            };
+
+            httpBackend
+                .expectPOST(/\/SendEmail(.*)("receiver_list":\["email1","email2"\])(.*)/)
                 .respond(200);
 
             emailRecordService.emailRecord(email);

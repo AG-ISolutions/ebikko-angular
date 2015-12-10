@@ -41,5 +41,13 @@
 
             expect(errors).toContain("field cannot be blank");
         });
+
+        it("shoud reject empty arrays", function() {
+            var errors = [];
+
+            validationUtils.errorMessageIfEmpty([], "field", errors);
+
+            expect(errors).toContain("field cannot be empty");
+        })
     });
 })();

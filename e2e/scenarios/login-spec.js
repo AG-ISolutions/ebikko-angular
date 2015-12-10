@@ -13,8 +13,8 @@
         });
 
         it('should perform validation on login page and forgot password page', function() {
-            page
-                .goToForgotPassword()
+
+            page.goToForgotPassword()
                 .clickSubmit()
                 .checkThePageHasErrors()
                 .goToLoginPage()
@@ -24,7 +24,7 @@
 
         it('should login', function() {
             page
-                .enterUsernameAndPassword('root@tricor', 'root')
+                .enterUsernameAndPassword('root@demo208', 'root')
                 .clickSubmitExpectingToPass();
         })
     });

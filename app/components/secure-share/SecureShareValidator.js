@@ -16,7 +16,7 @@
 
             var errors = [];
             validationUtils.errorMessageIfUndefined(ss.nodeId, "Node ID", errors);
-            validationUtils.errorMessageIfUndefined(ss.emails, "Email", errors);
+            validationUtils.errorMessageIfUndefined(ss.principals, "Email", errors);
             validationUtils.errorMessageIfUndefined(ss.password, "Password", errors);
 
             if (ss.password !== ss.repeatPassword) {

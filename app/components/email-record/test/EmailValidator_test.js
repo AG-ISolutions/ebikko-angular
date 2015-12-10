@@ -12,7 +12,9 @@
 
         it("should accept valid emails", function() {
             var email = {
-                to: "Person",
+                principals: [{
+                    email: "test"
+                }],
                 subject: "Subject",
                 message: "Message"
             };
@@ -27,14 +29,13 @@
             var response = emailValidator.validate({});
 
             expect(response.hasErrors).toBeTruthy();
-            expect(response.errors).toContain("To cannot be blank");
+            expect(response.errors).toContain("To cannot be empty");
             expect(response.errors).toContain("Subject cannot be blank");
             expect(response.errors).toContain("Message cannot be blank");
         });
 
         it("should reject empty values", function() {
             var email = {
-                to: "",
                 subject: "",
                 message: ""
             };
@@ -42,9 +43,20 @@
             var response = emailValidator.validate(email);
 
             expect(response.hasErrors).toBeTruthy();
-            expect(response.errors).toContain("To cannot be blank");
+            expect(response.errors).toContain("To cannot be empty");
             expect(response.errors).toContain("Subject cannot be blank");
             expect(response.errors).toContain("Message cannot be blank");
+        });
+
+        it("should reject empty to", function() {
+            var email = {
+                principals: []
+            };
+
+            var response = emailValidator.validate(email);
+
+            expect(response.hasErrors).toBeTruthy();
+            expect(response.errors).toContain("To cannot be empty");
         });
     });
 })();

@@ -8,16 +8,13 @@
     function SecureShareController($mdDialog, secureShareService, secureShareValidator, messageResolver) {
         var self = this;
         this.ss = {
-            nodeId: this.nodeId
+            nodeId: this.nodeId,
+            principals: []
         };
 
         self.cancel = cancel;
         self.secureShare = secureShare;
-        self.minDate = new Date(
-                new Date().getFullYear(),
-                new Date().getMonth(),
-                new Date().getDate()
-            );
+        self.minDate = new Date();
 
         function cancel() {
             $mdDialog.cancel();

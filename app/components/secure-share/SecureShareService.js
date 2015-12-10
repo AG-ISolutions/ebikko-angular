@@ -18,7 +18,7 @@
                 'method': 'PIN_SEND',
                 'node_ids': [ss.nodeId],
                 'principal_id': userRepository.getPrincipalDetails().results[0].principal_id,
-                'emails': ss.emails,
+                'emails': ss.principals.map(transformPrincipalsToEmails).join(';'),
                 'expiry_date': $filter('date')(ss.expiry_date, "yyyy-MM-dd'T'HH:mm:ss"),
                 'password': ss.password,
                 'use_once_only': ss.use_once_only ? true : false,
@@ -30,6 +30,10 @@
                 'method': 'POST',
                 'url': '/Pin?json='+stringed
             });
+        }
+
+        function transformPrincipalsToEmails(principal){
+            return principal.email;
         }
 	}	
 })();
