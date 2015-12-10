@@ -1,0 +1,15 @@
+md-content.secureShare form md-datepicker button.md-datepicker-button {
+    display: none;
+}
+
+md-content.secureShare form md-datepicker div.md-datepicker-input-container {
+    margin-left: 2px;
+}
+
+md-content.secureShare form md-checkbox {
+    margin-left: 0px;
+}
+
+md-content.secureShare input.md-datepicker-input {
+    width: 100%;
+}

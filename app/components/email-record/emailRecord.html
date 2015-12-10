@@ -1,0 +1,30 @@
+<md-content layout-padding layout="row" layout-align="left center" class="emailRecord">
+    <form name="emailRecordForm">
+
+        <ebikko-email-search model="erc.email.principals"></ebikko-email-search/>
+
+        <md-input-container class="md-block" flex="100">
+            <label>Subject</label>
+            <input type="text" ng-model="erc.email.subject">
+        </md-input-container>
+        <md-checkbox ng-model="erc.email.email_as_content" aria-label="Email as content">
+            Email as content
+        </md-checkbox>
+        <md-input-container class="md-block">
+            <label>Message</label>
+            <textarea ng-model="erc.email.message" columns="1" md-maxlength="150" rows="5"></textarea>
+        </md-input-container>
+        <div class="errors" ng-show="erc.errors.length > 0" layout-align="left center">
+            <li ng-repeat="error in erc.errors">
+                <ul>{{error}}</ul>
+            </li>
+        </div>
+        <div layout="row" layout-align="center center" flex="100" class="md-block" ng-hide="erc.saving">
+            <md-button class="md-raised" ng-click="erc.cancel()">Cancel</md-button>
+            <md-button class="md-raised md-primary" ng-click="erc.send()">Send</md-button>
+        </div>
+        <div layout="row" layout-sm="column" layout-align="center center" ng-show="erc.saving">
+            <md-progress-circular md-mode="indeterminate" md-diameter="100"></md-progress-circular>
+        </div>
+    </form>
+</md-content>

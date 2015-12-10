@@ -1,0 +1,41 @@
+<md-content layout-padding layout="row" layout-align="left center" class="secureShare">
+    <form name="secureShareForm">
+
+        <ebikko-email-search model="ssc.ss.principals"></ebikko-email-search/>
+
+        <md-input-container class="md-block" flex="100">
+            <label>Password</label>
+            <input type="password" ng-model="ssc.ss.password">
+        </md-input-container>
+        <md-input-container class="md-block" flex="100">
+            <label>Repeat Password</label>
+            <input type="password" ng-model="ssc.ss.repeatPassword">
+        </md-input-container>
+        <md-datepicker ng-model="ssc.ss.expiry_date" md-placeholder="Expiry date" class="md-block" md-min-date="ssc.minDate"></md-datepicker>
+        <md-input-container class="md-block" flex="100">
+            <md-checkbox ng-model="ssc.ss.use_once_only" aria-label="Use only once">
+                Use only once
+            </md-checkbox>
+        </md-input-container>
+        <md-input-container class="md-block" flex="100">
+            <label>Subject</label>
+            <input ng-model="ssc.ss.subject">
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Message</label>
+            <textarea ng-model="ssc.ss.message" columns="1" md-maxlength="150" rows="5"></textarea>
+        </md-input-container>
+        <div class="errors" ng-show="ssc.errors.length > 0" layout-align="left center">
+            <li ng-repeat="error in ssc.errors">
+                <ul>{{error}}</ul>
+            </li>
+        </div>
+        <div layout="row" layout-align="center center" flex="100" class="md-block" ng-hide="ssc.saving">
+            <md-button class="md-raised" ng-click="ssc.cancel()">Cancel</md-button>
+            <md-button class="md-raised md-primary" ng-click="ssc.secureShare()">Send</md-button>
+        </div>
+        <div layout="row" layout-sm="column" layout-align="center center" ng-show="ssc.saving">
+            <md-progress-circular md-mode="indeterminate" md-diameter="100"></md-progress-circular>
+        </div>
+    </form>
+</md-content>

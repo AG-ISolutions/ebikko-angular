@@ -1,0 +1,31 @@
+{
+    "code": 100,
+    "data": {
+        "responsemsg": "Login successful"
+    },
+    "ebikko_session_id": "a5cdfef9df1c45de856a2c7337692439",
+    "principal_id": "00000000000000000000000000000000",
+    "isDDMS": "",
+    "defLang": "en_US",
+    "email": null,
+    "principal_details": [{
+        "fullname": "ROOT",
+        "username": "root",
+        "can_change_principal_security_level": true,
+        "currentdataset": "New Demo",
+        "members": [{
+            "groupname": "Admin Group"
+        }]
+    }],
+    "principal_profile": [{
+        "classification": true
+    }, {
+        "node_type": true
+    }, {
+        "property": true
+    }, {
+        "security_level": true
+    }, {
+        "store": true
+    }]
+}

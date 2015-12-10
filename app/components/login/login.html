@@ -1,26 +1,24 @@
-<div ng-controller="LoginController as lc" layout="column" ng-cloak layout-align="center">
-    <div layout="row" layout-align="center center">
-        <md-toolbar layout="row" flex="40">
-            <div class="md-toolbar-tools">
-                <h2>
-					<span>Ebikko Login Page</span>
-				</h2>
-            </div>
+<div layout="row" flex="grow" ng-cloak layout-align="center center" class="loginPage">
+    <md-whiteframe class="md-whiteframe-1dp" flex="25" layout="column" layout-align="center center">
+        <md-toolbar layout="row" class="md-toolbar-tools" layout-align="center center">
+            Meeting Manager Login
         </md-toolbar>
-    </div>
-    <div layout="row" layout-align="center center">
-        <md-content layout-padding flex="40">
-            <form name="loginForm">
-                <md-input-container class="md-block">
+        <md-content layout-padding layout="row" layout-align="center center">
+            <form name="loginForm" id="loginForm" ng-submit="login.login()">
+                <md-input-container class="md-block" flex="100">
                     <label>Username</label>
-                    <input ng-model="lc.username">
+                    <input ng-model="login.username">
                 </md-input-container>
-                <md-input-container class="md-block">
+                <md-input-container class="md-block" flex="100">
                     <label>Password</label>
-                    <input type="password" ng-model="lc.password">
+                    <input type="password" ng-model="login.password">
                 </md-input-container>
-                <md-button class="md-raised md-primary" style="margin-left:0px" ng-click="lc.login()">Login</md-button>
+                <div class="password-error">{{login.errorMessage}}</div>
+                <md-button type="submit" class="md-raised md-primary">Login</md-button>
             </form>
         </md-content>
-    </div>
+        <div class="secondaryLink" flex="100" layout="row" layout-align="end center">
+            <md-button md-no-ink ng-href="/forgotPassword">Forgot password?</md-button>
+        </div>
+    </md-whiteframe>
 </div>
