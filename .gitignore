@@ -1,6 +1,6 @@
 /node_modules
 /app/bower_components
 /dist
+/test_out
 
 *.DS_Store
-dist/ebikko-angular-0.0.1.zip
