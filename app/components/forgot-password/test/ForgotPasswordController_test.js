@@ -5,18 +5,20 @@
 
         jasmine.getJSONFixtures().fixturesPath = 'base/test/fixtures/';
 
-        var controller, $q, $rootScope;
+        var controller, $q, $rootScope, $location;
         var forgotPasswordService = jasmine.createSpyObj('forgotPasswordService', ['resetPassword']);
         var validator = jasmine.createSpyObj('validator', ['validate']);
 
         beforeEach(module('ebikko.forgot-password'));
 
-        beforeEach(inject(function(_$controller_, _$q_, _$rootScope_) {
+        beforeEach(inject(function(_$controller_, _$q_, _$rootScope_, _$location_) {
             $q = _$q_;
             $rootScope = _$rootScope_;
+            $location = _$location_;
             controller = _$controller_('ForgotPasswordController', {
                 forgotPasswordService: forgotPasswordService,
-                forgotPasswordValidator: validator
+                forgotPasswordValidator: validator,
+                $location: $location
             });
         }));
 
@@ -32,10 +34,7 @@
         });
 
         it("should parse the username and set loading to true while calling the service", function() {
-            validator.validate.and.returnValue({
-                errors: [],
-                hasErrors: false
-            });
+            validator.validate.and.returnValue(successfulValidation);
 
             var deferred = $q.defer();
             forgotPasswordService.resetPassword.and.returnValue(deferred.promise);
@@ -46,7 +45,7 @@
             controller.submit();
 
             expect(controller.saving).toBeTruthy();
-            expect(forgotPasswordService.resetPassword).toHaveBeenCalledWith('username', 'test_repo', 'email@address.com');
+            expect(forgotPasswordService.resetPassword).toHaveBeenCalledWith('username', 'test_repo', 'email@address.com', '');
 
             deferred.resolve();
             $rootScope.$digest();
@@ -54,10 +53,7 @@
         });
 
         it("should display the error when calling the service fails", function() {
-            validator.validate.and.returnValue({
-                errors: [],
-                hasErrors: false
-            });
+            validator.validate.and.returnValue(successfulValidation);
 
             var deferred = $q.defer();
             forgotPasswordService.resetPassword.and.returnValue(deferred.promise);
@@ -72,5 +68,23 @@
 
             expect(controller.errors).toContain('Invalid Username or Password');
         });
+
+        it("should pass the url to the service", function() {
+            validator.validate.and.returnValue(successfulValidation);
+            controller.form.username = 'username@test_repo';
+            controller.form.email = 'email@address.com';
+
+            spyOn($location, 'absUrl').and.returnValue("http://angular.com:123/ang/#/forgotPassword");
+
+            controller.submit();
+
+            expect(forgotPasswordService.resetPassword)
+                .toHaveBeenCalledWith('username', 'test_repo', 'email@address.com', 'http://angular.com:123/ang/');
+        });
+
+        var successfulValidation = {
+            errors: [],
+            hasErrors: false
+        };
     });
 })();

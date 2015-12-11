@@ -23,10 +23,10 @@
 
         it('should send reset password request', function() {
             httpBackend
-                .expectPOST(/\/PasswordRecovery(.*)("username":"username")(.*)("repo_id":"test_repo")(.*)("email":"email@address.com")(.*)/)
+                .expectPOST(/\/PasswordRecovery(.*)("username":"username")(.*)("repo_id":"test_repo")(.*)("email":"email@address.com")(.*)("redirect_url":"\/url")/)
                 .respond(200);
 
-            forgotPasswordService.resetPassword('username', 'test_repo', 'email@address.com');
+            forgotPasswordService.resetPassword('username', 'test_repo', 'email@address.com', '/url');
 
             httpBackend.flush();
         });

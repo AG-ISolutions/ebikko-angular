@@ -12,12 +12,13 @@
 
         return self;
 
-        function resetPassword(username, repo, email) {
+        function resetPassword(username, repo, email, redirectUrl) {
             var json = {
                 'username': username,
                 'repo_id': repo,
                 'email': email,
-                'hasAlliase': true
+                'hasAlliase': true,
+                'redirect_url': redirectUrl
             };
             return $http({
                 'method': 'Post',
