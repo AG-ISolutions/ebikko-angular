@@ -18,6 +18,9 @@
             validationUtils.errorMessageIfUndefined(ss.nodeId, "Node ID", errors);
             validationUtils.errorMessageIfUndefined(ss.principals, "Email", errors);
             validationUtils.errorMessageIfUndefined(ss.password, "Password", errors);
+            validationUtils.errorMessageIfUndefined(ss.subject, "Subject", errors);
+            validationUtils.errorMessageIfUndefined(ss.message, "Message", errors);
+
 
             if (ss.password !== ss.repeatPassword) {
                 errors.push("Passwords do not match");

@@ -96,6 +96,22 @@
             expect(emailRecordController.saving).toBeFalsy();
         });
 
+        it("should clear errors once validation is successful", function() {
+            var deferred = $q.defer();
+            emailRecordService.emailRecord.and.returnValue(deferred.promise);
+            
+            var emailRecordController = createController();
+            emailRecordController.errors = ["Error message"];
+            emailValidator.validate.and.returnValue(successfulValidation);
+            emailRecordController.email = {
+                message: 'message'
+            };
+
+            emailRecordController.send();
+
+            expect(emailRecordController.errors.length).toEqual(0);
+        });
+
         function createController() {
             return $controller('EmailRecordController', {
                 $mdDialog: $mdDialog,

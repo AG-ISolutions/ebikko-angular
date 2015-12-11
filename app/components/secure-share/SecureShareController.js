@@ -3,9 +3,9 @@
 
     angular
         .module('ebikko.secure-share')
-        .controller('secureShareController', ['$mdDialog', 'secureShareService', 'secureShareValidator', 'messageResolver', SecureShareController]);
+        .controller('secureShareController', ['$mdDialog', '$mdToast', 'secureShareService', 'secureShareValidator', 'messageResolver', SecureShareController]);
 
-    function SecureShareController($mdDialog, secureShareService, secureShareValidator, messageResolver) {
+    function SecureShareController($mdDialog, $mdToast, secureShareService, secureShareValidator, messageResolver) {
         var self = this;
         this.ss = {
             nodeId: this.nodeId,
@@ -21,14 +21,17 @@
         }
 
         function secureShare() {
-            self.errors = [];
-            var validationResponse = secureShareValidator.validate(self.ss);
-            if (validationResponse.hasErrors) {
-                self.errors = validationResponse.errors;
-            } else {
+            self.errors = secureShareValidator.validate(self.ss).errors;
+            if (self.errors.length === 0) {
                 self.saving = true;
                 secureShareService.secureShareNode(self.ss).then(function() {
                     self.saving = false;
+                    $mdToast.show(
+                        $mdToast.simple()
+                        .content('Secure share sent successfully')
+                        .position('top left')
+                        .hideDelay(3000)
+                    );
                     $mdDialog.hide();
                 }, function(response) {
                     self.errors = [messageResolver.resolveMessage(response.data.data.responsemsg)];
