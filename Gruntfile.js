@@ -16,7 +16,7 @@ module.exports = function(grunt) {
         compress: {
             dist: {
                 options: {
-                    archive: 'dist/<%= pkg.name %>-<%= pkg.version %>.zip'
+                    archive: 'dist/<%= pkg.name %>.zip'
                 },
                 files: [{
                     expand: true,
@@ -54,6 +54,13 @@ module.exports = function(grunt) {
                 options: {
                     base: ['app']
                 }
+            }
+        },
+
+        copy: {
+            main: {
+                src: 'dist/<%= pkg.name %>.zip',
+                dest: 'dist/<%= pkg.name %>.war'
             }
         },
 
@@ -125,7 +132,7 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('default', ['jshint', 'karma:unit', 'clean', 'compress']);
+    grunt.registerTask('default', ['jshint', 'karma:unit', 'clean', 'compress', 'copy']);
     grunt.registerTask('e2e-test', ['connect:test', 'protractor:continuous']);
 
     grunt.loadNpmTasks('grunt-bower-task');
@@ -133,6 +140,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-html2js');
