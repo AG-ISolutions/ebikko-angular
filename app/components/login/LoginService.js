@@ -1,92 +1,93 @@
-/**
- *@ngdoc service
- *@name EbikkoServices.ebikkoLoginService
- *@description Login and Logout services
- * issues a broadcast on completion of each to notify other modules
- */
-angular
-    .module('ebikko.login')
-    .service('loginService', ['$http', '$q', '$rootScope', '$location', 'ebikkoConfig',
-        LoginService
-    ]);
+(function() {
+    'use strict';
 
-function LoginService($http, $q, $rootScope, $location, config) {
-    var self = this;
+    /**
+     *@ngdoc service
+     *@name EbikkoServices.ebikkoLoginService
+     *@description Login and Logout services
+     * issues a broadcast on completion of each to notify other modules
+     */
+    angular
+        .module('ebikko.login')
+        .service('loginService', ['$http', '$q', '$rootScope', '$location', 'userRepository',
+            LoginService
+        ]);
 
-    self.setLogin = function(loginDetails) {
-        self.loginDetails = loginDetails;
-        self.name = loginDetails.principal_details[0].fullname;
-    };
+    function LoginService($http, $q, $rootScope, $location, userRepository) {
+        var self = {
+            clearLogin: clearLogin,
+            login: login,
+            logout: logout
+        };
 
-    self.setPrincipalDetails = function(loginDetails) {
-        self.principalDetails = loginDetails;
-        self.validLogin = true;
-    };
+        return self;
 
-    self.clearLogin = function() {
-        self.loginDetails = {};
-        self.validLogin = false;
-    };
-    self.getSessionId = function() {
-        return self.loginDetails.ebikko_session_id;
-    };
+        function clearLogin() {
+            userRepository.clearCurrentUser();
+        }
 
-    self.login = function(username, password) {
-            $http({
-                'method': 'Post',
-                'url': config.basePath + '/Login',
-                'params': {
-                    'json': '{"username": "' + username + '","password":"' + password + '"}'
-                }
-            }).success(function(data) {
-                self.setLogin(data);
-                var params = {
-                    method: "PRINCIPAL_DETAIL",
-                    principal_id: self.loginDetails.principal_id,
-                    ebikko_session_id: self.getSessionId()
-                };
-                $http({
-                    'method': 'GET',
-                    'url': config.basePath + '/Principal',
-                    'params': {
-                        'json': params
-                    }
-                }).success(function(data) {
-                    if (data.results[0].profile_name.match(config.userProfileMatch) != null) {
-                        //$rootScope.$broadcast('EbikkoValidLogin', true);
-                        //$scope.validLogin = true;
-                        self.setPrincipalDetails(data);
-                        $location.url("/nodes/recent-records");
-                    } else {
-                        var p = self.logout();
-                        p.promise.then(function() {
-                            $rootScope.$broadcast('EbikkoMessage', true, 'Admin-1');
-                        });
-                    }
+        function login(username, password) {
+            self.clearLogin();
+
+            var json = {
+                'username': username,
+                'password': password
+            };
+            var stringed = JSON.stringify(json);
+            return $http({
+                'method': 'POST',
+                'url': '/Login?json=' + stringed
+            }).then(function(response) {
+                userRepository.setCurrentUser(response.data);
+
+                $q.all([loadPrincipalDetails(), loadProfileDetails()]).then(function(responses) {
+                    userRepository.setPrincipalDetails(responses[0].data);
+                    userRepository.setProfileDetails(responses[1].data);
+                    $rootScope.$broadcast('loginSuccess');
                 });
             });
         }
-        /**
-         *@ngdoc method
-         *@name EbikkoServices.ebikkoLoginService.ebikkoLoginService
-         *@description Ebikko Logout function
-         * A valid logout broadcasts the message 'ValidLogout'
-         * and also resets the setPrincipalDetails
-         *@methodOf EbikkoServices.ebikkoLoginService
-         */
-    this.logout = function() {
-        var promise = $q.defer();
-        $http({
-            'method': 'Post',
-            'url': '/Logout',
-            'params': {
-                'json': '{"ebikko_session_id":"' + sessionDetails.sessonId() + '"}'
-            }
-        }).success(function(data) {
-            sessionDetails.clearLogin();
-            $rootScope.$broadcast('EbikkoValidLogout', true);
-            promise.resolve(data);
-        });
-        return promise.promise;
-    };
-};
+
+        function loadPrincipalDetails() {
+            var json = {
+                method: "PRINCIPAL_DETAIL",
+                principal_id: userRepository.getCurrentUser().principal_id,
+                ebikko_session_id: userRepository.getSessionId()
+            };
+            var stringed = JSON.stringify(json);
+            return $http({
+                'method': 'GET',
+                'url': '/Principal?json=' + stringed
+            });
+        }
+
+        function loadProfileDetails() {
+            var json = {
+                method: "CURRENT_USER_PROFILE_DETAIL",
+                ebikko_session_id: userRepository.getSessionId()
+            };
+            var stringed = JSON.stringify(json);
+            return $http({
+                'method': 'GET',
+                'url': '/Profile?json=' + stringed
+            });
+        }
+
+        function logout() {
+            var json = {
+                'ebikko_session_id': userRepository.getSessionId()
+            };
+            return $http({
+                'method': 'POST',
+                'url': '/Logout',
+                'params': {
+                    'json': json
+                }
+            }).then(completeLogout, completeLogout);
+        }
+
+        function completeLogout() {
+            $rootScope.$broadcast('logoutSuccess');
+        }
+    }
+})();

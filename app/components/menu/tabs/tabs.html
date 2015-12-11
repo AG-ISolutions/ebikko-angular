@@ -1,0 +1,13 @@
+<md-tabs flex="grow" md-border-bottom md-autoselect ng-hide="tc.tabs.length === 0">
+    <md-tab ng-repeat="tab in tc.tabs" md-active="tc.getSelectedTab() === tab" md-on-select="tc.selectTab(tab)" ng-class="tabTest">
+        <md-tab-label>
+            <span class="tab-label-{{tab.type}}">
+                {{tab.name}}
+                <md-icon md-svg-icon="close" ng-click="tc.closeTab(tab)"></md-icon>
+            </span>
+        </md-tab-label>
+        <md-tab-body>
+            <content-container content="tab.content" ng-class="{fullscreen: tab.fullscreen}" />
+        </md-tab-body>
+    </md-tab>
+</md-tabs>

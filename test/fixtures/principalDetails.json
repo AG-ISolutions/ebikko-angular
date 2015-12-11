@@ -1,0 +1,52 @@
+{
+    "success": true,
+    "code": 100,
+    "data": {
+        "responsemsg": "Principal details retrieved successfully."
+    },
+    "results": [{
+        "principal_id": "e6de8fd01e944e39b646add0c2026de1",
+        "name": "Joe Bloggs",
+        "username": "jbloggs",
+        "profile_name": "Information Manager",
+        "profile_id": "00000000000000000000000000000001",
+        "security_level_name": "Very Confidential",
+        "security_level_id": "d2dfd989c1dd4ab493269be966403a20",
+        "is_internal": true,
+        "external_id": "",
+        "gender": 1,
+        "type": 100,
+        "can_login": true,
+        "email": "testemail@email.com",
+        "active_from": "",
+        "active_to": "",
+        "date_registered": "2014-03-17T21:42:28",
+        "date_last_modified_of_password": "2015-11-20T08:45:32",
+        "barcode": "PhJnf81b26",
+        "external_barcode": null,
+        "ptype": 5,
+        "is_active": true,
+        "address": null,
+        "ic_passport_no": null,
+        "date_of_birth": "",
+        "nationality": null,
+        "business_occupation": null,
+        "default_organization_id": "",
+        "default_organization_name": "",
+        "default_position_id": "",
+        "default_position_name": "",
+        "member_of": [{
+            "_id": "bdb111a18ad14bbb871c0110de482a36_LFVwI",
+            "principal_id": "bdb111a18ad14bbb871c0110de482a36",
+            "name": "PositioTest",
+            "is_default_position": false,
+            "is_default_organization": false,
+            "ptype": 4
+        }]
+    }],
+    "can_update_security_settings": true,
+    "can_update": true,
+    "can_delete": false,
+    "can_changeAcl": true,
+    "is_self": true
+}

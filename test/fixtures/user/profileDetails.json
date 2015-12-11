@@ -1,0 +1,338 @@
+{
+    "success": true,
+    "code": 100,
+    "data": {
+        "responsemsg": "Action done successfully"
+    },
+    "results": [{
+        "count": 82
+    }, {
+        "id": 11000,
+        "name": "LOGIN AND SECURITY POLICIES",
+        "value": true
+    }, {
+        "id": 22000,
+        "name": "SAVED SEARCH",
+        "value": true
+    }, {
+        "id": 1,
+        "name": "STORE ADMIN",
+        "value": true
+    }, {
+        "id": 13000,
+        "name": "SESSION ADMIN",
+        "value": true
+    }, {
+        "id": 26000,
+        "name": "IMPORT",
+        "value": true
+    }, {
+        "id": 21000,
+        "name": "SEARCH RECORDS",
+        "value": true
+    }, {
+        "id": 8001,
+        "name": "OBJECT EVENT LOGS",
+        "value": true
+    }, {
+        "id": 19000,
+        "name": "RECENT RECORDS",
+        "value": true
+    }, {
+        "id": 8000,
+        "name": "RECORD EVENT LOGS",
+        "value": true
+    }, {
+        "id": 11,
+        "name": "RECORD TYPE ADMIN",
+        "value": true
+    }, {
+        "id": 2017,
+        "name": "RECORD DIGITALLY SIGN CONTENT",
+        "value": true
+    }, {
+        "id": 2016,
+        "name": "RECORD DOWNLOAD CONTENT",
+        "value": true
+    }, {
+        "id": 2019,
+        "name": "RECORD BATCH CREATE",
+        "value": true
+    }, {
+        "id": 2018,
+        "name": "RECORD - SECURE SHARE",
+        "value": true
+    }, {
+        "id": 3000,
+        "name": "PROFILE ADMIN",
+        "value": true
+    }, {
+        "id": 2021,
+        "name": "RECORD CREATE CONTENT REDACTION",
+        "value": true
+    }, {
+        "id": 21,
+        "name": "PROPERTY ADMIN",
+        "value": true
+    }, {
+        "id": 2020,
+        "name": "RECORD EXPORT",
+        "value": true
+    }, {
+        "id": 16000,
+        "name": "RECORD COPY",
+        "value": true
+    }, {
+        "id": 2023,
+        "name": "RECORD REQUESTS CREATE",
+        "value": true
+    }, {
+        "id": 5000,
+        "name": "MISC CAN IMPERSONATE",
+        "value": false
+    }, {
+        "id": 2022,
+        "name": "RECORD CREATE VOLUME",
+        "value": true
+    }, {
+        "id": 2025,
+        "name": "RECORD MODIFY NOTES",
+        "value": true
+    }, {
+        "id": 2024,
+        "name": "RECORD MODIFY CLASS",
+        "value": true
+    }, {
+        "id": 2027,
+        "name": "RECORD VIEW",
+        "value": true
+    }, {
+        "id": 2026,
+        "name": "RECORD APPEND NOTES",
+        "value": true
+    }, {
+        "id": 2029,
+        "name": "RECORD DELETE RENDITION",
+        "value": true
+    }, {
+        "id": 2028,
+        "name": "RECORD ADD RENDITION",
+        "value": true
+    }, {
+        "id": 2002,
+        "name": "RECORD CHANGE",
+        "value": true
+    }, {
+        "id": 2003,
+        "name": "RECORD DELETE",
+        "value": true
+    }, {
+        "id": 2001,
+        "name": "RECORD CREATE",
+        "value": true
+    }, {
+        "id": 2006,
+        "name": "RECORD DELETE CONTENT",
+        "value": true
+    }, {
+        "id": 2007,
+        "name": "RECORD UNFINALIZE",
+        "value": true
+    }, {
+        "id": 2005,
+        "name": "RECORD CHANGE CONTENT",
+        "value": true
+    }, {
+        "id": 6000,
+        "name": "RECORD ADMINISTRATION",
+        "value": true
+    }, {
+        "id": 2010,
+        "name": "RECORD CREATE CONTENT ANNOTATION",
+        "value": true
+    }, {
+        "id": 42,
+        "name": "CLASSIFICATION ADMIN(TOP LEVEL)",
+        "value": true
+    }, {
+        "id": 6001,
+        "name": "RECORD ARCHIVIST",
+        "value": true
+    }, {
+        "id": 2011,
+        "name": "RECORD CHANGE CONTENT ANNOTATION",
+        "value": true
+    }, {
+        "id": 2008,
+        "name": "RECORD CHANGE SECURITY",
+        "value": true
+    }, {
+        "id": 2009,
+        "name": "RECORD PRINT CONTENT",
+        "value": true
+    }, {
+        "id": 41,
+        "name": "CLASSIFICATION ADMIN",
+        "value": true
+    }, {
+        "id": 2014,
+        "name": "RECORD RELATIONSHIPS REMOVE",
+        "value": true
+    }, {
+        "id": 10000,
+        "name": "AUTOSCRIPT ADMIN",
+        "value": true
+    }, {
+        "id": 2015,
+        "name": "RECORD EMAIL",
+        "value": true
+    }, {
+        "id": 2012,
+        "name": "RECORD DELETE CONTENT ANNOTATION",
+        "value": true
+    }, {
+        "id": 2013,
+        "name": "RECORD RELATIONSHIPS ADD",
+        "value": true
+    }, {
+        "id": 51,
+        "name": "PRINCIPAL CREATE",
+        "value": true
+    }, {
+        "id": 14000,
+        "name": "CLASSIFICATION BATCH CREATE",
+        "value": true
+    }, {
+        "id": 54,
+        "name": "PRINCIPAL CHANGE SECURITY AND LOGIN",
+        "value": true
+    }, {
+        "id": 53,
+        "name": "PRINCIPAL DELETE",
+        "value": true
+    }, {
+        "id": 52,
+        "name": "PRINCIPAL CHANGE",
+        "value": true
+    }, {
+        "id": 27000,
+        "name": "RECORD ADMINISTRATION DELETE",
+        "value": true
+    }, {
+        "id": 18000,
+        "name": "IN TRAY",
+        "value": true
+    }, {
+        "id": 61,
+        "name": "RETENTION SCHEDULE ADMIN",
+        "value": true
+    }, {
+        "id": 71,
+        "name": "SECURITY LEVEL ADMIN",
+        "value": true
+    }, {
+        "id": 4000,
+        "name": "FAVOURITES",
+        "value": true
+    }, {
+        "id": 15000,
+        "name": "RETENTION SCHEDULE BATCH CREATE",
+        "value": true
+    }, {
+        "id": 17000,
+        "name": "RECORD SCAN",
+        "value": true
+    }, {
+        "id": 12000,
+        "name": "MESSENGER",
+        "value": true
+    }, {
+        "id": 1000,
+        "name": "BYPASS SECURITY AND ACCESS CONTROL",
+        "value": true
+    }, {
+        "id": 81,
+        "name": "SECURITY CAVEAT ADMIN",
+        "value": true
+    }, {
+        "id": 93,
+        "name": "SAVED SEARCH DELETE",
+        "value": true
+    }, {
+        "id": 92,
+        "name": "SAVED SEARCH CHANGE",
+        "value": true
+    }, {
+        "id": 20000,
+        "name": "CHECKED OUT",
+        "value": true
+    }, {
+        "id": 7000,
+        "name": "RECORD REQUESTS ADMIN",
+        "value": true
+    }, {
+        "id": 95,
+        "name": "LOOKUPSET ADMIN",
+        "value": true
+    }, {
+        "id": 94,
+        "name": "HOLD ADMIN",
+        "value": true
+    }, {
+        "id": 9000,
+        "name": "REPORT CREATE",
+        "value": true
+    }, {
+        "id": 91,
+        "name": "SAVED SEARCH CREATE",
+        "value": true
+    }, {
+        "id": 102,
+        "name": "WORKFLOW ABORT",
+        "value": true
+    }, {
+        "id": 103,
+        "name": "WORKFLOW COMPLETE TASK",
+        "value": true
+    }, {
+        "id": 100,
+        "name": "WORKFLOW ADMINISTRATION",
+        "value": true
+    }, {
+        "id": 101,
+        "name": "WORKFLOW LAUNCH",
+        "value": true
+    }, {
+        "id": 111,
+        "name": "GADGET ADMIN",
+        "value": true
+    }, {
+        "id": 28000,
+        "name": "EMAIL CLIENT",
+        "value": true
+    }, {
+        "id": 23000,
+        "name": "BROWSE BY CLASSIFICATION",
+        "value": true
+    }, {
+        "id": 25000,
+        "name": "ACTION TRAY",
+        "value": true
+    }, {
+        "id": 112,
+        "name": "GADGET USER",
+        "value": true
+    }, {
+        "id": 123,
+        "name": "SCHEDULE BASED NOTIFICATION ADMIN",
+        "value": true
+    }, {
+        "id": 122,
+        "name": "EVENT BASED NOTIFICATION ADMIN",
+        "value": true
+    }, {
+        "id": 121,
+        "name": "EMAIL TEMPLATE ADMIN",
+        "value": true
+    }]
+}

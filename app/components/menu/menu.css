@@ -1,0 +1,122 @@
+/* Page Header */
+
+div.menuButtons button.md-icon-button {
+    margin: 0px;
+}
+
+
+/* Tabs */
+
+#menuTabs {
+    min-height: 50px;
+}
+
+md-tab-content div[md-tabs-template] {
+    height: 100%;
+}
+
+md-pagination-wrapper {
+    width: 100%;
+}
+
+md-icon[md-svg-icon="close"] {
+    position: relative;
+    top: -1px;
+}
+
+span.tab-label-node-properties {
+    font-style: italic;
+}
+
+/* Toolbar area */
+
+md-tabs-wrapper {
+    margin-right: 40px;
+}
+
+.menu {
+    background-color: transparent;
+    border: none;
+    height: 38px;
+    margin: 16px;
+    width: 36px;
+}
+
+md-toolbar h1 {
+    margin: auto;
+}
+
+
+/* Sidenav area */
+
+md-list .md-button {
+    color: inherit;
+    font-weight: 500;
+    text-align: left;
+    width: 100%;
+}
+
+md-list .md-button.selected {
+    color: #03a9f4;
+}
+
+md-sidenav md-list {
+    padding: 0px 0px 8px 0px;
+}
+
+md-tab-content {
+    height: 100%;
+}
+
+md-tabs .md-tab md-icon[md-svg-icon="close"] {
+    color: grey;
+    cursor: pointer;
+    position: relative;
+    top: -1px;
+}
+
+md-menu.tab-menu {
+    position: absolute;
+    top: 67px;
+    left: 96%;
+}
+
+div.quickSearch input {
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    transition: all .25s linear;
+    width: 28px;
+    background: url("../../assets/svg/ic_search_white_24px.svg");
+    background-position: right center;
+    background-repeat: no-repeat;
+    outline-style: none;
+    padding-right: 24px;
+    margin-right: 10px;
+}
+
+div.quickSearch input:focus {
+    width: 100%;
+}
+
+div.quickSearch md-icon {
+    margin: 5px;
+}
+
+.fullscreen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-color: white;
+    z-index: 10;
+}
+
+md-toast {
+    z-index: 15;
+}
+
+content-container:focus {
+    outline: none;
+}

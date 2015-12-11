@@ -1,0 +1,21 @@
+{
+    "data": {
+        "success": true,
+        "code": 100,
+        "data": {
+            "responsemsg": "Email sent successfully"
+        }
+    },
+    "status": 200,
+    "config": {
+        "method": "POST",
+        "transformRequest": [null],
+        "transformResponse": [null],
+        "url": "/SendEmail?json={\"ebikko_session_id\":\"j14a49e09b684a338031b19ff2a06ea2\",\"method\":\"EMAIL_LINK\",\"sender\":\"email.sender@ebikko.com\",\"receiver_list\":[\"email.reciever@ebikko.com\"],\"subject\":\"Test\",\"cc_list\":[],\"bcc_list\":[],\"attachments\":[{\"node_id\":\"ddc546fac8c643f7bbc6232c30c1d298-id6ce4e6268f4caaafd6b9ff7b417ed9\",\"title\":\"test2\",\"file_name\":\"watermark-1584405161355090249.pdf\",\"version\":0}]}&message=Test&txt_subject=Test&txt_sender=email.sender%40ebikko.com",
+        "headers": {
+            "Accept": "application/json, text/plain, */*"
+        },
+        "withCredentials": true
+    },
+    "statusText": "OK"
+}

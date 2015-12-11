@@ -1,7 +1,28 @@
-<div ebikko-menu></div>
-
-{{nodes.table_options}}
-
-<div ng-controller="tableController as tc">
-	<dtable options="tc.table_options" rows="nodes.nodes" class="material dt"></dtable>
+<script type="text/ng-template" id="tree_node">
+    <tr tt-node is-branch="!node._is_leaf" ng-class="{hasContent: node.is_electronic, isLeaf: node._is_leaf}">
+        <td>
+            <md-icon md-svg-icon="info" ng-click="nodes.viewProperties(node)"></md-icon>
+        </td>
+        <td ng-class="{loading: loading}" ng-click="nodes.selectNode(node)"><span ng-bind="node.title"></span></td>
+        <td ng-bind="node.node_type_name" ng-click="nodes.selectNode(node)"></td>
+    </tr>
+</script>
+<div layout="row" layout-sm="column" layout-align="center center" ng-show="nodes.pageLoading">
+    <md-progress-circular md-mode="indeterminate" md-diameter="100"></md-progress-circular>
 </div>
+<table class="table table-hover" tt-table tt-params="nodes.dynamic_params" ng-hide="nodes.pageLoading">
+    <thead>
+        <tr>
+            <th style="width: 2%;"></th>
+            <th style="width: 60%;"><span class="indenter"></span>Title</th>
+            <th style="width: 48%;">Type</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<span ng-hide="nodes.pageLoading">
+    <md-button ng-disabled="nodes.start == 0" ng-click="nodes.previous()">Previous</md-button>
+    <md-button ng-disabled="nodes.start + nodes.limit >= nodes.count" ng-click="nodes.next()">Next</md-button>
+    Showing {{nodes.start + 1}} - {{nodes.start + nodes.limit > nodes.count ? nodes.count : nodes.start + nodes.limit}} of {{nodes.count}}
+</span>
