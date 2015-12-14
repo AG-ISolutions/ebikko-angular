@@ -39,4 +39,4 @@ To continually run the tests whenever files are changed, run the following comma
 
 	grunt watch
 	
-This will watch for changes to any of the application files and 	
+This will watch for changes to any of the application files and run through all the unit tests when any changes are detected	
