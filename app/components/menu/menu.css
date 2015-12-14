@@ -34,6 +34,11 @@ md-tabs-wrapper {
     margin-right: 40px;
 }
 
+md-tabs {
+        background-color: white;
+
+}
+
 .menu {
     background-color: transparent;
     border: none;

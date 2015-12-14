@@ -3,14 +3,19 @@
 
     angular
         .module('ebikko.forgot-password')
-        .service('forgotPasswordService', ['$http', ForgotPasswordService]);
+        .service('forgotPasswordService', ['$http', '$rootScope', ForgotPasswordService]);
 
-    function ForgotPasswordService($http) {
+    function ForgotPasswordService($http, $rootScope) {
         var self = {
+            broadcastSuccessMessage: broadcastSuccessMessage,
             resetPassword: resetPassword
         };
 
         return self;
+
+        function broadcastSuccessMessage() {
+            $rootScope.$broadcast('passwordResetSuccess');
+        }
 
         function resetPassword(username, repo, email, redirectUrl) {
             var json = {

@@ -24,7 +24,7 @@
                     .resetPassword(splitString[0], splitString[1], self.form.email, redirectUrl)
                     .then(function(response) {
                         self.saving = false;
-                        $location.url('/login');
+                        forgotPasswordService.broadcastSuccessMessage();
                     }, function(response) {
                         self.saving = false;
                         self.errors = [messageResolver.resolveMessage(response.data.data.responsemsg)];

@@ -3,7 +3,7 @@
 
     angular
         .module('ebikko', ['ngMaterial', 'ngNewRouter', 'ebikko.login', 'ebikko.config', 'ebikko.menu', 'ebikko.nodes', 'ebikko.forgot-password', 'ebikko.node-properties', 'ebikko.tabs', 'ebikko.email-search'])
-        .controller('AppController', ['$router', '$rootScope', 'tabService', 'userRepository', AppController])
+        .controller('AppController', ['$router', '$rootScope', '$mdToast', 'tabService', 'userRepository', AppController])
         .config(['$mdThemingProvider', '$mdIconProvider', '$httpProvider', '$mdDateLocaleProvider',
             function($mdThemingProvider, $mdIconProvider, $httpProvider, $mdDateLocaleProvider) {
 
@@ -37,7 +37,7 @@
             }
         ]);
 
-    function AppController($router, $rootScope, tabService, userRepository) {
+    function AppController($router, $rootScope, $mdToast, tabService, userRepository) {
         $router.config([{
             path: '/',
             redirectTo: '/login'
@@ -61,6 +61,16 @@
             tabService.clearTabs();
             userRepository.clearCurrentUser();
             $router.navigate('login');
+        });
+
+        $rootScope.$on('passwordResetSuccess', function() {
+            $router.navigate('login');
+            $mdToast.show(
+                $mdToast.simple()
+                .content('Password recovery in progress, please check email')
+                .position('top left')
+                .hideDelay(3000)
+            );
         });
     }
 

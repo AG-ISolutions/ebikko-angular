@@ -115,6 +115,7 @@ div.loginPage {
 
 div.loginPage md-whiteframe {
     min-height: 40%;
+    background-color: white;
 }
 
 div.loginPage button.md-primary {
