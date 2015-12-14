@@ -6,7 +6,7 @@
         jasmine.getJSONFixtures().fixturesPath = 'base/test/fixtures/';
 
         var controller, $q, $rootScope, $location;
-        var forgotPasswordService = jasmine.createSpyObj('forgotPasswordService', ['resetPassword']);
+        var forgotPasswordService = jasmine.createSpyObj('forgotPasswordService', ['resetPassword', 'broadcastSuccessMessage']);
         var validator = jasmine.createSpyObj('validator', ['validate']);
 
         beforeEach(module('ebikko.forgot-password'));
@@ -50,6 +50,7 @@
             deferred.resolve();
             $rootScope.$digest();
             expect(controller.saving).toBeFalsy();
+            expect(forgotPasswordService.broadcastSuccessMessage).toHaveBeenCalled();
         });
 
         it("should display the error when calling the service fails", function() {
