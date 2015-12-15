@@ -23,8 +23,11 @@
         });
 
         it('should login', function() {
+            var username = browser.params.login.username;
+            var password = browser.params.login.password;
+
             page
-                .enterUsernameAndPassword('root@demo208', 'root')
+                .enterUsernameAndPassword(username, password)
                 .clickSubmitExpectingToPass();
         })
     });

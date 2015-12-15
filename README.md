@@ -33,10 +33,21 @@ Deploy the generated artifact to a webserver. The simplest thing to do is copy t
 	
 For e2e tests use
 
-	grunt e2e-test
+	grunt e2e-test --baseUrl=url --username=name --password=password
+	
+The baseUrl, username and password parameters are optional, but allow for running the e2e tests against a specific environment. The defaults are listed below
+
+| Parameter | Default |
+| --------- | ------- |
+| baseUrl   | http://localhost:8080/app |
+| username  | root@demo208 |
+| password  | root |
 	
 To continually run the tests whenever files are changed, run the following command
 
 	grunt watch
 	
 This will watch for changes to any of the application files and run through all the unit tests when any changes are detected	
+## Open Source
+
+Please remember that this project is in the public domain, so it is important that the source code is kept free of personal information. When adding test fixtures etc... please review all the data to ensure nothing specific to a real person is added.

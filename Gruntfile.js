@@ -93,24 +93,18 @@ module.exports = function(grunt) {
 
         protractor: {
             options: {
-                configFile: "./e2e/protractor.conf.js", // Default config file
-                // keepAlive: true, // If false, the grunt process stops when the test fails.
-                noColor: false, // If true, protractor will not use colors in its output.
-                // debug: true,
+                configFile: "./e2e/protractor.conf.js",
                 args: {
-
+                    baseUrl: getParameter('baseUrl', 'http://localhost:8080/app'),
+                    params: {
+                        login: {
+                            username: getParameter('username', 'root@demo208'),
+                            password: getParameter('password', 'root')
+                        }
+                    }
                 }
             },
-            e2e: {
-                options: {
-                    keepAlive: false
-                }
-            },
-            continuous: {
-                options: {
-                    keepAlive: true
-                }
-            }
+            e2e: {}
         },
 
         watch: {
@@ -133,7 +127,7 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('default', ['jshint', 'karma:unit', 'clean', 'compress', 'copy']);
-    grunt.registerTask('e2e-test', ['connect:test', 'protractor:continuous']);
+    grunt.registerTask('e2e-test', ['connect:test', 'protractor:e2e']);
 
     grunt.loadNpmTasks('grunt-bower-task');
     grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -148,4 +142,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-protractor-runner');
 
+    function getParameter(value, defaultValue) {
+        return grunt.option(value) ? grunt.option(value) : defaultValue;
+    }
 };
