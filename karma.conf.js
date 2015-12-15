@@ -71,6 +71,10 @@ module.exports = function(config) {
         ngHtml2JsPreprocessor: {
             stripPrefix: 'app/',
             moduleName: 'test-templates'
-        }
+        },
+
+        reporters: [
+            'progress', 'junit'
+        ]
     });
 };

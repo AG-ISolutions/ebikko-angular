@@ -13,19 +13,18 @@
         self.submit = submit;
 
         function submit() {
-
-            var validationResponse = validator.validate(self.form);
-
-            if (validationResponse.hasErrors) {
-                self.errors = validationResponse.errors;
-            } else {
+            self.errors = validator.validate(self.form).errors;
+            if (self.errors.length === 0) {
                 self.saving = true;
                 var splitString = self.form.username.split("@");
+
+                var redirectUrl = $location.absUrl().substring(0, $location.absUrl().indexOf('#'));
+
                 forgotPasswordService
-                    .resetPassword(splitString[0], splitString[1], self.form.email)
+                    .resetPassword(splitString[0], splitString[1], self.form.email, redirectUrl)
                     .then(function(response) {
                         self.saving = false;
-                        $location.url('/login');
+                        forgotPasswordService.broadcastSuccessMessage();
                     }, function(response) {
                         self.saving = false;
                         self.errors = [messageResolver.resolveMessage(response.data.data.responsemsg)];

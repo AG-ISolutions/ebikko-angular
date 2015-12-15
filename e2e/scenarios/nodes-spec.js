@@ -8,9 +8,12 @@
         var page;
 
         beforeEach(function() {
+            var username = browser.params.login.username;
+            var password = browser.params.login.password;
+
             browser.get('');
             page = new LoginPage()
-                .enterUsernameAndPassword('root@demo208', 'root')
+                .enterUsernameAndPassword(username, password)
                 .clickSubmitExpectingToPass();
         });
 

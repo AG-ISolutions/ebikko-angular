@@ -18,7 +18,9 @@
                 }],
                 expiry_date: new Date(),
                 password: 'password',
-                repeatPassword: 'password'
+                repeatPassword: 'password',
+                message: 'message',
+                subject: 'subject'
             };
 
             var response = secureShareValidator.validate(secureShare);
@@ -37,6 +39,8 @@
             expect(response.errors).toContain("Email cannot be blank");
             expect(response.errors).toContain("Password cannot be blank");
             expect(response.errors).toContain("Expiry date cannot be blank");
+            expect(response.errors).toContain("Message cannot be blank");
+            expect(response.errors).toContain("Subject cannot be blank");
         });
 
         it("should reject secure shares when the passwords do not match", function() {

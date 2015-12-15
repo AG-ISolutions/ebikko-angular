@@ -3,9 +3,9 @@
 
     angular
         .module('ebikko.email-record')
-        .controller('EmailRecordController', ['$mdDialog', 'emailRecordService', 'emailValidator', EmailRecordController]);
+        .controller('EmailRecordController', ['$mdDialog', '$mdToast', 'emailRecordService', 'emailValidator', EmailRecordController]);
 
-    function EmailRecordController($mdDialog, emailRecordService, emailValidator) {
+    function EmailRecordController($mdDialog, $mdToast, emailRecordService, emailValidator) {
         var self = this;
 
         self.cancel = cancel;
@@ -22,10 +22,8 @@
         }
 
         function send() {
-            var validationResponse = emailValidator.validate(self.email);
-            if (validationResponse.hasErrors) {
-                self.errors = validationResponse.errors;
-            } else {
+            self.errors = emailValidator.validate(self.email).errors;
+            if (self.errors.length === 0) {
                 self.saving = true;
 
                 // The copy prevents the user seeing the '<br/>'s in the text box
@@ -33,6 +31,12 @@
                 emailCopy.message = emailCopy.message.replace("\n", "<br/>");
                 emailRecordService.emailRecord(emailCopy).then(function(response) {
                     $mdDialog.hide();
+                    $mdToast.show(
+                        $mdToast.simple()
+                        .content('Email sent successfully')
+                        .position('top left')
+                        .hideDelay(3000)
+                    );
                     self.saving = false;
                 }, function(response) {
                     self.saving = false;
