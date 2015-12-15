@@ -15,6 +15,15 @@ exports.config = {
 
     framework: 'jasmine',
 
+    onPrepare: function() {
+      var jasmineReporters = require('jasmine-reporters');
+
+      jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter({
+        savePath: 'test_out',
+        filePrefix:  'e2e-results'
+      }));
+    },
+
     params: {
         login: {
             username: 'root@demo208',

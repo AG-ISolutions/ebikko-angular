@@ -23,6 +23,7 @@
     "grunt-protractor-runner": "^3.0.0",
     "http-server": "^0.6.1",
     "jasmine": "^2.4.1",
+    "jasmine-reporters": "^2.0.7",
     "jspm": "^0.16.14",
     "karma": "^0.13.15",
     "karma-chrome-launcher": "^0.2.1",
