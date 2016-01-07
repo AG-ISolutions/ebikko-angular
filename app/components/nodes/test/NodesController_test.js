@@ -9,7 +9,7 @@
         var nodeService, tabService, nodesController;
 
         beforeEach(inject(function(_$controller_) {
-            nodeService = jasmine.createSpyObj('nodeService', ['getRecentRecords', 'getSavedSearch', 'search', 'getContentUrl']);
+            nodeService = jasmine.createSpyObj('nodeService', ['getRecentRecords', 'getSavedSearch', 'textSearch', 'uidSearch', 'getContentUrl']);
             tabService = jasmine.createSpyObj('tabService', ['addTab']);
             nodesController = _$controller_('NodesController', {
                 nodeService: nodeService,
@@ -34,13 +34,22 @@
             expect(nodeService.getSavedSearch).toHaveBeenCalledWith('123');
         });
 
-        it("should perform search when type is search", function() {
+        it("should perform text search when type is search", function() {
             nodesController.type = 'search';
             nodesController.typeId = 'search query';
 
             nodesController.activate();
 
-            expect(nodeService.search).toHaveBeenCalledWith('search query');
+            expect(nodeService.textSearch).toHaveBeenCalledWith('search query');
+        });
+
+        it("should perform uid search when type is uid-search", function() {
+            nodesController.type = 'uid-search';
+            nodesController.typeId = 123;
+
+            nodesController.activate();
+
+            expect(nodeService.uidSearch).toHaveBeenCalledWith([123]);
         });
 
         it("should add tab when selecting a leaf node with electronic content", function() {

@@ -18,7 +18,8 @@
             getRecentRecords: getRecentRecords,
             getSavedSearch: getSavedSearch,
 
-            search: search
+            textSearch: textSearch,
+            uidSearch: uidSearch
         };
 
         return self;
@@ -92,7 +93,7 @@
             });
         }
 
-        function search(searchString) {
+        function textSearch(searchString) {
             var json = {
                 'ebikko_session_id': userRepository.getSessionId(),
                 'method': 'SEARCH',
@@ -106,6 +107,21 @@
                 'url': config.basePath + '/NodeListing?json=' + stringed +
                     '&limit=' + self.defaultLimit + '&start=' + self.defaultStart
             });
+        }
+
+        function uidSearch(uids) {
+            var json = {
+                'ebikko_session_id': userRepository.getSessionId(),
+                'method': 'SEARCH',
+                'search_method': 'NODE_UIDS',
+                'node_ids': uids
+            };
+            var stringed = JSON.stringify(json);
+            return $http({
+                'method': 'GET',
+                'url': config.basePath + '/NodeListing?json=' + stringed +
+                    '&limit=' + self.defaultLimit + '&start=' + self.defaultStart
+            });            
         }
     }
 })();

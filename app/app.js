@@ -3,7 +3,7 @@
 
     angular
         .module('ebikko', ['ngMaterial', 'ngNewRouter', 'ebikko.login', 'ebikko.config', 'ebikko.menu', 'ebikko.nodes', 'ebikko.forgot-password', 'ebikko.node-properties', 'ebikko.tabs', 'ebikko.email-search'])
-        .controller('AppController', ['$router', '$rootScope', '$mdToast', 'tabService', 'userRepository', AppController])
+        .controller('AppController', ['$router', '$routeParams', '$rootScope', '$mdToast', '$location', 'tabService', 'userRepository', AppController])
         .config(['$mdThemingProvider', '$mdIconProvider', '$httpProvider', '$mdDateLocaleProvider',
             function($mdThemingProvider, $mdIconProvider, $httpProvider, $mdDateLocaleProvider) {
 
@@ -31,13 +31,15 @@
                         return "";
                     }
                 };
-
-                $httpProvider.defaults.withCredentials = true;
-                delete $httpProvider.defaults.headers.common['X-Requested-With'];
             }
         ]);
 
-    function AppController($router, $rootScope, $mdToast, tabService, userRepository) {
+    function AppController($router, $routeParams, $rootScope, $mdToast, $location, tabService, userRepository) {
+
+        var self = this;
+        self.page = $location.search().page;
+        self.pageId = $location.search().pageId;
+
         $router.config([{
             path: '/',
             redirectTo: '/login'
@@ -54,6 +56,17 @@
 
         $rootScope.$on('loginSuccess', function() {
             tabService.clearTabs();
+
+            if (self.page === 'uid-search') {
+                tabService.addTab({
+                    'name': 'Records',
+                    'type': 'nodes',
+                    'content': "<nodes type='uid-search' type-id='" + self.pageId + "'/>",
+                    'id': 'uid-search'
+                });
+            }
+
+            $location.url($location.path());
             $router.navigate('menu');
         });
 
@@ -71,6 +84,11 @@
                 .position('top left')
                 .hideDelay(3000)
             );
+        });
+
+        $rootScope.$on('noSessionId', function() {
+            $router.navigating = false;
+            $router.navigate('login');
         });
     }
 

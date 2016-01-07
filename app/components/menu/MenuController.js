@@ -3,11 +3,11 @@
 
     angular
         .module('ebikko.menu')
-        .controller('MenuController', ['$document', '$mdSidenav', '$mdBottomSheet', '$mdDialog', '$mdToast', '$location', 'loginService', 'tabService', 'nodeService', 'userRepository',
+        .controller('MenuController', ['$document', '$mdSidenav', '$mdBottomSheet', '$mdDialog', '$mdToast', '$routeParams', 'loginService', 'tabService', 'nodeService', 'userRepository',
             'menuService', MenuController
         ]);
 
-    function MenuController($document, $mdSidenav, $mdBottomSheet, $mdDialog, $mdToast, $location, loginService, tabService, nodeService, userRepository, menuService) {
+    function MenuController($document, $mdSidenav, $mdBottomSheet, $mdDialog, $mdToast, $routeParams, loginService, tabService, nodeService, userRepository, menuService) {
         var self = this;
 
         self.getSelectedTab = getSelectedTab;

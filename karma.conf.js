@@ -7,6 +7,7 @@ module.exports = function(config) {
             'app/bower_components/jquery/dist/jquery.js',
             'app/bower_components/jasmine-jquery/lib/jasmine-jquery.js',
             'app/bower_components/angular/angular.js',
+            'app/bower_components/angular-new-router/dist/router.es5.js',
             'app/bower_components/angular-aria/angular-aria.js',
             'app/bower_components/angular-mocks/angular-mocks.js',
             'app/bower_components/angular-material/angular-material.js',

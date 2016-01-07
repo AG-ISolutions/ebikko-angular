@@ -74,16 +74,20 @@
         }
 
         function logout() {
-            var json = {
-                'ebikko_session_id': userRepository.getSessionId()
-            };
-            return $http({
-                'method': 'POST',
-                'url': '/Logout',
-                'params': {
-                    'json': json
-                }
-            }).then(completeLogout, completeLogout);
+            try {
+                var json = {
+                    'ebikko_session_id': userRepository.getSessionId()
+                };
+                return $http({
+                    'method': 'POST',
+                    'url': '/Logout',
+                    'params': {
+                        'json': json
+                    }
+                }).then(completeLogout, completeLogout);
+            } catch (err) {
+                completeLogout();
+            }
         }
 
         function completeLogout() {

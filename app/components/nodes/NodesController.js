@@ -64,7 +64,10 @@
                     promise = nodeService.getSavedSearch(self.typeId);
                     break;
                 case 'search':
-                    promise = nodeService.search(self.typeId);
+                    promise = nodeService.textSearch(self.typeId);
+                    break;
+                case 'uid-search':
+                    promise = nodeService.uidSearch([self.typeId]);
                     break;
                 default:
                     break;

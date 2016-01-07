@@ -44,18 +44,32 @@
             expect(url).toEqual('/testUrl');
         });
 
-        it("should perform search", function() {
+        it("should perform text search", function() {
             httpBackend
                 .when('GET', /NodeListing(.*)("method":"SEARCH")(.*)("search_method":"TEXT_SEARCH")(.*)("query":"searchString")(.*)/)
                 .respond(200, getJSONFixture('nodes/quickSearch.json'));
 
             var searchResults;
-            searchResults = nodeService.search('searchString').then(function(response){
+            searchResults = nodeService.textSearch('searchString').then(function(response){
                 searchResults = response;
             });
 
             httpBackend.flush();
             expect(searchResults.data.data.count).toEqual(3);
+        });
+
+        it("should perform a node uid search", function() {
+            httpBackend
+                .when('GET', /NodeListing(.*)("method":"SEARCH")(.*)("search_method":"NODE_UIDS")(.*)("node_ids":\[123\])(.*)/)
+                .respond(200, getJSONFixture('nodes/uidSearch.json'));
+
+            var searchResults;
+            searchResults = nodeService.uidSearch([123]).then(function(response){
+                searchResults = response;
+            });
+
+            httpBackend.flush();
+            expect(searchResults.data.data.count).toEqual(1);
         });
 
         it("should get recent records", function() {
