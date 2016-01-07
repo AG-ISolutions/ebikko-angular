@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "code": 100,
+    "data": {
+        "responsemsg": "Action done successfully"
+    },
+    "count": 1,
+    "results": [{
+        "node_type_id": "abc",
+        "node_type_name": "Memo A",
+        "node_id": "abc-111",
+        "node_title": "test2",
+        "record_number": "CAG-1/2(13)"
+    }]
+}

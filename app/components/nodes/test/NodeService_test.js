@@ -55,21 +55,25 @@
             });
 
             httpBackend.flush();
-            expect(searchResults.data.data.count).toEqual(3);
+            expect(searchResults.data.count).toEqual(3);
         });
 
-        it("should perform a node uid search", function() {
+        it("should perform a node document search", function() {
             httpBackend
-                .when('GET', /NodeListing(.*)("method":"SEARCH")(.*)("search_method":"NODE_UIDS")(.*)("node_ids":\[123\])(.*)/)
+                .when('GET', /EmailLink(.*)("email_link_id":"123")(.*)/)
+                .respond(200, getJSONFixture('nodes/emailLinkSearch.json'));
+
+            httpBackend
+                .when('GET', /NodeListing(.*)("method":"SEARCH")(.*)("search_method":"NODE_UIDS")(.*)("node_ids":\["abc-111"\])(.*)/)
                 .respond(200, getJSONFixture('nodes/uidSearch.json'));
 
             var searchResults;
-            searchResults = nodeService.uidSearch([123]).then(function(response){
+            searchResults = nodeService.documentSearch("123").then(function(response){
                 searchResults = response;
             });
 
             httpBackend.flush();
-            expect(searchResults.data.data.count).toEqual(1);
+            expect(searchResults.data.count).toEqual(1);
         });
 
         it("should get recent records", function() {

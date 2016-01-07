@@ -67,7 +67,7 @@
                     promise = nodeService.textSearch(self.typeId);
                     break;
                 case 'uid-search':
-                    promise = nodeService.uidSearch([self.typeId]);
+                    promise = nodeService.documentSearch(self.typeId);
                     break;
                 default:
                     break;

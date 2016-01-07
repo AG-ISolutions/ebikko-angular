@@ -37,8 +37,10 @@
     function AppController($router, $routeParams, $rootScope, $mdToast, $location, tabService, userRepository) {
 
         var self = this;
-        self.page = $location.search().page;
-        self.pageId = $location.search().pageId;
+
+        if (window.location.search.indexOf('document') > -1) {
+            self.documentId = window.location.search.substring(window.location.search.indexOf('=') + 1);
+        }
 
         $router.config([{
             path: '/',
@@ -57,11 +59,11 @@
         $rootScope.$on('loginSuccess', function() {
             tabService.clearTabs();
 
-            if (self.page === 'uid-search') {
+            if (self.documentId) {
                 tabService.addTab({
                     'name': 'Records',
                     'type': 'nodes',
-                    'content': "<nodes type='uid-search' type-id='" + self.pageId + "'/>",
+                    'content': "<nodes type='uid-search' type-id='" + self.documentId + "'/>",
                     'id': 'uid-search'
                 });
             }

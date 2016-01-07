@@ -19,7 +19,7 @@
             getSavedSearch: getSavedSearch,
 
             textSearch: textSearch,
-            uidSearch: uidSearch
+            documentSearch: documentSearch
         };
 
         return self;
@@ -64,7 +64,7 @@
             var stringed = JSON.stringify(json);
             return $http({
                 'method': 'GET',
-                'url': config.basePath + '/NodeListing?json='+stringed,
+                'url': config.basePath + '/NodeListing?json=' + stringed,
                 'params': {
                     'start': start,
                     'limit': limit
@@ -109,19 +109,32 @@
             });
         }
 
-        function uidSearch(uids) {
+        function documentSearch(documentId) {
             var json = {
                 'ebikko_session_id': userRepository.getSessionId(),
-                'method': 'SEARCH',
-                'search_method': 'NODE_UIDS',
-                'node_ids': uids
+                'email_link_id': documentId
             };
             var stringed = JSON.stringify(json);
             return $http({
                 'method': 'GET',
-                'url': config.basePath + '/NodeListing?json=' + stringed +
-                    '&limit=' + self.defaultLimit + '&start=' + self.defaultStart
-            });            
+                'url': '/EmailLink?json=' + stringed
+            }).then(function(response) {
+                var uids = response.data.results.map(function(node) {
+                    return node.node_id;
+                });
+
+                var json = {
+                    'ebikko_session_id': userRepository.getSessionId(),
+                    'method': 'SEARCH',
+                    'search_method': 'NODE_UIDS',
+                    'node_ids': uids
+                };
+                var stringed = JSON.stringify(json);
+                return $http({
+                    'method': 'GET',
+                    'url': '/NodeListing?json=' + stringed + '&limit=' + self.defaultLimit + '&start=' + self.defaultStart
+                });
+            });
         }
     }
 })();

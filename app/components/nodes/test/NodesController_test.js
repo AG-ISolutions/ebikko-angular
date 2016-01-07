@@ -9,7 +9,7 @@
         var nodeService, tabService, nodesController;
 
         beforeEach(inject(function(_$controller_) {
-            nodeService = jasmine.createSpyObj('nodeService', ['getRecentRecords', 'getSavedSearch', 'textSearch', 'uidSearch', 'getContentUrl']);
+            nodeService = jasmine.createSpyObj('nodeService', ['getRecentRecords', 'getSavedSearch', 'textSearch', 'documentSearch', 'getContentUrl']);
             tabService = jasmine.createSpyObj('tabService', ['addTab']);
             nodesController = _$controller_('NodesController', {
                 nodeService: nodeService,
@@ -45,11 +45,11 @@
 
         it("should perform uid search when type is uid-search", function() {
             nodesController.type = 'uid-search';
-            nodesController.typeId = 123;
+            nodesController.typeId = "123";
 
             nodesController.activate();
 
-            expect(nodeService.uidSearch).toHaveBeenCalledWith([123]);
+            expect(nodeService.documentSearch).toHaveBeenCalledWith("123");
         });
 
         it("should add tab when selecting a leaf node with electronic content", function() {
