@@ -15,12 +15,11 @@
         function processResults(nodeDetails, nodeTypeDetails) {
             var results = [];
 
-            var propertyGroups = nodeTypeDetails.data.results[0].property_group;
-            var customProperties = nodeTypeDetails.data.results[0].properties;
-            var attributes = nodeTypeDetails.data.results[0].attributes;
+            var propertyGroups = nodeTypeDetails.property_group;
+            var customProperties = nodeTypeDetails.properties;
+            var attributes = nodeTypeDetails.attributes;
 
-            var node = nodeDetails.data.results[0];
-            var nodeProperties = node.single_value;
+            var nodeProperties = nodeDetails.single_value;
 
             angular.forEach(propertyGroups, function(propertyGroup, key) {
                 var propertyId = propertyGroup.property_id;
@@ -33,9 +32,9 @@
                 };
 
                 if (isCustomProperty) {
-                    result.value = extractCustomPropertyValue(isMultiValue, propertyId, node);
+                    result.value = extractCustomPropertyValue(isMultiValue, propertyId, nodeDetails);
                 } else {
-                    result.value = node[getPropertyKey(propertyId)];
+                    result.value = nodeDetails[getPropertyKey(propertyId)];
                 }
 
                 result.name = extractValueFromArray(attributes, isNaN(propertyId) ? propertyId : parseInt(propertyId), 'alias');

@@ -17,7 +17,7 @@
                 var nodeTypeDetailsPromise = nodePropertiesService.getNodeTypeDetails(self.nodeId.split('-')[0]);
 
                 $q.all([nodeDetailsPromise, nodeTypeDetailsPromise]).then(function(results) {
-                    self.data = nodePropertiesResultsProcessor.processResults(results[0], results[1]);
+                    self.data = nodePropertiesResultsProcessor.processResults(results[0].data.results[0], results[1].data.results[0]);
                 });
             }
         }
