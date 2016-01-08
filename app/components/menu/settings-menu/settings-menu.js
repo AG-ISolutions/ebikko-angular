@@ -2,5 +2,5 @@
 	"use strict";
 
 	angular
-		.module('ebikko.settings-menu', [ 'ngMaterial', 'ebikko.shared-services' ]);
+		.module('ebikko.settings-menu', [ 'ngMaterial', 'ebikko.login', 'ebikko.shared-services' ]);
 })();

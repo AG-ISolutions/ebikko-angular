@@ -7,9 +7,14 @@
 
     function SettingsMenuController($mdDialog, loginService, userRepository) {
         var self = this;
+        self.changePasswordVisible = changePasswordVisible;
         self.logout = logout;
         self.openSettings = openSettings;
         self.showChangePassword = showChangePassword;
+
+        function changePasswordVisible() {
+            return userRepository.getUserPreferences().preferences[0].repoAuthMethod === "database";
+        }
 
         function logout() {
             loginService.logout();
