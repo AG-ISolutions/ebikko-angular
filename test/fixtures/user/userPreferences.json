@@ -35,7 +35,7 @@
         "isShowWarningForCombinedTitleInClassificationForm": true,
         "isHideRelevanceColumn": false,
         "isSearchDefaultFilter": true,
-        "uploadScanPath": "/NetApps/ebikko-data/tricor/temp/tempdir",
+        "uploadScanPath": "/test/dir",
         "expandFirstClassication": false,
         "username": "",
         "password": "Y/rv3iBQlbukHDoVPrD6hif7Z2mHC27xE4FsxTuwUSe7/eJRnxdd6CpGLXP3yCNsxUO0PZGiYKoV\nUN3J6GPyxkhw/lFbiofDyxnO0LO/zsw=",
