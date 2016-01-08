@@ -15,12 +15,24 @@
 
     function LoginService($http, $q, $rootScope, $location, userRepository) {
         var self = {
+            checkAuthType: checkAuthType,
             clearLogin: clearLogin,
             login: login,
             logout: logout
         };
 
         return self;
+
+        function checkAuthType() {
+            return $http({
+                'method': 'GET',
+                'url': '/AuthType'
+            }).then(function(response) {
+                return response.data.authMethod;
+            }, function(response) {
+                return "database";
+            });
+        }
 
         function clearLogin() {
             userRepository.clearCurrentUser();

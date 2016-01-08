@@ -49,5 +49,29 @@
             expect(userRepository.getProfileDetails()).toEqual(profileDetails);
             expect(userRepository.getUserPreferences()).toEqual(userPreferences);
         });
+
+        it("should show forgot password when the authtype is database", function() {
+            httpBackend
+                .expectGET(/\/AuthType/)
+                .respond(200, getJSONFixture('user/authType_database.json'));
+
+            loginController.activate();
+
+            httpBackend.flush();
+
+            expect(loginController.showForgotPassword).toBeTruthy();
+        });
+
+        it("should hide forgot password when the authtype is ad", function() {
+            httpBackend
+                .expectGET(/\/AuthType/)
+                .respond(200, getJSONFixture('user/authType_ad.json'));
+
+            loginController.activate();
+
+            httpBackend.flush();
+
+            expect(loginController.showForgotPassword).toBeFalsy();
+        });
     });
 })();

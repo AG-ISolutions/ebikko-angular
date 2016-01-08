@@ -50,6 +50,36 @@
             expect(rootScope.$broadcast).toHaveBeenCalledWith('loginSuccess');
         });
 
+        it("should check the auth type", function() {
+            httpBackend
+                .expectGET(/\/AuthType/)
+                .respond(200, getJSONFixture('user/authType_ad.json'));
+
+            var authType;
+            loginService.checkAuthType().then(function(response) {
+                authType = response;
+            });
+
+            httpBackend.flush();
+
+            expect(authType).toEqual('ad');
+        });
+
+        it("should default the auth type to database when the call fails", function() {
+            httpBackend
+                .expectGET(/\/AuthType/)
+                .respond(500);
+
+            var authType;
+            loginService.checkAuthType().then(function(response) {
+                authType = response;
+            });
+
+            httpBackend.flush();
+
+            expect(authType).toEqual('database');
+        });
+
         afterEach(function() {
             httpBackend.verifyNoOutstandingExpectation();
             httpBackend.verifyNoOutstandingRequest();
