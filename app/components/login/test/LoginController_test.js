@@ -1,23 +1,25 @@
 (function() {
     "use strict";
 
-    describe("Unit tests for the Login Service", function() {
-
-        var loginService, httpBackend, userRepository, rootScope;
+    describe("Unit tests for the login controller", function() {
 
         jasmine.getJSONFixtures().fixturesPath = 'base/test/fixtures/';
 
-        beforeEach(module("ebikko.login"));
+        beforeEach(module('ebikko.login'));
 
-        beforeEach(inject(function($httpBackend, _loginService_, _userRepository_, $rootScope) {
-            loginService = _loginService_;
+        var loginController, $q, httpBackend, userRepository;
+
+        beforeEach(inject(function(_$controller_, _$q_, $httpBackend, _userRepository_) {
+            loginController = _$controller_('LoginController');
+            $q = _$q_;
             httpBackend = $httpBackend;
             userRepository = _userRepository_;
-            rootScope = $rootScope;
-            spyOn(rootScope, '$broadcast').and.callThrough();
+
+            loginController.username = 'user';
+            loginController.password = 'password';
         }));
 
-        it("should log the user in and load the principal and profile details", function() {
+        it("should submit a login and set all the details on the user repository", function() {
             var loginResponse = getJSONFixture('user/loginSuccess.json');
             httpBackend
                 .expectPOST(/\/Login(.*)("username":"user")(.*)("password":"password")(.*)/)
@@ -38,7 +40,7 @@
                 .expectGET(/\/UserPreferences(.*)("method":"GET_USER_PREFS")/)
                 .respond(200, userPreferences);
 
-            loginService.login("user", "password");
+            loginController.login();
 
             httpBackend.flush();
 
@@ -46,43 +48,30 @@
             expect(userRepository.getPrincipalDetails()).toEqual(principalDetails);
             expect(userRepository.getProfileDetails()).toEqual(profileDetails);
             expect(userRepository.getUserPreferences()).toEqual(userPreferences);
-
-            expect(rootScope.$broadcast).toHaveBeenCalledWith('loginSuccess');
         });
 
-        it("should check the auth type", function() {
+        it("should show forgot password when the authtype is database", function() {
+            httpBackend
+                .expectGET(/\/AuthType/)
+                .respond(200, getJSONFixture('user/authType_database.json'));
+
+            loginController.activate();
+
+            httpBackend.flush();
+
+            expect(loginController.showForgotPassword).toBeTruthy();
+        });
+
+        it("should hide forgot password when the authtype is ad", function() {
             httpBackend
                 .expectGET(/\/AuthType/)
                 .respond(200, getJSONFixture('user/authType_ad.json'));
 
-            var authType;
-            loginService.checkAuthType().then(function(response) {
-                authType = response;
-            });
+            loginController.activate();
 
             httpBackend.flush();
 
-            expect(authType).toEqual('ad');
-        });
-
-        it("should default the auth type to database when the call fails", function() {
-            httpBackend
-                .expectGET(/\/AuthType/)
-                .respond(500);
-
-            var authType;
-            loginService.checkAuthType().then(function(response) {
-                authType = response;
-            });
-
-            httpBackend.flush();
-
-            expect(authType).toEqual('database');
-        });
-
-        afterEach(function() {
-            httpBackend.verifyNoOutstandingExpectation();
-            httpBackend.verifyNoOutstandingRequest();
+            expect(loginController.showForgotPassword).toBeFalsy();
         });
     });
 })();

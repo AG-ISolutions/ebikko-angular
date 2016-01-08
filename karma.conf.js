@@ -21,6 +21,7 @@ module.exports = function(config) {
             'app/components/menu/menu.js',
             'app/components/menu/tabs/tabs.js',
             'app/components/menu/node-menu/node-menu.js',
+            'app/components/menu/settings-menu/settings-menu.js',
             'app/components/nodes/nodes.js',
             'app/components/login/login.js',
             'app/components/secure-share/secureShare.js',

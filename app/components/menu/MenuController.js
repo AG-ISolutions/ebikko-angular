@@ -3,19 +3,16 @@
 
     angular
         .module('ebikko.menu')
-        .controller('MenuController', ['$document', '$mdSidenav', '$mdBottomSheet', '$mdDialog', '$mdToast', '$routeParams', 'loginService', 'tabService', 'nodeService', 'userRepository',
-            'menuService', MenuController
+        .controller('MenuController', ['$document', '$mdSidenav', '$mdBottomSheet', '$mdToast', 'tabService', 'menuService',
+            MenuController
         ]);
 
-    function MenuController($document, $mdSidenav, $mdBottomSheet, $mdDialog, $mdToast, $routeParams, loginService, tabService, nodeService, userRepository, menuService) {
+    function MenuController($document, $mdSidenav, $mdBottomSheet, $mdToast, tabService, menuService) {
         var self = this;
 
         self.getSelectedTab = getSelectedTab;
-        self.logout = logout;
-        self.openSettings = openSettings;
         self.quickSearch = quickSearch;
         self.selectMenuItem = selectMenuItem;
-        self.showChangePassword = showChangePassword;
         self.toggleFullscreen = toggleFullscreen;
 
         self.showSearch = false;
@@ -83,14 +80,6 @@
             });
         }
 
-        function logout() {
-            loginService.logout();
-        }
-
-        function openSettings($mdOpenMenu, ev) {
-            $mdOpenMenu(ev);
-        }
-
         function quickSearch() {
             if (!(self.searchQuery === null || self.searchQuery === undefined || self.searchQuery === '')) {
                 tabService.addTab({
@@ -100,17 +89,6 @@
                 });
                 self.showSearch = false;
             }
-        }
-
-        function showChangePassword(ev) {
-            $mdDialog.show({
-                controller: 'ChangePasswordController',
-                controllerAs: 'cpc',
-                templateUrl: './components/change-password/changePassword.html',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose: true
-            });
         }
     }
 

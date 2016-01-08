@@ -10,6 +10,7 @@
         var principalDetails = null;
         var profileDetails = null;
         var self = this;
+        var userPreferences = null;
 
         self.setCurrentUser = function(loginDetails) {
             currentUser = loginDetails;
@@ -66,6 +67,14 @@
             } else {
                 return false;
             }
+        }
+
+        self.getUserPreferences = function() {
+            return self.userPreferences;
+        }
+
+        self.setUserPreferences = function(userPreferences) {
+            self.userPreferences = userPreferences;
         }
     }
 

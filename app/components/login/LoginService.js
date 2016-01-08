@@ -15,12 +15,24 @@
 
     function LoginService($http, $q, $rootScope, $location, userRepository) {
         var self = {
+            checkAuthType: checkAuthType,
             clearLogin: clearLogin,
             login: login,
             logout: logout
         };
 
         return self;
+
+        function checkAuthType() {
+            return $http({
+                'method': 'GET',
+                'url': '/AuthType'
+            }).then(function(response) {
+                return response.data.authMethod;
+            }, function(response) {
+                return "database";
+            });
+        }
 
         function clearLogin() {
             userRepository.clearCurrentUser();
@@ -40,9 +52,10 @@
             }).then(function(response) {
                 userRepository.setCurrentUser(response.data);
 
-                $q.all([loadPrincipalDetails(), loadProfileDetails()]).then(function(responses) {
+                $q.all([loadPrincipalDetails(), loadProfileDetails(), loadUserPreferences()]).then(function(responses) {
                     userRepository.setPrincipalDetails(responses[0].data);
                     userRepository.setProfileDetails(responses[1].data);
+                    userRepository.setUserPreferences(responses[2].data);
                     $rootScope.$broadcast('loginSuccess');
                 });
             });
@@ -70,6 +83,19 @@
             return $http({
                 'method': 'GET',
                 'url': '/Profile?json=' + stringed
+            });
+        }
+
+        function loadUserPreferences() {
+            var json = {
+                method: "GET_USER_PREFS",
+                principal_id: userRepository.getCurrentUser().principal_id,
+                ebikko_session_id: userRepository.getSessionId()
+            };
+            var stringed = JSON.stringify(json);
+            return $http({
+                'method': 'GET',
+                'url': '/UserPreferences?json=' + stringed
             });
         }
 
