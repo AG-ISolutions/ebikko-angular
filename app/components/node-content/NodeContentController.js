@@ -3,13 +3,13 @@
 
     angular
         .module('ebikko.node-content')
-        .controller('NodeContentController', [ 'nodeContentService', 'nodeService', NodeContentController]);
+        .controller('NodeContentController', [ 'nodeContentService', 'nodeService', 'userRepository', NodeContentController]);
 
-    function NodeContentController(nodeContentService, nodeService) {
+    function NodeContentController(nodeContentService, nodeService, userRepository) {
         var self = this;
         self.getContentUrl = getContentUrl;
         self.getDownloadUrl = getDownloadUrl;
-        self.useHtmlTags = useHtmlTags;
+        self.useHtml5Viewer = useHtml5Viewer;
 
         function getContentUrl(nodeId) {
             return nodeContentService.getContentUrl(nodeId);
@@ -22,8 +22,8 @@
             });
         }
 
-        function useHtmlTags() {
-            return true;
+        function useHtml5Viewer() {
+            return userRepository.getUserPreferences().preferences[0].useHtml5Viewer;
         }
 
         getDownloadUrl(self.nodeId);

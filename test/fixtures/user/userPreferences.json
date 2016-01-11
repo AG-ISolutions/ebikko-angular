@@ -45,6 +45,7 @@
         "emailClient": true,
         "containerBrowseType": "recent_records",
         "emailClientServerPath": "",
-        "extCallTimeout": "null"
+        "extCallTimeout": "null",
+        "useHtml5Viewer: true
     }]
 }
