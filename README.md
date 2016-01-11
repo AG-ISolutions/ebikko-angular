@@ -55,8 +55,8 @@ This will watch for changes to any of the application files and run through all 
  - Create branch from develop (on GitHub click the branch drop type and type in the name). Please include the redmine ticket in the branch name, ie '6079-hide-change-password'
  
  - Checkout the branch in your local environment
- -- git fetch (to update all the branches)
- -- git checkout <branch name>
+ 	- git fetch (to update all the branches)
+	- git checkout <branch name>
  
  - Implement feature, commit and push code
  - Create pull request in GitHub (Make sure to compare with develop, eg - https://github.com/AG-ISolutions/ebikko-angular/pull/4)

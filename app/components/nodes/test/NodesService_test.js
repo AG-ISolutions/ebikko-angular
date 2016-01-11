@@ -5,7 +5,7 @@
 
         jasmine.getJSONFixtures().fixturesPath = 'base/test/fixtures/';
 
-        var httpBackend, nodeService;
+        var httpBackend, nodesService;
 
         beforeEach(module('ebikko.nodes'));
 
@@ -17,32 +17,10 @@
             });
         }));
 
-        beforeEach(inject(function($httpBackend, _nodeService_) {
-            nodeService = _nodeService_;
+        beforeEach(inject(function($httpBackend, _nodesService_) {
+            nodesService = _nodesService_;
             httpBackend = $httpBackend;
         }));
-
-        it('should request content url', function() {
-            httpBackend
-                .when('GET', /(.*)\/Content\?json=(.*)/)
-                .respond(200, {
-                    "success": true,
-                    "code": 100,
-                    "data": {
-                        "url": "/testUrl",
-                        "contentUrl": "/testUrl"
-                    }
-                });
-
-            var url;
-            nodeService.getDownloadUrl('123').then(function(response) {
-                url = response;
-            });
-
-            httpBackend.flush();
-
-            expect(url).toEqual('/testUrl');
-        });
 
         it("should perform text search", function() {
             httpBackend
@@ -50,7 +28,7 @@
                 .respond(200, getJSONFixture('nodes/quickSearch.json'));
 
             var searchResults;
-            searchResults = nodeService.textSearch('searchString').then(function(response){
+            searchResults = nodesService.textSearch('searchString').then(function(response){
                 searchResults = response;
             });
 
@@ -68,7 +46,7 @@
                 .respond(200, getJSONFixture('nodes/uidSearch.json'));
 
             var searchResults;
-            searchResults = nodeService.documentSearch("123").then(function(response){
+            searchResults = nodesService.documentSearch("123").then(function(response){
                 searchResults = response;
             });
 
@@ -85,7 +63,7 @@
                 .respond(200, getJSONFixture('nodes/recentRecords.json'));
 
             var recentRecords; 
-            nodeService.getRecentRecords(start, limit).then(function(response) {
+            nodesService.getRecentRecords(start, limit).then(function(response) {
                 recentRecords = response;
             });
 

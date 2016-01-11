@@ -3,18 +3,16 @@
 
     angular
         .module('ebikko.nodes')
-        .service('nodeService', ['$http', 'userRepository', 'ebikkoConfig',
-            NodeService
+        .service('nodesService', ['$http', 'userRepository', 'ebikkoConfig',
+            NodesService
         ]);
 
-    function NodeService($http, userRepository, config) {
+    function NodesService($http, userRepository, config) {
         var self = {
             defaultColumns: [22, 12, 1, 4, 10, 4.1, 5.1],
             defaultStart: 0,
             defaultLimit: 25,
 
-            getContentUrl: getContentUrl,
-            getDownloadUrl: getDownloadUrl,
             getRecentRecords: getRecentRecords,
             getSavedSearch: getSavedSearch,
 
@@ -23,37 +21,6 @@
         };
 
         return self;
-
-        function getContentUrl(nodeId) {
-            var json = {
-                'ebikko_session_id': userRepository.getSessionId(),
-                'method': 'CONTENT_VIEW',
-                'node_id': nodeId,
-                'version': 0,
-                'is_html5_viewer': true
-            };
-            var stringed = JSON.stringify(json);
-            return config.basePath + '/docviewer/Content?json=' + stringed;
-        }
-
-        function getDownloadUrl(nodeId) {
-            var json = {
-                'ebikko_session_id': userRepository.getSessionId(),
-                'method': 'CONTENT_DOWNLOAD',
-                'node_id': nodeId,
-                'version': 1
-            };
-            var stringed = JSON.stringify(json);
-            return $http({
-                'method': 'GET',
-                'url': config.basePath + '/Content',
-                'params': {
-                    'json': json
-                }
-            }).then(function(response) {
-                return response.data.data.url;
-            });
-        }
 
         function getRecentRecords(start, limit) {
             var json = {
