@@ -3,11 +3,11 @@
 
     angular
         .module('ebikko.nodes')
-        .controller('NodesController', ['nodeService', 'ngTreetableParams', 'tabService',
+        .controller('NodesController', ['nodesService', 'ngTreetableParams', 'tabService',
             NodesController
         ]);
 
-    function NodesController(nodeService, ngTreetableParams, tabService) {
+    function NodesController(nodesService, ngTreetableParams, tabService) {
         var self = this;
 
         self.activate = activate;
@@ -29,7 +29,7 @@
             self.dynamic_params = new ngTreetableParams({ // jshint ignore:line
                 getNodes: function(parent) {
                     return parent ?
-                        nodeService.getSavedSearch(self.typeId, parent._id).then(function(data) {
+                        nodesService.getSavedSearch(self.typeId, parent._id).then(function(data) {
                             return extractResults(data, false);
                         }) :
                         promise.then(function(data) {
@@ -58,16 +58,16 @@
             self.pageLoading = true;
             switch (self.type) {
                 case 'recent-records':
-                    promise = nodeService.getRecentRecords(self.start, self.limit);
+                    promise = nodesService.getRecentRecords(self.start, self.limit);
                     break;
                 case 'saved-search':
-                    promise = nodeService.getSavedSearch(self.typeId);
+                    promise = nodesService.getSavedSearch(self.typeId);
                     break;
                 case 'search':
-                    promise = nodeService.textSearch(self.typeId);
+                    promise = nodesService.textSearch(self.typeId);
                     break;
                 case 'uid-search':
-                    promise = nodeService.documentSearch(self.typeId);
+                    promise = nodesService.documentSearch(self.typeId);
                     break;
                 default:
                     break;
@@ -101,7 +101,7 @@
                     id: node.node_id,
                     title: node.title,
                     file_name: node.file_name,
-                    content: "<iframe src='" + nodeService.getContentUrl(node.node_id) + "'/>'"
+                    content: "<ebikko-node-content node-id='" + node.node_id + "' />'"
                 });
             }
         }

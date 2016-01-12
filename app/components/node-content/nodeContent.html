@@ -1,0 +1,2 @@
+<iframe src="{{nodeContent.getContentUrl(nodeContent.nodeId)}}" ng-if="!nodeContent.useHtml5Viewer()"/>
+<embed embed-src="{{nodeContent.contentUrl}}" src="{{nodeContent.contentUrl}}" type="application/pdf" ng-if="nodeContent.useHtml5Viewer()"/>

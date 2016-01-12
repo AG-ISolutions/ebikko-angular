@@ -1,0 +1,8 @@
+{
+    "success": true,
+    "code": 100,
+    "data": {
+        "url": "/DownloadContent?token=abc",
+        "contentUrl": "http://localhost:8082/downloadURL/123456/V1-pdf-sample.pdf"
+    }
+}

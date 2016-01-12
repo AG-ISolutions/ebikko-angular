@@ -135,7 +135,7 @@ div.loginPage md-content {
     color: #FF1100;
 }
 
-content-container iframe {
+content-container iframe, content-container embed {
     width: 100%;
     height: 100%;
 }
