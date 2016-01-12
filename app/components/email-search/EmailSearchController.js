@@ -29,7 +29,7 @@
                 name: chip,
                 email: chip,
                 type: 'new'
-            }
+            };
         }
     }
 })();

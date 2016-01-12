@@ -46,6 +46,6 @@
         "containerBrowseType": "recent_records",
         "emailClientServerPath": "",
         "extCallTimeout": "null",
-        "useHtml5Viewer: true
+        "useHtml5Viewer": true
     }]
 }
