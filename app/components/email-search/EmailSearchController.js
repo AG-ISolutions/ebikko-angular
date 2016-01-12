@@ -8,6 +8,7 @@
     function EmailSearchController(emailSearchService) {
         var self = this;
         self.performPrincipalSearch = performPrincipalSearch;
+        self.transformChip = transformChip;
 
         self.model = (self.model === undefined || self.model === null) ? [] : self.model;
 
@@ -17,6 +18,18 @@
                 self.principals = response.data.results;
             });
             return p;
+        }
+
+        function transformChip(chip) {
+            if (angular.isObject(chip)) {
+                return chip;
+            }
+
+            return {
+                name: chip,
+                email: chip,
+                type: 'new'
+            }
         }
     }
 })();

@@ -93,6 +93,7 @@
             return {
                 1: 'title',
                 3: 'notes',
+                4: 'record_number',
                 6: 'container_record_number'
             };
         }
