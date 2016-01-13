@@ -12,12 +12,14 @@ module.exports = function(config) {
             'app/bower_components/angular-mocks/angular-mocks.js',
             'app/bower_components/angular-material/angular-material.js',
             'app/bower_components/angular-animate/angular-animate.js',
+            'app/bower_components/angular-translate/angular-translate.js',
 
             'app/shared/validation/validation.js',
 
             'app/components/config/config.js',
             'app/components/forgot-password/forgotPassword.js',
 
+            'app/conf/conf.js',
             'app/components/menu/menu.js',
             'app/components/menu/tabs/tabs.js',
             'app/components/menu/node-menu/node-menu.js',
@@ -38,9 +40,10 @@ module.exports = function(config) {
             'app/components/**/*.js',
             'app/components/**/*.html',
             'app/shared/**/*.js',
+            'app/conf/**/*.js',
 
             {
-                pattern: 'test/fixtures/**/*.json',
+                pattern: 'test/fixtures/**/*',
                 watched: true,
                 served: true,
                 included: false

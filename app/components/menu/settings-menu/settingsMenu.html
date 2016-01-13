@@ -4,10 +4,10 @@
     </md-button>
     <md-menu-content width="4">
         <md-menu-item ng-if="smc.changePasswordVisible()">
-            <md-button ng-click="smc.showChangePassword($event)">Change Password</md-button>
+            <md-button ng-click="smc.showChangePassword($event)">{{'Change Password' | translate}}</md-button>
         </md-menu-item>
         <md-menu-item>
-            <md-button ng-click="smc.logout()">Logout</md-button>
+            <md-button ng-click="smc.logout()">{{'Logout' | translate}}</md-button>
         </md-menu-item>
     </md-menu-content>
 </md-menu>

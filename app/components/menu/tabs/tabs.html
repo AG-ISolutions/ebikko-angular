@@ -2,7 +2,7 @@
     <md-tab ng-repeat="tab in tc.tabs" md-active="tc.getSelectedTab() === tab" md-on-select="tc.selectTab(tab)" ng-class="tabTest">
         <md-tab-label>
             <span class="tab-label-{{tab.type}}">
-                {{tab.name}}
+                {{tab.name | translate}}
                 <md-icon md-svg-icon="close" ng-click="tc.closeTab(tab)"></md-icon>
             </span>
         </md-tab-label>

@@ -109,7 +109,7 @@ module.exports = function(grunt) {
 
         watch: {
             scripts: {
-                files: ['Gruntfile.js', 'karma.conf.js', 'app/app.js', 'app/components/**/*.js', 'app/src/**/*.js', 'app/shared/**/*.js', 'test/fixtures/**/*.json'],
+                files: ['Gruntfile.js', 'karma.conf.js', 'app/**/*', 'test/fixtures/**/*.json'],
                 tasks: ['karma:unit', 'jshint'],
                 options: {
                     nospawn: true,
