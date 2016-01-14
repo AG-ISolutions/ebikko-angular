@@ -12,12 +12,14 @@
         <md-menu-item ng-if="nmc.hasProfilePermission(2018)">
             <md-button ng-click="nmc.showSecureShare($event)" class="secure-share">
                 <md-icon md-svg-icon="share"></md-icon>
-                Secure Share</md-button>
+                Secure Share
+            </md-button>
         </md-menu-item>
         <md-menu-item ng-if="nmc.hasProfilePermission(2016)">
-            <md-button ng-click="nmc.downloadContent()" class="download-content">
+            <md-button ng-href="{{nmc.downloadUrl}}" download="{{nmc.filename}}" class="download-content" target="_blank">
                 <md-icon md-svg-icon="download"></md-icon>
-                Download</md-button>
+                Download
+            </md-button>
         </md-menu-item>
     </md-menu-content>
 </md-menu>
