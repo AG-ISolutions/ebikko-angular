@@ -2,10 +2,13 @@
     'use strict';
 
     angular
-        .module('ebikko', ['ngMaterial', 'ngNewRouter', 'ebikko.login', 'ebikko.config', 'ebikko.menu', 'ebikko.nodes', 'ebikko.forgot-password', 'ebikko.node-properties', 'ebikko.tabs', 'ebikko.email-search', 'ebikko.node-content'])
-        .controller('AppController', ['$router', '$routeParams', '$rootScope', '$mdToast', '$location', 'tabService', 'userRepository', AppController])
-        .config(['$mdThemingProvider', '$mdIconProvider', '$httpProvider', '$mdDateLocaleProvider',
-            function($mdThemingProvider, $mdIconProvider, $httpProvider, $mdDateLocaleProvider) {
+        .module('ebikko', ['ngMaterial', 'ngNewRouter', 'ebikko.login', 'ebikko.config', 'ebikko.menu', 'ebikko.nodes',
+            'ebikko.forgot-password', 'ebikko.node-properties', 'ebikko.tabs', 'ebikko.email-search', 'ebikko.node-content',
+            'pascalprecht.translate', 'ebikko.conf'
+        ])
+        .controller('AppController', ['$router', '$routeParams', '$rootScope', '$mdToast', '$location', '$translate', 'tabService', 'userRepository', AppController])
+        .config(['$mdThemingProvider', '$mdIconProvider', '$httpProvider', '$mdDateLocaleProvider', '$translateProvider',
+            function($mdThemingProvider, $mdIconProvider, $httpProvider, $mdDateLocaleProvider, $translateProvider) {
 
                 $mdIconProvider
                     .defaultIconSet("./assets/svg/avatars.svg", 128)
@@ -31,10 +34,14 @@
                         return "";
                     }
                 };
+
+                $translateProvider.preferredLanguage('en_US');
+                $translateProvider.useSanitizeValueStrategy('escape');
+                $translateProvider.useLoader('translationLoaderFactory');
             }
         ]);
 
-    function AppController($router, $routeParams, $rootScope, $mdToast, $location, tabService, userRepository) {
+    function AppController($router, $routeParams, $rootScope, $mdToast, $location, $translate, tabService, userRepository) {
 
         var self = this;
 
@@ -67,6 +74,8 @@
                     'id': 'uid-search'
                 });
             }
+
+            $translate.use(userRepository.getUserPreferences().preferences[0].defLang);
 
             $location.url($location.path());
             $router.navigate('menu');

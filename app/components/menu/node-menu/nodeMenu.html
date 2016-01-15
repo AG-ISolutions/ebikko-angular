@@ -6,19 +6,19 @@
         <md-menu-item ng-if="nmc.hasProfilePermission(2015)">
             <md-button ng-click="nmc.showEmailRecord($event)" ng-disabled="!nmc.hasEmail()" class="email-record">
                 <md-icon md-svg-icon="email"></md-icon>
-                Email
+                {{'Email' | translate}}
             </md-button>
         </md-menu-item>
         <md-menu-item ng-if="nmc.hasProfilePermission(2018)">
             <md-button ng-click="nmc.showSecureShare($event)" class="secure-share">
                 <md-icon md-svg-icon="share"></md-icon>
-                Secure Share
+                {{'Secure Share' | translate}}
             </md-button>
         </md-menu-item>
         <md-menu-item ng-if="nmc.hasProfilePermission(2016)">
             <md-button ng-href="{{nmc.downloadUrl}}" download="{{nmc.filename}}" class="download-content" target="_blank">
                 <md-icon md-svg-icon="download"></md-icon>
-                Download
+                {{'Download' | translate}}
             </md-button>
         </md-menu-item>
     </md-menu-content>
