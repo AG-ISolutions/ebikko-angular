@@ -6,13 +6,21 @@
 
         beforeEach(module('ebikko.nodes'));
 
-        var nodeService, tabService, nodesController;
+        var nodesService, tabService, nodesController;
+
+        beforeEach(module(function($provide) {
+            $provide.service('userRepository', function() {
+                this.getSessionId = function(num) {
+                    return '123';
+                };
+            });
+        }));
 
         beforeEach(inject(function(_$controller_) {
-            nodeService = jasmine.createSpyObj('nodeService', ['getRecentRecords', 'getSavedSearch', 'search', 'getContentUrl']);
+            nodesService = jasmine.createSpyObj('nodesService', ['getRecentRecords', 'getSavedSearch', 'textSearch', 'documentSearch', 'getContentUrl']);
             tabService = jasmine.createSpyObj('tabService', ['addTab']);
             nodesController = _$controller_('NodesController', {
-                nodeService: nodeService,
+                nodesService: nodesService,
                 tabService: tabService
             });
         }));
@@ -22,7 +30,7 @@
 
             nodesController.activate();
 
-            expect(nodeService.getRecentRecords).toHaveBeenCalled();
+            expect(nodesService.getRecentRecords).toHaveBeenCalled();
         });
 
         it("should get saved search when type is saved-search", function() {
@@ -31,16 +39,25 @@
 
             nodesController.activate();
 
-            expect(nodeService.getSavedSearch).toHaveBeenCalledWith('123');
+            expect(nodesService.getSavedSearch).toHaveBeenCalledWith('123');
         });
 
-        it("should perform search when type is search", function() {
+        it("should perform text search when type is search", function() {
             nodesController.type = 'search';
             nodesController.typeId = 'search query';
 
             nodesController.activate();
 
-            expect(nodeService.search).toHaveBeenCalledWith('search query');
+            expect(nodesService.textSearch).toHaveBeenCalledWith('search query');
+        });
+
+        it("should perform uid search when type is uid-search", function() {
+            nodesController.type = 'uid-search';
+            nodesController.typeId = "123";
+
+            nodesController.activate();
+
+            expect(nodesService.documentSearch).toHaveBeenCalledWith("123");
         });
 
         it("should add tab when selecting a leaf node with electronic content", function() {
@@ -90,7 +107,7 @@
 
             nodesController.next();
 
-            expect(nodeService.getRecentRecords).toHaveBeenCalledWith(25, 25);
+            expect(nodesService.getRecentRecords).toHaveBeenCalledWith(25, 25);
             expect(nodesController.dynamic_params.refresh).toHaveBeenCalled();
         });
 
@@ -103,7 +120,7 @@
 
             nodesController.previous();
 
-            expect(nodeService.getRecentRecords).toHaveBeenCalledWith(0, 25);
+            expect(nodesService.getRecentRecords).toHaveBeenCalledWith(0, 25);
             expect(nodesController.dynamic_params.refresh).toHaveBeenCalled();
         });
 
@@ -118,10 +135,5 @@
             expect(tabService.addTab).toHaveBeenCalled();
         });
 
-        function createController() {
-            return $controller('NodesController', {
-                nodeService: nodeService
-            });
-        }
     });
 })();

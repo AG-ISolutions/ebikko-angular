@@ -5,7 +5,7 @@
 
         jasmine.getJSONFixtures().fixturesPath = 'base/test/fixtures/';
 
-        var httpBackend, nodeService;
+        var httpBackend, nodesService;
 
         beforeEach(module('ebikko.nodes'));
 
@@ -17,45 +17,41 @@
             });
         }));
 
-        beforeEach(inject(function($httpBackend, _nodeService_) {
-            nodeService = _nodeService_;
+        beforeEach(inject(function($httpBackend, _nodesService_) {
+            nodesService = _nodesService_;
             httpBackend = $httpBackend;
         }));
 
-        it('should request content url', function() {
-            httpBackend
-                .when('GET', /(.*)\/Content\?json=(.*)/)
-                .respond(200, {
-                    "success": true,
-                    "code": 100,
-                    "data": {
-                        "url": "/testUrl",
-                        "contentUrl": "/testUrl"
-                    }
-                });
-
-            var url;
-            nodeService.getDownloadUrl('123').then(function(response) {
-                url = response;
-            });
-
-            httpBackend.flush();
-
-            expect(url).toEqual('/testUrl');
-        });
-
-        it("should perform search", function() {
+        it("should perform text search", function() {
             httpBackend
                 .when('GET', /NodeListing(.*)("method":"SEARCH")(.*)("search_method":"TEXT_SEARCH")(.*)("query":"searchString")(.*)/)
                 .respond(200, getJSONFixture('nodes/quickSearch.json'));
 
             var searchResults;
-            searchResults = nodeService.search('searchString').then(function(response){
+            searchResults = nodesService.textSearch('searchString').then(function(response){
                 searchResults = response;
             });
 
             httpBackend.flush();
-            expect(searchResults.data.data.count).toEqual(3);
+            expect(searchResults.data.count).toEqual(3);
+        });
+
+        it("should perform a node document search", function() {
+            httpBackend
+                .when('GET', /EmailLink(.*)("email_link_id":"123")(.*)/)
+                .respond(200, getJSONFixture('nodes/emailLinkSearch.json'));
+
+            httpBackend
+                .when('GET', /NodeListing(.*)("method":"SEARCH")(.*)("search_method":"NODE_UIDS")(.*)("node_ids":\["abc-111"\])(.*)/)
+                .respond(200, getJSONFixture('nodes/uidSearch.json'));
+
+            var searchResults;
+            searchResults = nodesService.documentSearch("123").then(function(response){
+                searchResults = response;
+            });
+
+            httpBackend.flush();
+            expect(searchResults.data.count).toEqual(1);
         });
 
         it("should get recent records", function() {
@@ -67,7 +63,7 @@
                 .respond(200, getJSONFixture('nodes/recentRecords.json'));
 
             var recentRecords; 
-            nodeService.getRecentRecords(start, limit).then(function(response) {
+            nodesService.getRecentRecords(start, limit).then(function(response) {
                 recentRecords = response;
             });
 

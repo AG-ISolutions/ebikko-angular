@@ -114,7 +114,8 @@ div.loginPage {
 }
 
 div.loginPage md-whiteframe {
-    min-height: 40%;
+    height: 360px;
+    width: 360px;
     background-color: white;
 }
 
@@ -135,7 +136,7 @@ div.loginPage md-content {
     color: #FF1100;
 }
 
-content-container iframe {
+content-container iframe, content-container embed {
     width: 100%;
     height: 100%;
 }

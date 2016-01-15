@@ -13,6 +13,9 @@
                     return '123';
                 };
             });
+            $provide.factory('translateFilter', function() {
+                return {};
+            });
         }));
 
         beforeEach(inject(function($compile, $rootScope, $httpBackend) {

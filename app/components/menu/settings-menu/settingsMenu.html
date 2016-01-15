@@ -1,0 +1,13 @@
+<md-menu>
+    <md-button class="md-icon-button" ng-click="smc.openSettings($mdOpenMenu, $event)" aria-label="Show Settings">
+        <md-icon md-svg-icon="settings"></md-icon>
+    </md-button>
+    <md-menu-content width="4">
+        <md-menu-item ng-if="smc.changePasswordVisible()">
+            <md-button ng-click="smc.showChangePassword($event)">{{'Change Password' | translate}}</md-button>
+        </md-menu-item>
+        <md-menu-item>
+            <md-button ng-click="smc.logout()">{{'Logout' | translate}}</md-button>
+        </md-menu-item>
+    </md-menu-content>
+</md-menu>

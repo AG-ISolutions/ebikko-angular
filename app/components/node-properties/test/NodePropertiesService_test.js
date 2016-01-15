@@ -24,7 +24,7 @@
         it('should load the node properties', function() {
             httpBackend
                 .expectGET(/\/NodeType(.*)("ebikko_session_id":"123")(.*)("method":"NODETYPE_PROPERTIES")(.*)("node_type_id":"abc")(.*)/)
-                .respond(200, getJSONFixture('nodes/nodeProperties.json'));
+                .respond(200, getJSONFixture('nodes/nodeTypeDetails.json'));
 
             nodePropertiesService.getNodeTypeDetails("abc");
 

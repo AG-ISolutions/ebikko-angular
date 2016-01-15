@@ -2,10 +2,13 @@
     'use strict';
 
     angular
-        .module('ebikko', ['ngMaterial', 'ngNewRouter', 'ebikko.login', 'ebikko.config', 'ebikko.menu', 'ebikko.nodes', 'ebikko.forgot-password', 'ebikko.node-properties', 'ebikko.tabs', 'ebikko.email-search'])
-        .controller('AppController', ['$router', '$rootScope', '$mdToast', 'tabService', 'userRepository', AppController])
-        .config(['$mdThemingProvider', '$mdIconProvider', '$httpProvider', '$mdDateLocaleProvider',
-            function($mdThemingProvider, $mdIconProvider, $httpProvider, $mdDateLocaleProvider) {
+        .module('ebikko', ['ngMaterial', 'ngNewRouter', 'ebikko.login', 'ebikko.config', 'ebikko.menu', 'ebikko.nodes',
+            'ebikko.forgot-password', 'ebikko.node-properties', 'ebikko.tabs', 'ebikko.email-search', 'ebikko.node-content',
+            'pascalprecht.translate', 'ebikko.conf'
+        ])
+        .controller('AppController', ['$router', '$routeParams', '$rootScope', '$mdToast', '$location', '$translate', 'tabService', 'userRepository', AppController])
+        .config(['$mdThemingProvider', '$mdIconProvider', '$httpProvider', '$mdDateLocaleProvider', '$translateProvider',
+            function($mdThemingProvider, $mdIconProvider, $httpProvider, $mdDateLocaleProvider, $translateProvider) {
 
                 $mdIconProvider
                     .defaultIconSet("./assets/svg/avatars.svg", 128)
@@ -32,12 +35,20 @@
                     }
                 };
 
-                $httpProvider.defaults.withCredentials = true;
-                delete $httpProvider.defaults.headers.common['X-Requested-With'];
+                $translateProvider.preferredLanguage('en_US');
+                $translateProvider.useSanitizeValueStrategy('escape');
+                $translateProvider.useLoader('translationLoaderFactory');
             }
         ]);
 
-    function AppController($router, $rootScope, $mdToast, tabService, userRepository) {
+    function AppController($router, $routeParams, $rootScope, $mdToast, $location, $translate, tabService, userRepository) {
+
+        var self = this;
+
+        if (window.location.search.indexOf('document') > -1) {
+            self.documentId = window.location.search.substring(window.location.search.indexOf('=') + 1);
+        }
+
         $router.config([{
             path: '/',
             redirectTo: '/login'
@@ -54,6 +65,19 @@
 
         $rootScope.$on('loginSuccess', function() {
             tabService.clearTabs();
+
+            if (self.documentId) {
+                tabService.addTab({
+                    'name': 'Records',
+                    'type': 'nodes',
+                    'content': "<nodes type='uid-search' type-id='" + self.documentId + "'/>",
+                    'id': 'uid-search'
+                });
+            }
+
+            $translate.use(userRepository.getUserPreferences().preferences[0].defLang);
+
+            $location.url($location.path());
             $router.navigate('menu');
         });
 
@@ -71,6 +95,11 @@
                 .position('top left')
                 .hideDelay(3000)
             );
+        });
+
+        $rootScope.$on('noSessionId', function() {
+            $router.navigating = false;
+            $router.navigate('login');
         });
     }
 

@@ -1,24 +1,24 @@
 <div layout="row" flex="grow" ng-cloak layout-align="center center" class="loginPage">
-    <md-whiteframe class="md-whiteframe-1dp" flex="25" layout="column" layout-align="center center">
+    <md-whiteframe class="md-whiteframe-1dp" layout="column" layout-align="center center">
         <md-toolbar layout="row" class="md-toolbar-tools" layout-align="center center">
-            Meeting Manager Login
+            {{'Meeting Manager Login' | translate}}
         </md-toolbar>
-        <md-content layout-padding layout="row" layout-align="center center">
+        <md-content layout-padding flex="grow" layout="row" layout-align="center center">
             <form name="loginForm" id="loginForm" ng-submit="login.login()">
                 <md-input-container class="md-block" flex="100">
-                    <label>Username</label>
+                    <label>{{'Username' | translate}}</label>
                     <input ng-model="login.username">
                 </md-input-container>
                 <md-input-container class="md-block" flex="100">
-                    <label>Password</label>
+                    <label>{{'Password' | translate}}</label>
                     <input type="password" ng-model="login.password">
                 </md-input-container>
                 <div class="password-error">{{login.errorMessage}}</div>
-                <md-button type="submit" class="md-raised md-primary">Login</md-button>
+                <md-button type="submit" class="md-raised md-primary">{{'Login' | translate}}</md-button>
             </form>
         </md-content>
-        <div class="secondaryLink" flex="100" layout="row" layout-align="end center">
-            <md-button md-no-ink ng-href="/forgotPassword">Forgot password?</md-button>
+        <div class="secondaryLink" layout="row" layout-align="end center">
+            <md-button md-no-ink ng-href="/forgotPassword" ng-if="login.showForgotPassword">{{'Forgot Password?' | translate }}</md-button>
         </div>
     </md-whiteframe>
 </div>

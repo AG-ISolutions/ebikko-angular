@@ -16,8 +16,8 @@
 
         function downloadContent() {
             var tab = tabService.getSelectedTab();
-            nodeService.getDownloadUrl(tab.id).then(function(url) {
-                window.open(url, '_blank', '');
+            nodeService.getDownloadUrl(tab.id).then(function(response) {
+                window.open(response.data.data.url, '_blank', '');
             });
         }
 

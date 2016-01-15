@@ -33,6 +33,11 @@
                 .expectGET(/\/Profile(.*)("method":"CURRENT_USER_PROFILE_DETAIL")(.*)/)
                 .respond(200, profileDetails);
 
+            var userPreferences = getJSONFixture('user/userPreferences.json');
+            httpBackend
+                .expectGET(/\/UserPreferences(.*)("method":"GET_USER_PREFS")/)
+                .respond(200, userPreferences);
+
             loginService.login("user", "password");
 
             httpBackend.flush();
@@ -40,7 +45,39 @@
             expect(userRepository.getCurrentUser()).toEqual(loginResponse);
             expect(userRepository.getPrincipalDetails()).toEqual(principalDetails);
             expect(userRepository.getProfileDetails()).toEqual(profileDetails);
+            expect(userRepository.getUserPreferences()).toEqual(userPreferences);
+
             expect(rootScope.$broadcast).toHaveBeenCalledWith('loginSuccess');
+        });
+
+        it("should check the auth type", function() {
+            httpBackend
+                .expectGET(/\/AuthType/)
+                .respond(200, getJSONFixture('user/authType_ad.json'));
+
+            var authType;
+            loginService.checkAuthType().then(function(response) {
+                authType = response;
+            });
+
+            httpBackend.flush();
+
+            expect(authType).toEqual('ad');
+        });
+
+        it("should default the auth type to database when the call fails", function() {
+            httpBackend
+                .expectGET(/\/AuthType/)
+                .respond(500);
+
+            var authType;
+            loginService.checkAuthType().then(function(response) {
+                authType = response;
+            });
+
+            httpBackend.flush();
+
+            expect(authType).toEqual('database');
         });
 
         afterEach(function() {

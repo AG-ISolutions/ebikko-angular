@@ -18,6 +18,7 @@
                 'method': email.email_as_content ? "EMAIL_CONTENT" : "EMAIL_LINK",
                 'sender': userRepository.getPrincipalDetails().results[0].email,
                 'receiver_list': email.principals.map(transformPrincipalsToEmails),
+                'ebikkoWeb': false,
                 'subject': email.subject,
                 'cc_list': [],
                 'bcc_list': [],
