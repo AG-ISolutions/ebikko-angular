@@ -114,7 +114,8 @@ div.loginPage {
 }
 
 div.loginPage md-whiteframe {
-    min-height: 40%;
+    height: 360px;
+    width: 360px;
     background-color: white;
 }
 
