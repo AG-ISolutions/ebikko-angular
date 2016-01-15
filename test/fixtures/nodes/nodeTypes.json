@@ -1,0 +1,63 @@
+{
+    "success": true,
+    "code": 100,
+    "data": {
+        "responsemsg": "Node Types retrieved successfully"
+    },
+    "can_create": true,
+    "results": [{
+        "node_type_id": "a3c124256dec4893936ef8f26ee361a1",
+        "name": "CTC Request",
+        "description": "",
+        "is_container": true,
+        "icon": ""
+    }, {
+        "node_type_id": "f0000000000000000000000000000002",
+        "name": "Email",
+        "description": "Record Type used for email cataloging.",
+        "is_container": false,
+        "icon": ""
+    }, {
+        "node_type_id": "f0000000000000000000000000000006",
+        "name": "Email Attachments",
+        "description": "Record Type used for email attachments.",
+        "is_container": true,
+        "icon": ""
+    }, {
+        "node_type_id": "f0000000000000000000000000000005",
+        "name": "Email Catalog",
+        "description": "Record Type used for email cataloging.",
+        "is_container": true,
+        "icon": ""
+    }, {
+        "node_type_id": "e9b02a97858b49f9aed45e11d3fef945",
+        "name": "File",
+        "description": "",
+        "is_container": false,
+        "icon": ""
+    }, {
+        "node_type_id": "h667287ad5804b9bb71c38491b39ceca",
+        "name": "gvs documents",
+        "description": "",
+        "is_container": false,
+        "icon": ""
+    }, {
+        "node_type_id": "b0d8f62b76e7453c85b93ddf091843c0",
+        "name": "Reset Record Number",
+        "description": "",
+        "is_container": false,
+        "icon": ""
+    }, {
+        "node_type_id": "f0000000000000000000000000000003",
+        "name": "Template",
+        "description": "Templates as Records",
+        "is_container": false,
+        "icon": ""
+    }, {
+        "node_type_id": "f0000000000000000000000000000004",
+        "name": "Workflow Template",
+        "description": "Workflow Design Template",
+        "is_container": false,
+        "icon": ""
+    }]
+}

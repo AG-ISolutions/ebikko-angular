@@ -17,6 +17,7 @@
         self.selectMenuItem = selectMenuItem;
         self.showChangePassword = showChangePassword;
         self.toggleFullscreen = toggleFullscreen;
+        self.viewNodeCreateDialog = viewNodeCreateDialog;
 
         self.showSearch = false;
 
@@ -107,6 +108,17 @@
                 controller: 'ChangePasswordController',
                 controllerAs: 'cpc',
                 templateUrl: './components/change-password/changePassword.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true
+            });
+        }
+
+        function viewNodeCreateDialog(ev) {
+            $mdDialog.show({
+                controller: 'SelectNodeTypeController',
+                controllerAs: 'sntc',
+                templateUrl: './components/node-create/select-node/selectNodeType.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose: true

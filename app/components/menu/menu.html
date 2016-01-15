@@ -6,6 +6,7 @@
             <md-list-item ng-repeat="mi in menu.menuItems">
                 <md-button id="mb_{{mi.id}}" ng-class="{'md-primary': menu.getSelectedTab() === mi}" ng-click="menu.selectMenuItem(mi)">{{mi.name}}</md-button>
             </md-list-item>
+            <md-button ng-click="menu.viewNodeCreateDialog()">Add Record</md-button>
         </md-list>
     </md-sidenav>
     <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
