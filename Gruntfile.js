@@ -91,6 +91,44 @@ module.exports = function(grunt) {
             }
         },
 
+        injector: {
+            options: {
+                sort: false,
+                ignorePath: 'app/',
+                addRootSlash: false
+            },
+            dev: {
+                files: {
+                    'app/index.html': [
+                        'app/conf/conf.js',
+                        'app/components/config/config.js',
+                        'app/components/menu/menu.js',
+                        'app/components/menu/tabs/tabs.js',
+                        'app/components/menu/node-menu/node-menu.js',
+                        'app/components/menu/settings-menu/settings-menu.js',
+                        'app/components/nodes/nodes.js',
+                        'app/components/login/login.js',
+                        'app/components/secure-share/secureShare.js',
+                        'app/components/change-password/changePassword.js',
+                        'app/components/forgot-password/forgotPassword.js',
+                        'app/components/email-record/emailRecord.js',
+                        'app/components/node-properties/nodeProperties.js',
+                        'app/components/node-content/nodeContent.js',
+                        'app/components/email-search/emailSearch.js',
+                        'app/shared/services/shared-services.js',
+                        'app/shared/validation/validation.js',
+
+                        'app/conf/**/*.js',
+                        'app/components/**/*.js',
+                        'app/shared/**/*.js',
+
+                        '!**/test/**',
+                        '!**/treetable/*'
+                    ]
+                }
+            }
+        },
+
         protractor: {
             options: {
                 configFile: "./e2e/protractor.conf.js",
@@ -109,7 +147,7 @@ module.exports = function(grunt) {
 
         watch: {
             scripts: {
-                files: ['Gruntfile.js', 'karma.conf.js', 'app/app.js', 'app/components/**/*.js', 'app/src/**/*.js', 'app/shared/**/*.js', 'test/fixtures/**/*.json'],
+                files: ['Gruntfile.js', 'karma.conf.js', 'app/**/*', 'test/fixtures/**/*.json'],
                 tasks: ['karma:unit', 'jshint'],
                 options: {
                     nospawn: true,
@@ -126,7 +164,7 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('default', ['jshint', 'karma:unit', 'clean', 'compress', 'copy']);
+    grunt.registerTask('default', ['jshint', 'karma:unit', 'injector', 'clean', 'compress', 'copy']);
     grunt.registerTask('e2e-test', ['connect:test', 'protractor:e2e']);
 
     grunt.loadNpmTasks('grunt-bower-task');
@@ -138,9 +176,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-html2js');
+    grunt.loadNpmTasks('grunt-injector');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-protractor-runner');
+
 
     function getParameter(value, defaultValue) {
         return grunt.option(value) ? grunt.option(value) : defaultValue;

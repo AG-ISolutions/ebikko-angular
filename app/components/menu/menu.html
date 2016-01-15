@@ -4,7 +4,7 @@
         </md-toolbar>
         <md-list>
             <md-list-item ng-repeat="mi in menu.menuItems">
-                <md-button id="mb_{{mi.id}}" ng-class="{'md-primary': menu.getSelectedTab() === mi}" ng-click="menu.selectMenuItem(mi)">{{mi.name}}</md-button>
+                <md-button id="mb_{{mi.id}}" ng-class="{'md-primary': menu.getSelectedTab() === mi}" ng-click="menu.selectMenuItem(mi)">{{mi.name | translate}}</md-button>
             </md-list-item>
         </md-list>
     </md-sidenav>
@@ -15,7 +15,7 @@
                     <md-icon md-svg-icon="menu"></md-icon>
                 </md-button>
             </div>
-            <h1 flex="92" layout="row" layout-align="center">Meeting Management System</h1>
+            <h1 flex="92" layout="row" layout-align="center">{{'Meeting Management System' | translate}}</h1>
             <div layout="row" layout-align="end center" flex="10" class="quickSearch">
                 <input type="text" ng-model="menu.searchQuery" ng-keypress="($event.which === 13) ? menu.quickSearch() : 0" aria-label="Search" onblur="this.value=''">
             </div>
