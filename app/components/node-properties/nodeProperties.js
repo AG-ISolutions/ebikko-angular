@@ -1,7 +1,7 @@
 (function() {
-	"use strict";
+    "use strict";
 
-	angular
-		.module('ebikko.node-properties', []);
-		
+    angular
+        .module('ebikko.node-properties', ['ebikko.shared-services']);
+
 })();

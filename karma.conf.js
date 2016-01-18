@@ -30,7 +30,7 @@ module.exports = function(config) {
             'app/components/change-password/changePassword.js',
             'app/components/email-record/emailRecord.js',
             'app/components/node-properties/nodeProperties.js',
-            'app/components/node-create/select-node-type/selectNodeType.js',
+            'app/components/node-create/nodeCreate.js',
             'app/components/node-content/nodeContent.js',
             'app/components/email-search/emailSearch.js',
             'app/shared/services/shared-services.js',

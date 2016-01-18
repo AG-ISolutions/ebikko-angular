@@ -114,6 +114,7 @@ module.exports = function(grunt) {
                         'app/components/email-record/emailRecord.js',
                         'app/components/node-properties/nodeProperties.js',
                         'app/components/node-content/nodeContent.js',
+                        'app/components/node-create/nodeCreate.js',
                         'app/components/email-search/emailSearch.js',
                         'app/shared/services/shared-services.js',
                         'app/shared/validation/validation.js',
@@ -148,7 +149,7 @@ module.exports = function(grunt) {
         watch: {
             scripts: {
                 files: ['Gruntfile.js', 'karma.conf.js', 'app/**/*', 'test/fixtures/**/*.json'],
-                tasks: ['karma:unit', 'jshint'],
+                tasks: [ 'karma:unit', 'injector', 'jshint'],
                 options: {
                     nospawn: true,
                 },

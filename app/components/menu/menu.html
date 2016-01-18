@@ -6,7 +6,16 @@
             <md-list-item ng-repeat="mi in menu.menuItems">
                 <md-button id="mb_{{mi.id}}" ng-class="{'md-primary': menu.getSelectedTab() === mi}" ng-click="menu.selectMenuItem(mi)">{{mi.name | translate}}</md-button>
             </md-list-item>
-            <md-button ng-click="menu.viewNodeCreateDialog()">Add Record</md-button>
+
+            <md-button ng-click="menu.showAddRecord = !menu.showAddRecord">Add Record</md-button>
+            <ul ng-class="{'menu-toggle-list': true, 'menu-toggle-visible': menu.showAddRecord, 'menu-toggle-hidden': !menu.showAddRecord}">
+                <li ng-repeat="nodeType in menu.nodeTypes">
+                    <md-button ng-click="menu.selectAddRecord(nodeType)">
+                        {{nodeType.name}}
+                    </md-button>
+                </li>
+            </ul>
+
         </md-list>
     </md-sidenav>
     <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">

@@ -3,26 +3,31 @@
 
     angular
         .module('ebikko.menu')
-        .controller('MenuController', ['$document', '$mdSidenav', '$mdBottomSheet', '$mdToast', 'tabService', 'menuService',
+        .controller('MenuController', ['$document', '$mdSidenav', '$mdBottomSheet', '$mdToast', '$mdDialog', 'tabService', 'menuService',
             MenuController
         ]);
 
-    function MenuController($document, $mdSidenav, $mdBottomSheet, $mdToast, tabService, menuService) {
+    function MenuController($document, $mdSidenav, $mdBottomSheet, $mdToast, $mdDialog, tabService, menuService) {
         var self = this;
 
         self.getSelectedTab = getSelectedTab;
         self.quickSearch = quickSearch;
+        self.selectAddRecord = selectAddRecord;
         self.selectMenuItem = selectMenuItem;
         self.toggleFullscreen = toggleFullscreen;
-        self.viewNodeCreateDialog = viewNodeCreateDialog;
 
         self.showSearch = false;
+        self.showAddRecord = false;
 
         self.toggleSidebar = toggleSidebar;
 
         self.activate = function() {
             menuService.getMenuItems().then(function(menuItems) {
                 self.menuItems = menuItems;
+            });
+
+            menuService.getNodeTypes().then(function(response) {
+                self.nodeTypes = response.data.results;
             });
         };
 
@@ -37,6 +42,16 @@
                     elem.contentWindow.location.reload(true);
                 }
             }, 250);
+        }
+
+        function selectAddRecord(nodeType) {
+            tabService.addTab({
+                name: 'Create Record',
+                type: 'node-create',
+                content: "<ebikko-node-create node-type-id='" + nodeType.node_type_id + "' />"
+            });
+
+            self.toggleSidebar();
         }
 
         function selectMenuItem(menuItem) {
@@ -90,28 +105,6 @@
                 });
                 self.showSearch = false;
             }
-        }
-
-        function showChangePassword(ev) {
-            $mdDialog.show({
-                controller: 'ChangePasswordController',
-                controllerAs: 'cpc',
-                templateUrl: './components/change-password/changePassword.html',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose: true
-            });
-        }
-
-        function viewNodeCreateDialog(ev) {
-            $mdDialog.show({
-                controller: 'SelectNodeTypeController',
-                controllerAs: 'sntc',
-                templateUrl: './components/node-create/select-node/selectNodeType.html',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose: true
-            });
         }
     }
 

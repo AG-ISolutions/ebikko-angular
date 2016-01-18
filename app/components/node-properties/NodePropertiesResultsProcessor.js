@@ -3,46 +3,25 @@
 
     angular
         .module('ebikko.node-properties')
-        .service('nodePropertiesResultsProcessor', ['$filter', NodePropertiesResultsProcessor]);
+        .service('nodePropertiesResultsProcessor', ['$filter', 'nodeTypeService', NodePropertiesResultsProcessor]);
 
-    function NodePropertiesResultsProcessor($filter) {
+    function NodePropertiesResultsProcessor($filter, nodeTypeService) {
         var self = {
-            processResults: processResults,
+            enrichWithValues: enrichWithValues,
         };
 
         return self;
 
-        function processResults(nodeDetails, nodeTypeDetails) {
-            var results = [];
-
-            var propertyGroups = nodeTypeDetails.property_group;
-            var customProperties = nodeTypeDetails.properties;
-            var attributes = nodeTypeDetails.attributes;
-
+        function enrichWithValues(nodeDetails, nodeTypeDetails) {
+            var results = nodeTypeService.processNodeTypeDetails(nodeTypeDetails);
             var nodeProperties = nodeDetails.single_value;
 
-            angular.forEach(propertyGroups, function(propertyGroup, key) {
-                var propertyId = propertyGroup.property_id;
-                var isMultiValue = customProperties && extractValueFromArray(customProperties, propertyId, 'is_multi_value');
-                var isCustomProperty = isMultiValue !== null && isMultiValue !== undefined;
-
-                var result = {
-                    id: propertyId,
-                    isMultiValue: isCustomProperty && isMultiValue
-                };
-
-                if (isCustomProperty) {
-                    result.value = extractCustomPropertyValue(isMultiValue, propertyId, nodeDetails);
+            angular.forEach(results, function(result, key) {
+                if (result.isCustomProperty) {
+                    result.value = extractCustomPropertyValue(result.isMultiValue, result.id, nodeDetails);
                 } else {
-                    result.value = nodeDetails[getPropertyKey(propertyId)];
+                    result.value = nodeDetails[getPropertyKey(result.id)];
                 }
-
-                result.name = extractValueFromArray(attributes, isNaN(propertyId) ? propertyId : parseInt(propertyId), 'alias');
-                if (result.name === null || result.name === '') {
-                    result.name = decodeURIComponent(propertyGroup.name);
-                }
-
-                results.push(result);
             });
 
             return results;
@@ -60,15 +39,6 @@
                 value = processPropertyValue(matchingPropertyValues[0]);
             }
             return value;
-        }
-
-        function extractValueFromArray(array, filterValue, extractValue) {
-            var matchingObjects = findInArray(array, filterValue);
-            if (matchingObjects.length > 0) {
-                return matchingObjects[0][extractValue];
-            } else {
-                return null;
-            }
         }
 
         function findInArray(array, value) {

@@ -17,7 +17,7 @@
             var results = getJSONFixture('nodes/nodeTypeDetails.json').results[0];
             var nodeDetails = getJSONFixture('nodes/nodeDetails.json').results[0];
 
-            var response = processor.processResults(nodeDetails, results);
+            var response = processor.enrichWithValues(nodeDetails, results);
 
             expect(response.length).toEqual(6);
         });
@@ -26,13 +26,15 @@
             var results = getJSONFixture('nodes/nodeTypeDetails.json').results[0];
             var nodeDetails = getJSONFixture('nodes/nodeDetails.json').results[0];
 
-            var response = processor.processResults(nodeDetails, results);
+            var response = processor.enrichWithValues(nodeDetails, results);
 
             expect(response).toContain({
                 id: 'f4c1cf812d254f26a2460d67e3f09b4f',
                 value: '2015-12-30',
                 name: 'Date of the Meeting',
-                isMultiValue: false
+                isMultiValue: false,
+                isCustomProperty: true,
+                type: 500
             });
         });
 
@@ -40,20 +42,24 @@
             var results = getJSONFixture('nodes/nodeTypeDetails.json').results[0];
             var nodeDetails = getJSONFixture('nodes/nodeDetails.json').results[0];
 
-            var response = processor.processResults(nodeDetails, results);
+            var response = processor.enrichWithValues(nodeDetails, results);
 
             expect(response).toContain({
                 id: '1',
                 value: 'Test contain in folder',
                 name: 'Title',
-                isMultiValue: false
+                isMultiValue: false,
+                isCustomProperty: false,
+                type: null
             });
 
             expect(response).toContain({
                 id: '3',
                 value: 'Some test notes',
                 name: 'Notes',
-                isMultiValue: false
+                isMultiValue: false,
+                isCustomProperty: false,
+                type: null
             });
         });
 
@@ -61,13 +67,15 @@
             var results = getJSONFixture('nodes/nodeTypeDetails.json').results[0];
             var nodeDetails = getJSONFixture('nodes/nodeDetails.json').results[0];
 
-            var response = processor.processResults(nodeDetails, results);
+            var response = processor.enrichWithValues(nodeDetails, results);
 
             expect(response).toContain({
                 id: '6',
                 value: '2014/GGGG/2',
                 name: 'Folder',
-                isMultiValue: false
+                isMultiValue: false,
+                isCustomProperty: false,
+                type: null
             });
         });
 
@@ -75,13 +83,15 @@
             var results = getJSONFixture('nodes/nodeTypeDetails.json').results[0];
             var nodeDetails = getJSONFixture('nodes/nodeDetails.json').results[0];
 
-            var response = processor.processResults(nodeDetails, results);
+            var response = processor.enrichWithValues(nodeDetails, results);
 
             expect(response).toContain({
                 id: '1a2b3c',
                 value: 'John',
                 name: 'Principal',
-                isMultiValue: false
+                isMultiValue: false,
+                isCustomProperty: true,
+                type: 500
             });
         });
 
@@ -89,13 +99,15 @@
             var results = getJSONFixture('nodes/nodeTypeDetails.json').results[0];
             var nodeDetails = getJSONFixture('nodes/nodeDetails.json').results[0];
 
-            var response = processor.processResults(nodeDetails, results);
+            var response = processor.enrichWithValues(nodeDetails, results);
 
             expect(response).toContain({
                 id: '222',
                 value: ['Michelle', 'Steve'],
                 name: 'Recipient',
-                isMultiValue: true
+                isMultiValue: true,
+                isCustomProperty: true,
+                type: 1200
             });
         });
     });

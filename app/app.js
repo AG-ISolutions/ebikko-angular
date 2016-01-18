@@ -4,7 +4,7 @@
     angular
         .module('ebikko', ['ngMaterial', 'ngNewRouter', 'ebikko.login', 'ebikko.config', 'ebikko.menu', 'ebikko.nodes',
             'ebikko.forgot-password', 'ebikko.node-properties', 'ebikko.tabs', 'ebikko.email-search', 'ebikko.node-content',
-            'pascalprecht.translate', 'ebikko.conf'
+            'pascalprecht.translate', 'ebikko.conf', 'ebikko.node-create'
         ])
         .controller('AppController', ['$router', '$routeParams', '$rootScope', '$mdToast', '$location', '$translate', 'tabService', 'userRepository', AppController])
         .config(['$mdThemingProvider', '$mdIconProvider', '$httpProvider', '$mdDateLocaleProvider', '$translateProvider',

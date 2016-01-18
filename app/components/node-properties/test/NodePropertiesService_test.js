@@ -21,16 +21,6 @@
             httpBackend = $httpBackend;
         }));
 
-        it('should load the node properties', function() {
-            httpBackend
-                .expectGET(/\/NodeType(.*)("ebikko_session_id":"123")(.*)("method":"NODETYPE_PROPERTIES")(.*)("node_type_id":"abc")(.*)/)
-                .respond(200, getJSONFixture('nodes/nodeTypeDetails.json'));
-
-            nodePropertiesService.getNodeTypeDetails("abc");
-
-            httpBackend.flush();
-        });
-
         it('should load the full node details', function() {
             httpBackend
                 .expectGET(/\/Node(.*)("ebikko_session_id":"123")(.*)("method":"NODE_DETAIL_FULL")(.*)("node_id":"abc-efg")(.*)/)

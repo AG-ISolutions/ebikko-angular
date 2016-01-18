@@ -7,7 +7,8 @@
 
     function MenuService($http, userRepository) {
         var self = {
-            getMenuItems: getMenuItems
+            getMenuItems: getMenuItems,
+            getNodeTypes: getNodeTypes
         };
 
         return self;
@@ -30,7 +31,7 @@
                         menuItems.push({
                             'name': portlet.title,
                             'type': 'nodes',
-                            'content': "<nodes type='saved-search' type-id='"+portlet.columnDetails+"'/>",
+                            'content': "<nodes type='saved-search' type-id='" + portlet.columnDetails + "'/>",
                             'id': portlet.id
                         });
                     }
@@ -44,6 +45,19 @@
                 });
 
                 return menuItems;
+            });
+        }
+
+        function getNodeTypes() {
+            var json = {
+                'ebikko_session_id': userRepository.getSessionId(),
+                'method': 'NODETYPE_USABLE_LIST',
+                'node_type_id': ''
+            };
+            var stringed = JSON.stringify(json);
+            return $http({
+                'method': 'GET',
+                'url': '/NodeType?json=' + stringed
             });
         }
     }
