@@ -37,7 +37,7 @@
                 var propertyId = propertyGroup.property_id;
                 var isMultiValue = customProperties && extractValueFromArray(customProperties, propertyId, 'is_multi_value');
                 var isCustomProperty = isMultiValue !== null && isMultiValue !== undefined;
-                var type = isCustomProperty ? extractValueFromArray(customProperties, propertyId, 'type') : null;
+                var type = isCustomProperty ? extractValueFromArray(customProperties, propertyId, 'type') : staticPropertyTypes()[propertyId];
 
                 var result = {
                     id: propertyId,
@@ -70,6 +70,13 @@
             return $filter('filter')(array, {
                 'property_id': value
             }, true);
+        }
+
+        function staticPropertyTypes() {
+            return {
+                1: 100, //100 - small input box
+                3: 800 //800 - large input box
+            };
         }
     }
 })();

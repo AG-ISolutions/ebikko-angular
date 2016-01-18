@@ -47,7 +47,7 @@
             expect(results).toContain({
                 id: '6',
                 isMultiValue: false,
-                type: null,
+                type: undefined,
                 name: 'Folder',
                 isCustomProperty: false
             });

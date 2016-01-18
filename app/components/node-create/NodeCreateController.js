@@ -1,24 +1,104 @@
 (function() {
-	"use strict";
+    "use strict";
 
-	angular
-		.module('ebikko.node-create')
-		.controller('NodeCreateController', [ 'nodeTypeService', 'nodeCreateService', NodeCreateController ]);
+    angular
+        .module('ebikko.node-create')
+        .controller('NodeCreateController', ['nodeTypeService', 'nodeCreateService', NodeCreateController]);
 
-	function NodeCreateController(nodeTypeService, nodeCreateService) {
-		var self = this;
-		self.activate = activate;
-		self.loading = false;
+    function NodeCreateController(nodeTypeService, nodeCreateService) {
+        var self = this;
+        self.activate = activate;
+        self.loading = false;
+        self.save = save;
+        self.saving = false;
 
-		activate();
+        self.logNode = function() {
+            console.log(self.node);
+        };
 
-		function activate() {
-			self.loading = true;
-			nodeTypeService.getNodeTypeDetails(self.nodeTypeId).then(function(response) {
-				self.nodeTypeProperties = nodeTypeService.processNodeTypeDetails(response.data.results[0]);
-				self.loading = false;
-			});
-		}
-	}
+        activate();
+
+        function activate() {
+        	self.node = createNode();
+            self.loading = true;
+            nodeTypeService.getNodeTypeDetails(self.nodeTypeId).then(function(response) {
+                var details = nodeTypeService.processNodeTypeDetails(response.data.results[0]);
+                details = nodeCreateService.enrichWithModelNames(details);
+                self.nodeTypeProperties = details;
+                self.loading = false;
+            });
+        }
+
+        function save() {
+        	self.saving = true;
+            nodeCreateService.saveNode(self.node).then(function(response){
+            	self.saving = false;
+            });
+        }
+
+        function createNode() {
+            return {
+                "node_type_id": self.nodeTypeId,
+                "node_id": "",
+                "title": "",
+                "date_closed": "",
+                "enclosure_number": "0",
+                "client_id": "",
+                "bypass_referenced_acls": false,
+                "security_based_on_container": false,
+                "description": "",
+                "barcode": "",
+                "classification": "",
+                "secondary_classification": "",
+                "tertiary_classification": "",
+                "container_id": "",
+                "current_assignee": "00000000000000000000000000000000",
+                "disposition_status": "0",
+                "external_barcode": "",
+                "external_id": "",
+                "finalized": false,
+                "is_hybrid": false,
+                "is_declassify": false,
+                "home": "",
+                "integrity_check": "",
+                "owner_id": "00000000000000000000000000000000",
+                "record_number": "",
+                "retention_schedule_id": "",
+                "master_document_link": "",
+                "notes": "",
+                "AppededNotes": "",
+                "date_registered": "",
+                "date_created": "",
+                "date_archived": "",
+                "date_made_inactive": "",
+                "record_class": 0,
+                "author": "",
+                "batch_id": "",
+                "is_auto_update_security_level": false,
+                "is_update_security_level_on_particular_date": false,
+                "security_level_trigger_date": null,
+                "is_update_security_level_on_triggered_event": false,
+                "security_level_triggered_event_duration": 1,
+                "security_level_triggered_event_type": 0,
+                "security_level_triggered_event": null,
+                "security_level_triggered_event_property": null,
+                "auto_update_security_level_id": "",
+                "acl_id": "",
+                "txtCatatan": "",
+                "hybrid_remarks": "",
+                "appended_hybrid_remarks": "",
+                "security_level_id": "",
+                "acl_list": [],
+                "creator_name": "",
+                "master": "",
+                "creator_username": "",
+                "is_container_removed_on_ret_trig": false,
+                "is_set_home_on_container_ret_trig": false,
+                "retention_schedule_new_home_uid": "",
+                "data": {},
+                "unsavedNodeProperties": {}
+            };
+        }
+    }
 
 })();

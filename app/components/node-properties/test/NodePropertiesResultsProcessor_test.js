@@ -50,7 +50,7 @@
                 name: 'Title',
                 isMultiValue: false,
                 isCustomProperty: false,
-                type: null
+                type: 100
             });
 
             expect(response).toContain({
@@ -59,7 +59,7 @@
                 name: 'Notes',
                 isMultiValue: false,
                 isCustomProperty: false,
-                type: null
+                type: 800
             });
         });
 
@@ -75,7 +75,7 @@
                 name: 'Folder',
                 isMultiValue: false,
                 isCustomProperty: false,
-                type: null
+                type: undefined
             });
         });
 
