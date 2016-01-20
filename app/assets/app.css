@@ -304,3 +304,18 @@ md-dialog {
         transform: rotate(450deg);
     }
 }
+
+md-chips.with-floating-label{
+    margin: 18px 0;
+    display: block;
+}
+md-chips.with-floating-label md-chips-wrap{
+    padding-left: 0px;
+    padding-bottom: 0px;
+}
+md-chips.with-floating-label md-autocomplete[md-floating-label] md-input-container{
+    margin-top: 0px;
+}
+md-chips.with-floating-label .md-chip-input-container:not(:first-child){
+    margin-top: 28px;
+}

@@ -1,28 +1,56 @@
-<md-chips 
-    ng-model="esc.model" 
-    md-autocomplete-snap 
-    md-transform-chip="esc.transformChip($chip)"
-    md-require-match="false">
-    
-    <md-autocomplete 
-        md-no-cache="false" 
-        md-selected-item="esc.selectedPrincipal" 
-        md-search-text="esc.emailSearchText" 
-        md-search-text-change="esc.performPrincipalSearch(esc.emailSearchText)" 
-        md-items="principal in esc.principals" 
-        md-item-text="principal.name" 
-        placeholder="Enter name or email">
+<span ng-if="esc.multiValue == 'true'">
+    <md-chips 
+        ng-model="esc.model" 
+        md-autocomplete-snap 
+        md-transform-chip="esc.transformChip($chip)"
+        md-require-match="false"
+        class="with-floating-label">
         
-        <md-item-template>
-            <span md-highlight-text="esc.emailSearchText" md-highlight-flags="^i">{{principal.name}}  ({{principal.email}})</span>
-        </md-item-template>
-        <md-not-found>
-            {{'No principals found' | translate}}
-        </md-not-found>
-    </md-autocomplete>
-    <md-chip-template>
-        <span>
-          {{$chip.name}}
-        </span>
-    </md-chip-template>
-</md-chips>
+        <md-autocomplete 
+            md-no-cache="false" 
+            md-selected-item="esc.selectedPrincipal" 
+            md-search-text="esc.emailSearchText" 
+            md-search-text-change="esc.performPrincipalSearch(esc.emailSearchText)" 
+            md-items="principal in esc.principals" 
+            md-item-text="principal.name" 
+            md-floating-label="{{esc.label}}"
+            placeholder="Enter name or email">
+            
+            <md-item-template>
+                <span md-highlight-text="esc.emailSearchText" md-highlight-flags="^i">{{principal.name}}</span>
+                <span ng-show="principal.email">({{principal.email}})</span>
+            </md-item-template>
+            <md-not-found>
+                {{'No principals found' | translate}}
+            </md-not-found>
+        </md-autocomplete>
+
+        <md-chip-template>
+            <span>
+              {{$chip.name}}
+            </span>
+        </md-chip-template>
+    </md-chips>
+</span>
+
+<span ng-if="esc.multiValue !== 'true'">
+
+    <md-autocomplete 
+            md-no-cache="false" 
+            md-selected-item="esc.model" 
+            md-search-text="esc.emailSearchText" 
+            md-search-text-change="esc.performPrincipalSearch(esc.emailSearchText)" 
+            md-items="principal in esc.principals" 
+            md-item-text="principal.name" 
+            md-floating-label="{{esc.label}}"
+            placeholder="Enter name or email">
+            
+            <md-item-template>
+                <span md-highlight-text="esc.emailSearchText" md-highlight-flags="^i">{{principal.name}}</span>
+                <span ng-show="principal.email">({{principal.email}})</span>
+            </md-item-template>
+            <md-not-found>
+                {{'No principals found' | translate}}
+            </md-not-found>
+        </md-autocomplete>
+</span>

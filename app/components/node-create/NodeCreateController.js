@@ -3,23 +3,29 @@
 
     angular
         .module('ebikko.node-create')
-        .controller('NodeCreateController', ['nodeTypeService', 'nodeCreateService', NodeCreateController]);
+        .controller('NodeCreateController', ['nodeTypeService', 'nodeCreateService', '$timeout', NodeCreateController]);
 
-    function NodeCreateController(nodeTypeService, nodeCreateService) {
+    function NodeCreateController(nodeTypeService, nodeCreateService, $timeout) {
         var self = this;
         self.activate = activate;
+        self.dateValues = {};
+        self.ignoreReadOnlyProperties = ignoreReadOnlyProperties;
+        self.loadContainers = loadContainers;
         self.loading = false;
+        self.principalSearches = {};
         self.save = save;
         self.saving = false;
 
         self.logNode = function() {
             console.log(self.node);
+            console.log(self.principalSearches);
         };
 
         activate();
 
         function activate() {
-        	self.node = createNode();
+            self.node = createNode();
+            self.times = generateTimes();
             self.loading = true;
             nodeTypeService.getNodeTypeDetails(self.nodeTypeId).then(function(response) {
                 var details = nodeTypeService.processNodeTypeDetails(response.data.results[0]);
@@ -29,10 +35,52 @@
             });
         }
 
+        function formatDates() {
+            angular.forEach(self.node.data, function(value, key) {
+                if (value instanceof Date) {
+                    self.node.data[key] = value.getFullYear() + "-" + (value.getMonth() + 1) + "-" + value.getDate();
+                }
+            });
+        }
+
+        function ignoreReadOnlyProperties(value, index, array) {
+            return !value.properties || !value.properties.is_readonly;
+        }
+
+        function loadContainers() {
+            return nodeCreateService.loadContainers(self.nodeTypeId).then(function(response) {
+                self.containers = response.data.results;
+            });
+        }
+
+        function generateTimes() {
+            var times = [];
+            for (var h = 0; h <= 23; h++) {
+                for (var m = 0; m <= 3; m++) {
+                    var hourFormatted = ("00" + h).slice(-2);
+                    var minuteFormatted = ("00" + (m * 15)).slice(-2);
+                    times.push(hourFormatted + ':' + (minuteFormatted) + ':00');
+                }
+            }
+            return times;
+        }
+
         function save() {
-        	self.saving = true;
-            nodeCreateService.saveNode(self.node).then(function(response){
-            	self.saving = false;
+            setPrincipalIdsOnNode();
+            formatDates();
+            self.saving = true;
+            nodeCreateService.saveNode(self.node).then(function(response) {
+                self.saving = false;
+            });
+        }
+
+        function setPrincipalIdsOnNode() {
+            angular.forEach(self.principalSearches, function(value, key) {
+                if (value instanceof Array) {
+                    self.node.data[key] = value.length === 0 ? [] : [value[0].principal_id];
+                } else {
+                    self.node.data[key] = value.principal_id;
+                }
             });
         }
 

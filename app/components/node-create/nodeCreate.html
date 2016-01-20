@@ -1,7 +1,7 @@
 <md-content layout-padding ng-hide="ncc.loading">
     <div>
         <form name="nodeForm" ng-submit="ncc.save()">
-            <div ng-repeat="p in ncc.nodeTypeProperties">
+            <div ng-repeat="p in ncc.nodeTypeProperties | filter : ncc.ignoreReadOnlyProperties">
                 <!-- 100 - small input -->
                 <md-input-container class="md-block" ng-if="p.type == 100">
                     <label>{{p.name}}</label>
@@ -13,23 +13,51 @@
                     <md-datepicker ng-model="ncc.node.data[p.modelName]" md-placeholder="{{p.name}}" ng-if="p.isCustomProperty"></md-datepicker>
                     <md-datepicker ng-model="ncc.node[p.modelName]" md-placeholder="{{p.name}}" ng-if="!p.isCustomProperty"></md-datepicker>
                 </div>
+                <!-- 600 - time -->
+            	<div ng-if="p.type == 600">
+                    <md-input-container>
+                        <label>{{p.name}}</label>
+                        <md-select placeholder="{{p.name}}" ng-model="ncc.node.data[p.modelName]">
+                            <md-option ng-value="time" ng-repeat="time in ncc.times">{{time}}</md-option>
+                        </md-select>
+                    </md-input-container>
+        		</div>
                 <!-- 800 - large input -->
                 <md-input-container class="md-block" ng-if="p.type == 800">
                     <label>{{p.name}}</label>
                     <textarea ng-model="ncc.node.data[p.modelName]" columns="1" md-maxlength="150" rows="5" ng-if="p.isCustomProperty"></textarea>
                     <textarea ng-model="ncc.node[p.modelName]" columns="1" md-maxlength="150" rows="5" ng-if="!p.isCustomProperty"></textarea>
                 </md-input-container>
+                <!-- 1200 - principals -->
+                <div ng-if="p.type == 1200">
+                	<ebikko-email-search 
+                		model="ncc.principalSearches[p.modelName]"
+                		label="{{p.name}}"
+                        multi-value="{{p.properties.is_multi_value}}"
+                		must-be-member-of="{{p.properties.must_be_member_of}}"
+                        require-email="false"
+                        restrict-to-groups="{{p.properties.is_groups_only}}"
+                        restrict-to-people="{{p.properties.is_non_groups_only}}"
+            		></ebikko-email-search/>
+            	</div>
+                <!-- container - container search -->
+                <div ng-if="p.type == 'container'">
+                    <md-select placeholder="{{p.name}}" ng-model="ncc.node[p.modelName]" md-on-open="ncc.loadContainers()" style="min-width: 200px;">
+                        <md-option ng-value="container.node_id" ng-repeat="container in ncc.containers">{{container.record_number}}</md-option>
+                    </md-select>
+                </div>
             </div>
             <div layout="row" layout-align="center center" flex="100" class="md-block" ng-hide="ncc.saving">
                 <md-button type="submit" class="md-raised md-primary">{{'Save' | translate}}</md-button>
             </div>
+            <md-button ng-click="ncc.logNode()">Log</md-button>
         </form>
     </div>
 </md-content>
 <div layout="row" layout-sm="column" layout-align="center center" ng-show="ncc.saving || ncc.loading">
     <md-progress-circular md-mode="indeterminate" md-diameter="100"></md-progress-circular>
 </div>
-<!-- <ul ng-repeat="p in ncc.nodeTypeProperties" ng-hide="ncc.loading"> -->
-    <!-- <li>{{p}} {{p.name}}, {{p.type}}, {{p.id}}, {{p.modelName}} -->
-    <!-- </li> -->
-<!-- </ul> -->
+<ul ng-repeat="p in ncc.nodeTypeProperties" ng-hide="ncc.loading">
+    <li>{{p}} {{p.name}}, {{p.type}}, {{p.id}}, {{p.modelName}}
+    </li>
+</ul>

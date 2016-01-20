@@ -18,7 +18,7 @@
 
             angular.forEach(results, function(result, key) {
                 if (result.isCustomProperty) {
-                    result.value = extractCustomPropertyValue(result.isMultiValue, result.id, nodeDetails);
+                    result.value = extractCustomPropertyValue(result.properties.is_multi_value, result.id, nodeDetails);
                 } else {
                     result.value = nodeDetails[getPropertyKey(result.id)];
                 }

@@ -28,14 +28,13 @@
 
             var response = processor.enrichWithValues(nodeDetails, results);
 
-            expect(response).toContain({
+            expect(response).toContain(jasmine.objectContaining({
                 id: 'f4c1cf812d254f26a2460d67e3f09b4f',
                 value: '2015-12-30',
                 name: 'Date of the Meeting',
-                isMultiValue: false,
                 isCustomProperty: true,
                 type: 500
-            });
+            }));
         });
 
         it('should look up the values for static properties from the node data', function() {
@@ -44,23 +43,21 @@
 
             var response = processor.enrichWithValues(nodeDetails, results);
 
-            expect(response).toContain({
+            expect(response).toContain(jasmine.objectContaining({
                 id: '1',
                 value: 'Test contain in folder',
                 name: 'Title',
-                isMultiValue: false,
                 isCustomProperty: false,
                 type: 100
-            });
+            }));
 
-            expect(response).toContain({
+            expect(response).toContain(jasmine.objectContaining({
                 id: '3',
                 value: 'Some test notes',
                 name: 'Notes',
-                isMultiValue: false,
                 isCustomProperty: false,
                 type: 800
-            });
+            }));
         });
 
         it('should use the alias name if it exists', function() {
@@ -69,14 +66,13 @@
 
             var response = processor.enrichWithValues(nodeDetails, results);
 
-            expect(response).toContain({
+            expect(response).toContain(jasmine.objectContaining({
                 id: '6',
                 value: '2014/GGGG/2',
                 name: 'Folder',
-                isMultiValue: false,
                 isCustomProperty: false,
-                type: undefined
-            });
+                type: 'container'
+            }));
         });
 
         it('should only display the username of principals', function() {
@@ -85,14 +81,13 @@
 
             var response = processor.enrichWithValues(nodeDetails, results);
 
-            expect(response).toContain({
+            expect(response).toContain(jasmine.objectContaining({
                 id: '1a2b3c',
                 value: 'John',
                 name: 'Principal',
-                isMultiValue: false,
                 isCustomProperty: true,
                 type: 500
-            });
+            }));
         });
 
         it('should support multi value properties', function() {
@@ -101,14 +96,13 @@
 
             var response = processor.enrichWithValues(nodeDetails, results);
 
-            expect(response).toContain({
+            expect(response).toContain(jasmine.objectContaining({
                 id: '222',
                 value: ['Michelle', 'Steve'],
                 name: 'Recipient',
-                isMultiValue: true,
                 isCustomProperty: true,
                 type: 1200
-            });
+            }));
         });
     });
 })();

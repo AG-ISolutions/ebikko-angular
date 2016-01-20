@@ -6,7 +6,13 @@
         .directive('ebikkoEmailSearch', function() {
             return {
             	scope: {
-            		'model': '='
+            		'model': '=',
+                    'label': '@',
+                    'multiValue': '@',
+                    'mustBeMemberOf': '@',
+                    'requireEmail': '@',
+                    'restrictToGroups': '@',
+                    'restrictToPeople': '@'
             	},
 	        	controller: 'EmailSearchController',
 	        	controllerAs: 'esc',

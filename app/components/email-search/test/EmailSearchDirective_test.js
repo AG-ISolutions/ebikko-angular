@@ -32,18 +32,6 @@
             expect(chipsElement).toBeDefined();
         });
 
-        it('should search for principals when text is entered', function() {
-            httpBackend
-                .expectPOST(/\/Principal(.*)/)
-                .respond(200, getJSONFixture('principalSearch.json'));
-
-            var inputElem = angular.element(directiveElem.find('input'));
-            inputElem.val('Some text').trigger('input');
-            scope.$apply();
-            
-            httpBackend.flush();
-        });
-
         function getCompiledElement() {
             element = angular.element('<ebikko-email-search model="principals"></ebikko-email-search>');
             var compiledElement = compile(element)(scope);

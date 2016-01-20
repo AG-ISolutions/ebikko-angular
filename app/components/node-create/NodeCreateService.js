@@ -8,6 +8,7 @@
     function NodeCreateService($http, userRepository) {
         var self = {
             enrichWithModelNames: enrichWithModelNames,
+            loadContainers: loadContainers,
             saveNode: saveNode
         };
 
@@ -20,6 +21,19 @@
             });
 
             return nodeTypeDetails;
+        }
+
+        function loadContainers(nodeTypeId) {
+            var json = {
+                'ebikko_session_id': userRepository.getSessionId(),
+                'method': 'RECENT_CONTAINERS',
+                'node_type_id': nodeTypeId
+            };
+            var stringed = JSON.stringify(json);
+            return $http({
+                'method': 'GET',
+                'url': '/Node?json=' + stringed
+            });
         }
 
         function saveNode(node) {

@@ -44,13 +44,12 @@
 
             var results = nodeTypeService.processNodeTypeDetails(nodeDetails);
 
-            expect(results).toContain({
+            expect(results).toContain(jasmine.objectContaining({
                 id: '6',
-                isMultiValue: false,
-                type: undefined,
+                type: 'container',
                 name: 'Folder',
                 isCustomProperty: false
-            });
+            }));
         });
 
         it('should include the type for custom properties', function() {
@@ -58,13 +57,12 @@
 
             var results = nodeTypeService.processNodeTypeDetails(nodeDetails);
 
-            expect(results).toContain({
+            expect(results).toContain(jasmine.objectContaining({
                 id: 'f4c1cf812d254f26a2460d67e3f09b4f',
-                isMultiValue: false,
                 type: 500,
                 name: 'Date of the Meeting',
                 isCustomProperty: true
-            });
+            }));
         });
 
         afterEach(function() {

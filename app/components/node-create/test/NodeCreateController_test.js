@@ -15,10 +15,11 @@
             });
         }));
 
-        var nodeCreateController, httpBackend;
+        var nodeCreateController, httpBackend, nodeCreateService;
 
-        beforeEach(inject(function(_$controller_, _$httpBackend_) {
+        beforeEach(inject(function(_$controller_, _$httpBackend_, _nodeCreateService_) {
             httpBackend = _$httpBackend_;
+            nodeCreateService = _nodeCreateService_;
 
             httpBackend
                 .expectGET(/\/NodeType(.*)/)
@@ -28,7 +29,6 @@
         }));
 
         it("should do load and process the node type details", function() {
-
             httpBackend
                 .expectGET(/\/NodeType(.*)/)
                 .respond(200, getJSONFixture('nodes/nodeTypeDetails.json'));
@@ -38,6 +38,91 @@
             httpBackend.flush();
 
             expect(nodeCreateController.nodeTypeProperties.length).toEqual(6);
+        });
+
+        it("should convert principals to list of IDs", function() {
+            spyOn(nodeCreateService, 'saveNode').and.callThrough();
+            nodeCreateController.principalSearches.abc = [{
+                "_id": "123",
+                "principal_id": "123",
+                "name": "Joe"
+            }];
+
+            nodeCreateController.save();
+
+            expect(nodeCreateService.saveNode).toHaveBeenCalledWith(jasmine.objectContaining({
+                "data": {
+                    "abc": ["123"]
+                }
+            }));
+        });
+
+        it("should convert since principal to ID", function() {
+            spyOn(nodeCreateService, 'saveNode').and.callThrough();
+            nodeCreateController.principalSearches.abc = {
+                "_id": "123",
+                "principal_id": "123",
+                "name": "Joe"
+            };
+
+            nodeCreateController.save();
+
+            expect(nodeCreateService.saveNode).toHaveBeenCalledWith(jasmine.objectContaining({
+                "data": {
+                    "abc": "123"
+                }
+            }));
+        });
+
+        it("should format the dates to YYYY-MM-DD", function() {
+            spyOn(nodeCreateService, 'saveNode').and.callThrough();
+            var date = new Date(2012, 0, 17);
+
+            nodeCreateController.node = {
+                data: {
+                    "abc": date
+                }
+            };
+
+            nodeCreateController.save();
+
+            expect(nodeCreateService.saveNode).toHaveBeenCalledWith(jasmine.objectContaining({
+                "data": {
+                    "abc": "2012-1-17"
+                }
+            }));
+        });
+
+        it("should include non readonly properties", function() {
+            var prop = {
+                properties: {
+                    is_readonly: false
+                }
+            };
+
+            var output = nodeCreateController.ignoreReadOnlyProperties(prop);
+
+            expect(output).toBeTruthy();
+        });
+
+        it("should ignore readonly properties", function() {
+            var prop = {
+                properties: {
+                    is_readonly: true
+                }
+            };
+
+            var output = nodeCreateController.ignoreReadOnlyProperties(prop);
+
+            expect(output).toBeFalsy();
+        });
+
+        it("should include non-custom properties", function() {
+            var prop = {};
+
+            var output = nodeCreateController.ignoreReadOnlyProperties(prop);
+
+            expect(output).toBeTruthy();
         });
     });
 })();

@@ -42,8 +42,8 @@
                 var result = {
                     id: propertyId,
                     isCustomProperty: isCustomProperty,
-                    isMultiValue: isCustomProperty && isMultiValue,
-                    type: type
+                    type: type,
+                    properties: customProperties ? findInArray(customProperties, propertyId)[0] : {}
                 };
 
                 result.name = extractValueFromArray(attributes, isNaN(propertyId) ? propertyId : parseInt(propertyId), 'alias');
@@ -74,8 +74,9 @@
 
         function staticPropertyTypes() {
             return {
-                1: 100, //100 - small input box
-                3: 800 //800 - large input box
+                1: 100, // small input box
+                3: 800, // large input box
+                6: 'container'
             };
         }
     }

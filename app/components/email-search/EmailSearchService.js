@@ -12,19 +12,13 @@
 
         return self;
 
-        function search(value) {
+        function search(value, args) {
             var json = {
                 'ebikko_session_id': userRepository.getSessionId(),
                 "method": "FILTER",
                 "predicate": {
                     "op": "ALL",
                     "val": [{
-                        "op": "NOT",
-                        "val": {
-                            "op": "EMAIL",
-                            "val": null
-                        }
-                    }, {
                         "op": "ANY",
                         "val": [{
                             "op": "EMAIL",
@@ -36,6 +30,20 @@
                     }]
                 }
             };
+            if (args) {
+                if (args.mustBeMemberOf) {
+                    json.must_be_child_of = args.mustBeMemberOf;
+                }
+                if (args.requireEmail) {
+                    json.predicate.val.push(predicates.REQUIRE_EMAIL);
+                }
+                if (args.type === 'PEOPLE') {
+                    json.predicate.val.push(predicates.PEOPLE);
+                }
+                if (args.type === 'GROUPS') {
+                    json.predicate.val.push.apply(predicates.GROUPS);
+                }
+            }
             var stringed = JSON.stringify(json);
             return $http({
                 method: 'POST',
@@ -43,4 +51,34 @@
             });
         }
     }
+
+    var predicates = {
+        'PEOPLE': {
+            "op": "NOT",
+            "val": {
+                "op": "UID",
+                "val": null
+            }
+        },
+        'GROUPS': [{
+            "op": "NOT",
+            "val": {
+                "op": "TYPE",
+                "val": 5
+            }
+        }, {
+            "op": "NOT",
+            "val": {
+                "op": "TYPE",
+                "val": 0
+            }
+        }],
+        'REQUIRE_EMAIL': {
+            "op": "NOT",
+            "val": {
+                "op": "EMAIL",
+                "val": null
+            }
+        }
+    };
 })();
