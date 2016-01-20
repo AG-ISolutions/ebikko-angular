@@ -3,11 +3,20 @@
         <form name="nodeForm" ng-submit="ncc.save()">
             <div ng-repeat="p in ncc.nodeTypeProperties | filter : ncc.ignoreReadOnlyProperties">
                 <!-- 100 - small input -->
-                <md-input-container class="md-block" ng-if="p.type == 100">
-                    <label>{{p.name}}</label>
-                    <input ng-model="ncc.node.data[p.modelName]" ng-if="p.isCustomProperty">
-                    <input ng-model="ncc.node[p.modelName]" ng-if="!p.isCustomProperty">
-                </md-input-container>
+                <div ng-if="p.type == 100">
+                    <md-input-container class="md-block" ng-if="!p.properties.using_lookup_set || p.properties.using_lookup_set == false">
+                        <label>{{p.name}}</label>
+                        <input ng-model="ncc.node.data[p.modelName]" ng-if="p.isCustomProperty">
+                        <input ng-model="ncc.node[p.modelName]" ng-if="!p.isCustomProperty">
+                    </md-input-container>
+                    <!-- 100 - small input from lookup -->
+                    <md-input-container class="md-block" ng-if="p.properties.using_lookup_set == true">
+                        <label>{{p.name}}</label>
+                        <md-select ng-model="ncc.node.data[p.modelName]" md-on-open="ncc.loadLookup(p.properties.lookup_set_id)" style="min-width: 200px;">
+                            <md-option ng-value="lookup.name" ng-repeat="lookup in ncc.lookups[p.properties.lookup_set_id]">{{lookup.name | decodeURIComponent}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
                 <!-- 500 - datepicker-->
                 <div ng-if="p.type == 500">
                     <md-datepicker ng-model="ncc.node.data[p.modelName]" md-placeholder="{{p.name}}" ng-if="p.isCustomProperty"></md-datepicker>
@@ -50,14 +59,10 @@
             <div layout="row" layout-align="center center" flex="100" class="md-block" ng-hide="ncc.saving">
                 <md-button type="submit" class="md-raised md-primary">{{'Save' | translate}}</md-button>
             </div>
-            <md-button ng-click="ncc.logNode()">Log</md-button>
         </form>
     </div>
 </md-content>
+
 <div layout="row" layout-sm="column" layout-align="center center" ng-show="ncc.saving || ncc.loading">
     <md-progress-circular md-mode="indeterminate" md-diameter="100"></md-progress-circular>
 </div>
-<ul ng-repeat="p in ncc.nodeTypeProperties" ng-hide="ncc.loading">
-    <li>{{p}} {{p.name}}, {{p.type}}, {{p.id}}, {{p.modelName}}
-    </li>
-</ul>

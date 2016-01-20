@@ -124,5 +124,17 @@
 
             expect(output).toBeTruthy();
         });
+
+        it("should load lookups", function() {
+            httpBackend
+                .expectGET(/\/LookupSet(.*)("lookup_id":"123")(.*)/)
+                .respond(200, getJSONFixture('nodes/lookupSet.json'));
+
+            nodeCreateController.loadLookup('123');
+
+            httpBackend.flush();
+
+            expect(nodeCreateController.lookups['123'].length).toEqual(5);
+        });
     });
 })();

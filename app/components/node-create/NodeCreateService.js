@@ -9,6 +9,7 @@
         var self = {
             enrichWithModelNames: enrichWithModelNames,
             loadContainers: loadContainers,
+            loadLookup: loadLookup,
             saveNode: saveNode
         };
 
@@ -34,6 +35,19 @@
                 'method': 'GET',
                 'url': '/Node?json=' + stringed
             });
+        }
+
+        function loadLookup(lookupId) {
+            var json = {
+                'ebikko_session_id': userRepository.getSessionId(),
+                'method': 'LOOKUPSET_ITEM_LIST',
+                'lookup_id': lookupId
+            };
+            var stringed = JSON.stringify(json);
+            return $http({
+                'method': 'GET',
+                'url': '/LookupSet?json=' + stringed
+            });            
         }
 
         function saveNode(node) {

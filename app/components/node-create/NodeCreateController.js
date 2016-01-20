@@ -11,15 +11,12 @@
         self.dateValues = {};
         self.ignoreReadOnlyProperties = ignoreReadOnlyProperties;
         self.loadContainers = loadContainers;
+        self.loadLookup = loadLookup;
         self.loading = false;
+        self.lookups = {};
         self.principalSearches = {};
         self.save = save;
         self.saving = false;
-
-        self.logNode = function() {
-            console.log(self.node);
-            console.log(self.principalSearches);
-        };
 
         activate();
 
@@ -53,6 +50,12 @@
             });
         }
 
+        function loadLookup(lookupId) {
+            return nodeCreateService.loadLookup(lookupId).then(function(response) {
+                self.lookups[lookupId] = response.data.results;
+            });
+        }
+
         function generateTimes() {
             var times = [];
             for (var h = 0; h <= 23; h++) {
@@ -70,6 +73,8 @@
             formatDates();
             self.saving = true;
             nodeCreateService.saveNode(self.node).then(function(response) {
+                self.saving = false;
+            }, function(response) {
                 self.saving = false;
             });
         }

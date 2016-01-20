@@ -1,0 +1,33 @@
+{
+    "success": true,
+    "code": 100,
+    "data": {
+        "responsemsg": "Retrieving lookupset item successfull."
+    },
+    "results": [{
+        "id": "e9c2994b7b2b4df9ab4da82d25de489a",
+        "code": "01",
+        "name": "ANNUAL GENERAL MEETING",
+        "description": "ANNUAL GENERAL MEETING"
+    }, {
+        "id": "ce5d9955d78f48a39b87cb0d469b3aaa",
+        "code": "02",
+        "name": "AUDIT %26 RISK COMMITTEE",
+        "description": "AUDIT %26 RISK COMMITTEE"
+    }, {
+        "id": "c0a9e76e7e5d43f1a94b4f3dd1b3b474",
+        "code": "03",
+        "name": "NOMINATION %26 COMPENSATION COMMITTEE",
+        "description": "NOMINATION %26 COMPENSATION COMMITTEE"
+    }, {
+        "id": "c19d97dff3d14d52bc1180532c5b27ef",
+        "code": "04",
+        "name": "BOARD OF DIRECTORS MEETING",
+        "description": "BOARD OF DIRECTORS MEETING"
+    }, {
+        "id": "f1f247b0c36f44ca8ff7167adb709ce1",
+        "code": "06",
+        "name": "GENERAL MANAGEMENT MEETING",
+        "description": "GENERAL MANAGEMENT MEETING"
+    }]
+}
