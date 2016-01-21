@@ -3,9 +3,9 @@
 
     angular
         .module('ebikko.shared-services')
-        .service('tabService', ['$mdToast', TabService]);
+        .service('tabService', ['$mdToast', '$rootScope', TabService]);
 
-    function TabService($mdToast) {
+    function TabService($mdToast, $rootScope) {
         var self = {
             tabs: [],
             selectedTab: {},
@@ -30,7 +30,7 @@
                 }
 
                 self.tabs.push(tab);
-                self.selectedTab = tab;
+                self.selectTab(tab);
             }
         }
 
@@ -60,9 +60,13 @@
         }
 
         function selectTab(tab) {
-            var currentIndex = self.tabs.indexOf(tab);
-            if (currentIndex > -1 && self.selectedTab !== tab) {
-                self.selectedTab = self.tabs[currentIndex];
+            if (self.selectedTab !== tab) {
+                var currentIndex = self.tabs.indexOf(tab);
+                if (currentIndex > -1 && self.selectedTab !== tab) {
+                    self.selectedTab = self.tabs[currentIndex];
+                }
+
+                $rootScope.$broadcast('tabSelected', tab);
             }
         }
 

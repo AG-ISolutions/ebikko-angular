@@ -3,7 +3,7 @@
 
     angular
         .module('ebikko.shared-services')
-        .service('nodeService', ['$http', 'userRepository', NodeService ]);
+        .service('nodeService', ['$http', 'userRepository', NodeService]);
 
     function NodeService($http, userRepository) {
         var self = {
