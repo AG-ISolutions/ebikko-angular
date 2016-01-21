@@ -26,6 +26,9 @@ form.nodeForm md-input-container {
     padding-left: 2px;
     padding-bottom: 0px;
 }
+div.errors {
+    width:98%;
+}
 </style>
 <md-content layout-padding layout-align="center center" layout="row" class="nodeCreateContainer">
     <md-whiteframe class="md-whiteframe-1dp" flex="66" layout="column">
@@ -90,14 +93,7 @@ form.nodeForm md-input-container {
                 </section>
                 <section>
                     <md-subheader class="md-primary">Retention</md-subheader>
-                    <md-autocomplete 
-                        md-selected-item="ncc.retentionSchedule" 
-                        md-search-text="ncc.retentionSearchText" 
-                        md-items="retention in ncc.retentionSearch(ncc.retentionSearchText)" 
-                        md-item-text="retention.title" 
-                        md-min-length="0" 
-                        md-floating-label="Retention type"
-                        placeholder="Please select a retention schedule">
+                    <md-autocomplete md-selected-item="ncc.retentionSchedule" md-search-text="ncc.retentionSearchText" md-items="retention in ncc.retentionSearch(ncc.retentionSearchText)" md-item-text="retention.title" md-min-length="0" md-floating-label="Retention type" placeholder="Please select a retention schedule">
                         <md-item-template>
                             <span md-highlight-text="ncc.retentionSearchText" md-highlight-flags="^i">{{retention.title}} ({{retention.number}})</span>
                         </md-item-template>
@@ -106,13 +102,18 @@ form.nodeForm md-input-container {
                         </md-not-found>
                     </md-autocomplete>
                 </section>
+                <div class="errors" ng-show="ncc.errors.length > 0" layout-align="left center">
+                    <li ng-repeat="error in ncc.errors">
+                        <ul>{{error}}</ul>
+                    </li>
+                </div>
                 <div layout="row" layout-align="center center" flex="100" class="md-block" ng-hide="ncc.saving">
                     <md-button type="submit" class="md-raised md-primary">{{'Save' | translate}}</md-button>
                 </div>
             </form>
+            <div layout="row" flex="grow" layout-align="center center" ng-show="ncc.saving || ncc.loading">
+                <md-progress-circular md-mode="indeterminate" md-diameter="100"></md-progress-circular>
+            </div>
         </md-content>
-        <div layout="row" flex="grow" layout-align="center center" ng-show="ncc.saving || ncc.loading">
-            <md-progress-circular md-mode="indeterminate" md-diameter="100"></md-progress-circular>
-        </div>
     </md-whiteframe>
 </md-content>

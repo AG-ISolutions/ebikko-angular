@@ -3,9 +3,9 @@
 
     angular
         .module('ebikko.node-create')
-        .controller('NodeCreateController', ['nodeTypeService', 'nodeCreateService', '$timeout', NodeCreateController]);
+        .controller('NodeCreateController', ['nodeTypeService', 'nodeCreateService', 'nodeCreateValidator', '$timeout', NodeCreateController]);
 
-    function NodeCreateController(nodeTypeService, nodeCreateService, $timeout) {
+    function NodeCreateController(nodeTypeService, nodeCreateService, nodeCreateValidator, $timeout) {
         var self = this;
         self.activate = activate;
         self.dateValues = {};
@@ -71,30 +71,39 @@
 
         function retentionSearch(value) {
             return nodeCreateService.retentionSearch(value).then(function(response) {
-                return response.data.results
-            })
+                return response.data.results;
+            });
         }
 
         function save() {
             setPrincipalIdsOnNode();
             formatDates();
-            self.node.retention_schedule_id = self.retentionSchedule.retention_id;
-            self.saving = true;
-            nodeCreateService.saveNode(self.node).then(function(response) {
-                self.saving = false;
-            }, function(response) {
-                self.saving = false;
-            });
+            setRetentionScheduleOnNode();
+            self.errors = nodeCreateValidator.validate(self.node, self.nodeTypeProperties).errors;
+            if (self.errors.length === 0) {
+                self.saving = true;
+                nodeCreateService.saveNode(self.node).then(function(response) {
+                    self.saving = false;
+                }, function(response) {
+                    self.saving = false;
+                });
+            }
         }
 
         function setPrincipalIdsOnNode() {
             angular.forEach(self.principalSearches, function(value, key) {
                 if (value instanceof Array) {
                     self.node.data[key] = value.length === 0 ? [] : [value[0].principal_id];
-                } else {
+                } else if (value !== null) {
                     self.node.data[key] = value.principal_id;
                 }
             });
+        }
+
+        function setRetentionScheduleOnNode() {
+            if (self.retentionSchedule && self.retentionSchedule.retention_id !== null && self.retentionSchedule.retention_id !== undefined) {
+                self.node.retention_schedule_id = self.retentionSchedule.retention_id;
+            }
         }
 
         function createNode() {

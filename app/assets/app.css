@@ -186,6 +186,9 @@ div.loginPage div.errors ul {
     padding-right: 10px;
 }
 
+div.errors ul:first-letter {
+    text-transform: capitalize;
+}
 
 /* Dialogs */
 

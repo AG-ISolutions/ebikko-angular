@@ -26,6 +26,10 @@
                 .respond(200, getJSONFixture('nodes/nodeTypeDetails.json'));
 
             nodeCreateController = _$controller_('NodeCreateController');
+            nodeCreateController.node = {
+                "title": "Sample title",
+                "data": {}
+            };
         }));
 
         it("should do load and process the node type details", function() {
@@ -79,6 +83,7 @@
             var date = new Date(2012, 0, 17);
 
             nodeCreateController.node = {
+                title: "Title",
                 data: {
                     "abc": date
                 }
@@ -135,6 +140,15 @@
             httpBackend.flush();
 
             expect(nodeCreateController.lookups['123'].length).toEqual(5);
+        });
+
+        it("should not save invalid nodes", function() {
+            spyOn(nodeCreateService, 'saveNode').and.callThrough();
+            nodeCreateController.node.title = null;
+
+            nodeCreateController.save();
+
+            expect(nodeCreateService.saveNode.calls.any()).toBeFalsy();
         });
     });
 })();
