@@ -18,86 +18,99 @@ div.email-search md-autocomplete[md-floating-label] md-input-container {
     font-size: inherit;
 }
 
-
-/* .md-chips .md-chip {
-    margin-top: 23px;
- }
-
- .md-chips md-input-container label:not(.md-container-ignore) {
-    top: -23px;
- }
-
- div.inputsWrapper {
-    height: 40px;
-    margin-top: 10px;
- }
-*/
-
 form.nodeForm md-input-container {
     margin-bottom: 0px;
+}
+
+.md-subheader div.md-subheader-inner {
+    padding-left: 2px;
+    padding-bottom: 0px;
 }
 </style>
 <md-content layout-padding layout-align="center center" layout="row" class="nodeCreateContainer">
     <md-whiteframe class="md-whiteframe-1dp" flex="66" layout="column">
-        <form name="nodeForm" ng-submit="ncc.save()" ng-hide="ncc.loading" style="width:100%" class="nodeForm">
-            <div ng-repeat="p in ncc.nodeTypeProperties | filter : ncc.ignoreReadOnlyProperties" class="inputsWrapper">
-                <!-- 100 - small input -->
-                <div ng-if="p.type == 100">
-                    <md-input-container class="md-block" ng-if="!p.properties.using_lookup_set || p.properties.using_lookup_set == false">
-                        <label>{{p.name}}</label>
-                        <input ng-model="ncc.node.data[p.modelName]" ng-if="p.isCustomProperty">
-                        <input ng-model="ncc.node[p.modelName]" ng-if="!p.isCustomProperty">
-                    </md-input-container>
-                    <!-- 100 - small input from lookup -->
-                    <md-input-container class="md-block" ng-if="p.properties.using_lookup_set == true">
-                        <label>{{p.name}}</label>
-                        <md-select ng-model="ncc.node.data[p.modelName]" md-on-open="ncc.loadLookup(p.properties.lookup_set_id)" style="min-width: 200px;">
-                            <md-option ng-value="lookup.name" ng-repeat="lookup in ncc.lookups[p.properties.lookup_set_id]">{{lookup.name | decodeURIComponent}}</md-option>
-                        </md-select>
-                    </md-input-container>
+        <md-content style="height:600px;">
+            <form name="nodeForm" ng-submit="ncc.save()" ng-hide="ncc.loading" style="width:100%" class="nodeForm">
+                <section>
+                    <md-subheader class="md-primary">Properties</md-subheader>
+                    <div ng-repeat="p in ncc.nodeTypeProperties | filter : ncc.ignoreReadOnlyProperties" class="inputsWrapper">
+                        <!-- 100 - small input -->
+                        <div ng-if="p.type == 100">
+                            <md-input-container class="md-block" ng-if="!p.properties.using_lookup_set || p.properties.using_lookup_set == false">
+                                <label>{{p.name}}</label>
+                                <input ng-model="ncc.node.data[p.modelName]" ng-if="p.isCustomProperty">
+                                <input ng-model="ncc.node[p.modelName]" ng-if="!p.isCustomProperty">
+                            </md-input-container>
+                            <!-- 100 - small input from lookup -->
+                            <md-input-container class="md-block" ng-if="p.properties.using_lookup_set == true">
+                                <label>{{p.name}}</label>
+                                <md-select ng-model="ncc.node.data[p.modelName]" md-on-open="ncc.loadLookup(p.properties.lookup_set_id)" style="min-width: 200px;">
+                                    <md-option ng-value="lookup.name" ng-repeat="lookup in ncc.lookups[p.properties.lookup_set_id]">{{lookup.name | decodeURIComponent}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                        <!-- 500 - datepicker-->
+                        <div ng-if="p.type == 500" class="datepicker">
+                            <label>{{p.name}}</label>
+                            <md-datepicker ng-model="ncc.node.data[p.modelName]" ng-if="p.isCustomProperty"></md-datepicker>
+                            <md-datepicker ng-model="ncc.node[p.modelName]" ng-if="!p.isCustomProperty"></md-datepicker>
+                        </div>
+                        <!-- 600 - time -->
+                        <div ng-if="p.type == 600">
+                            <md-input-container>
+                                <label>{{p.name}}</label>
+                                <md-select placeholder="{{p.name}}" ng-model="ncc.node.data[p.modelName]">
+                                    <md-option ng-value="time" ng-repeat="time in ncc.times">{{time}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                        <!-- 800 - large input -->
+                        <div ng-if="p.type == 800">
+                            <md-input-container class="md-block">
+                                <label>{{p.name}}</label>
+                                <textarea ng-model="ncc.node.data[p.modelName]" columns="1" md-maxlength="150" rows="5" ng-if="p.isCustomProperty"></textarea>
+                                <textarea ng-model="ncc.node[p.modelName]" columns="1" md-maxlength="150" rows="5" ng-if="!p.isCustomProperty"></textarea>
+                            </md-input-container>
+                        </div>
+                        <!-- 1200 - principals -->
+                        <div ng-if="p.type == 1200" class="email-search">
+                            <ebikko-email-search model="ncc.principalSearches[p.modelName]" label="{{p.name}}" multi-value="{{p.properties.is_multi_value}}" must-be-member-of="{{p.properties.must_be_member_of}}" require-email="false" restrict-to-groups="{{p.properties.is_groups_only}}" restrict-to-people="{{p.properties.is_non_groups_only}}">
+                                </ebikko-email-search/>
+                        </div>
+                        <!-- container - container search -->
+                        <div ng-if="p.type == 'container'">
+                            <md-input-container>
+                                <label>{{p.name}}</label>
+                                <md-select placeholder="{{p.name}}" ng-model="ncc.node[p.modelName]" md-on-open="ncc.loadContainers()" style="min-width: 200px;">
+                                    <md-option ng-value="container.node_id" ng-repeat="container in ncc.containers">{{container.record_number}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <md-subheader class="md-primary">Retention</md-subheader>
+                    <md-autocomplete 
+                        md-selected-item="ncc.retentionSchedule" 
+                        md-search-text="ncc.retentionSearchText" 
+                        md-items="retention in ncc.retentionSearch(ncc.retentionSearchText)" 
+                        md-item-text="retention.title" 
+                        md-min-length="0" 
+                        md-floating-label="Retention type"
+                        placeholder="Please select a retention schedule">
+                        <md-item-template>
+                            <span md-highlight-text="ncc.retentionSearchText" md-highlight-flags="^i">{{retention.title}} ({{retention.number}})</span>
+                        </md-item-template>
+                        <md-not-found>
+                            No retention schedules matching "{{ncc.retentionSearchText}}" were found.
+                        </md-not-found>
+                    </md-autocomplete>
+                </section>
+                <div layout="row" layout-align="center center" flex="100" class="md-block" ng-hide="ncc.saving">
+                    <md-button type="submit" class="md-raised md-primary">{{'Save' | translate}}</md-button>
                 </div>
-                <!-- 500 - datepicker-->
-                <div ng-if="p.type == 500" class="datepicker">
-                    <label>{{p.name}}</label>
-                    <md-datepicker ng-model="ncc.node.data[p.modelName]" ng-if="p.isCustomProperty"></md-datepicker>
-                    <md-datepicker ng-model="ncc.node[p.modelName]" ng-if="!p.isCustomProperty"></md-datepicker>
-                </div>
-                <!-- 600 - time -->
-                <div ng-if="p.type == 600">
-                    <md-input-container>
-                        <label>{{p.name}}</label>
-                        <md-select placeholder="{{p.name}}" ng-model="ncc.node.data[p.modelName]">
-                            <md-option ng-value="time" ng-repeat="time in ncc.times">{{time}}</md-option>
-                        </md-select>
-                    </md-input-container>
-                </div>
-                <!-- 800 - large input -->
-                <div ng-if="p.type == 800">
-                    <md-input-container class="md-block">
-                        <label>{{p.name}}</label>
-                        <textarea ng-model="ncc.node.data[p.modelName]" columns="1" md-maxlength="150" rows="5" ng-if="p.isCustomProperty"></textarea>
-                        <textarea ng-model="ncc.node[p.modelName]" columns="1" md-maxlength="150" rows="5" ng-if="!p.isCustomProperty"></textarea>
-                    </md-input-container>
-                </div>
-                <!-- 1200 - principals -->
-                <div ng-if="p.type == 1200" class="email-search">
-                    <ebikko-email-search model="ncc.principalSearches[p.modelName]" label="{{p.name}}" multi-value="{{p.properties.is_multi_value}}" must-be-member-of="{{p.properties.must_be_member_of}}" require-email="false" restrict-to-groups="{{p.properties.is_groups_only}}" restrict-to-people="{{p.properties.is_non_groups_only}}">
-                        </ebikko-email-search/>
-                </div>
-                <!-- container - container search -->
-                <div ng-if="p.type == 'container'">
-                    <md-input-container>
-                        <label>{{p.name}}</label>
-                        <md-select placeholder="{{p.name}}" ng-model="ncc.node[p.modelName]" md-on-open="ncc.loadContainers()" style="min-width: 200px;">
-                            <md-option ng-value="container.node_id" ng-repeat="container in ncc.containers">{{container.record_number}}</md-option>
-                        </md-select>
-                    </md-input-container>
-                </div>
-            </div>
-            <div layout="row" layout-align="center center" flex="100" class="md-block" ng-hide="ncc.saving">
-                <md-button type="submit" class="md-raised md-primary">{{'Save' | translate}}</md-button>
-            </div>
-        </form>
+            </form>
+        </md-content>
         <div layout="row" flex="grow" layout-align="center center" ng-show="ncc.saving || ncc.loading">
             <md-progress-circular md-mode="indeterminate" md-diameter="100"></md-progress-circular>
         </div>

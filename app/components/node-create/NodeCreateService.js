@@ -10,14 +10,15 @@
             enrichWithModelNames: enrichWithModelNames,
             loadContainers: loadContainers,
             loadLookup: loadLookup,
-            saveNode: saveNode
+            saveNode: saveNode,
+            retentionSearch: retentionSearch
         };
 
         return self;
 
         function enrichWithModelNames(nodeTypeDetails) {
             angular.forEach(nodeTypeDetails, function(detail, key) {
-            	var modelName = detail.isCustomProperty ? detail.id : propertyModelNames[detail.id];
+                var modelName = detail.isCustomProperty ? detail.id : propertyModelNames[detail.id];
                 detail.modelName = modelName;
             });
 
@@ -47,7 +48,38 @@
             return $http({
                 'method': 'GET',
                 'url': '/LookupSet?json=' + stringed
-            });            
+            });
+        }
+
+        function retentionSearch(value) {
+            var json = {
+                'ebikko_session_id': userRepository.getSessionId(),
+                'method': 'FILTER',
+                "predicate": {
+                    "op": "ALL",
+                    "val": [{
+                        "op": "NOT",
+                        "val": {
+                            "op": "UID",
+                            "val": null
+                        }
+                    }, {
+                        "op": "ANY",
+                        "val": [{
+                            "op": "TITLE",
+                            "val": "*" + value + "*"
+                        }, {
+                            "op": "NUMBER",
+                            "val": "*" + value + "*"
+                        }]
+                    }]
+                }
+            };
+            var stringed = JSON.stringify(json);
+            return $http({
+                'method': 'GET',
+                'url': '/Retention?json=' + stringed
+            });
         }
 
         function saveNode(node) {

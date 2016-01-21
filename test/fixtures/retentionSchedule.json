@@ -1,0 +1,23 @@
+{
+    "success": true,
+    "code": 100,
+    "data": {
+        "responsemsg": "Action done successfully"
+    },
+    "count": 1,
+    "can_create": true,
+    "results": [{
+        "_id": "a2ebcfa22dba4de591d37c65d2affcdb-hMG5f",
+        "_is_leaf": false,
+        "_parent": null,
+        "parent_uid": null,
+        "parent_display": null,
+        "retention_id": "a2ebcfa22dba4de591d37c65d2affcdb",
+        "title": "KA_Retention_Schedules",
+        "date_created": "2015-10-07T15:28:01",
+        "creator_uid": "00000000000000000000000000000000",
+        "creator_name": "ROOT",
+        "description": "test",
+        "number": "6688"
+    }]
+}

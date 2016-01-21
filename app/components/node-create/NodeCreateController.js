@@ -15,6 +15,7 @@
         self.loading = false;
         self.lookups = {};
         self.principalSearches = {};
+        self.retentionSearch = retentionSearch;
         self.save = save;
         self.saving = false;
 
@@ -68,9 +69,16 @@
             return times;
         }
 
+        function retentionSearch(value) {
+            return nodeCreateService.retentionSearch(value).then(function(response) {
+                return response.data.results
+            })
+        }
+
         function save() {
             setPrincipalIdsOnNode();
             formatDates();
+            self.node.retention_schedule_id = self.retentionSchedule.retention_id;
             self.saving = true;
             nodeCreateService.saveNode(self.node).then(function(response) {
                 self.saving = false;
