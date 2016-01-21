@@ -14,7 +14,19 @@
         self.restrictToGroups = "false";
         self.transformChip = transformChip;
 
-        self.model = (self.model === undefined || self.model === null) ? [] : self.model;
+        activate();
+
+        function activate() {
+            if (self.multiValue === "true") {
+                if (self.model === undefined || self.model === null) {
+                    self.model = [];
+                }
+            } else {
+                if (self.model === {}) {
+                    self.model = null;
+                }
+            }
+        }
 
         function calculateType() {
             if (isTrue(self.restrictToPeople) && isTrue(self.restrictToGroups)) {
