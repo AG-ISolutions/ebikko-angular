@@ -16,6 +16,7 @@
 				// Strip out the ExtJS wrapper
 				var prefix = 'language=';
 				var suffix = ';LoadAppLanguage();';
+				var response = response.replace(/language = /g, 'language=');
 				var string = response.substring(response.indexOf(prefix) + prefix.length, response.indexOf(suffix));
 				string = string.trim();
 

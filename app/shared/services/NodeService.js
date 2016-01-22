@@ -16,8 +16,7 @@
             var json = {
                 'ebikko_session_id': userRepository.getSessionId(),
                 'method': 'CONTENT_DOWNLOAD',
-                'node_id': nodeId,
-                'version': 1
+                'node_id': nodeId
             };
             var stringed = JSON.stringify(json);
             return $http({
