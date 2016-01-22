@@ -28,6 +28,10 @@
             }
         }
 
+        self.test = function(principal) {
+            console.log('esc' + principal);
+        };
+
         function calculateType() {
             if (isTrue(self.restrictToPeople) && isTrue(self.restrictToGroups)) {
                 throw new Error("Cannot set both restrictions to true");

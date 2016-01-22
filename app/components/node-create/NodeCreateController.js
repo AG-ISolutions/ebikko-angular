@@ -8,6 +8,7 @@
     function NodeCreateController(nodeTypeService, nodeCreateService, nodeCreateValidator, $timeout) {
         var self = this;
         self.activate = activate;
+        self.accessControlPrincipals = [];
         self.dateValues = {};
         self.ignoreReadOnlyProperties = ignoreReadOnlyProperties;
         self.loadContainers = loadContainers;
@@ -18,6 +19,7 @@
         self.retentionSearch = retentionSearch;
         self.save = save;
         self.saving = false;
+        self.updateAccessControlPrincipals = updateAccessControlPrincipals;
 
         activate();
 
@@ -104,6 +106,18 @@
             if (self.retentionSchedule && self.retentionSchedule.retention_id !== null && self.retentionSchedule.retention_id !== undefined) {
                 self.node.retention_schedule_id = self.retentionSchedule.retention_id;
             }
+        }
+
+        function updateAccessControlPrincipals() {
+            // This is an awful hack to make sure the principal has been set on the model before this code runs
+            window.setTimeout(function() {
+                var principal = self.accessControlPrincipal;
+                console.log(principal);
+                if (principal !== null && self.accessControlPrincipals.indexOf(principal) === -1) {
+                    self.accessControlPrincipals.push(principal);
+                }
+            }, 150);
+
         }
 
         function createNode() {

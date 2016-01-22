@@ -12,7 +12,8 @@
                     'mustBeMemberOf': '@',
                     'requireEmail': '@',
                     'restrictToGroups': '@',
-                    'restrictToPeople': '@'
+                    'restrictToPeople': '@',
+                    'selectedItemChange': '&'
             	},
 	        	controller: 'EmailSearchController',
 	        	controllerAs: 'esc',

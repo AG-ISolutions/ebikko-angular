@@ -29,6 +29,10 @@ form.nodeForm md-input-container {
 div.errors {
     width:98%;
 }
+
+md-switch {
+    display:inline-block;
+}
 </style>
 <md-content layout-padding layout-align="center center" layout="row" class="nodeCreateContainer">
     <md-whiteframe class="md-whiteframe-1dp" flex="66" layout="column">
@@ -77,8 +81,15 @@ div.errors {
                         </div>
                         <!-- 1200 - principals -->
                         <div ng-if="p.type == 1200" class="email-search">
-                            <ebikko-email-search model="ncc.principalSearches[p.modelName]" label="{{p.name}}" multi-value="{{p.properties.is_multi_value}}" must-be-member-of="{{p.properties.must_be_member_of}}" require-email="false" restrict-to-groups="{{p.properties.is_groups_only}}" restrict-to-people="{{p.properties.is_non_groups_only}}">
-                                </ebikko-email-search/>
+                            <ebikko-email-search 
+                                model="ncc.principalSearches[p.modelName]" 
+                                label="{{p.name}}" 
+                                multi-value="{{p.properties.is_multi_value}}" 
+                                must-be-member-of="{{p.properties.must_be_member_of}}" 
+                                require-email="false" 
+                                restrict-to-groups="{{p.properties.is_groups_only}}" 
+                                restrict-to-people="{{p.properties.is_non_groups_only}}">
+                            </ebikko-email-search/>
                         </div>
                         <!-- container - container search -->
                         <div ng-if="p.type == 'container'">
@@ -101,6 +112,34 @@ div.errors {
                             No retention schedules matching "{{ncc.retentionSearchText}}" were found.
                         </md-not-found>
                     </md-autocomplete>
+                </section>
+                <section>
+                    <md-subheader class="md-primary">Access Control</md-subheader>
+                    <ebikko-email-search
+                            model="ncc.accessControlPrincipal" 
+                            multi-value="false"
+                            label="Select principal"
+                            selected-item-change="ncc.updateAccessControlPrincipals(principal)"
+                            >
+                    </ebikko-email-search>
+
+                    <table>
+                        <thead>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="p in ncc.accessControlPrincipals">
+                                <td>{{p.name}} {{p.id}}</td>
+                            </tr>
+                        </tbody>
+                    <table>
+
+                    <md-switch ng-model="data.cb1" aria-label="Switch 1"></md-switch>
+                    <md-switch ng-model="data.cb2" aria-label="Switch 1"></md-switch>  
+                    <md-switch ng-model="data.cb3" aria-label="Switch 1"></md-switch>
+                    <md-switch ng-model="data.cb4" aria-label="Switch 1"></md-switch>
+                    <md-switch ng-model="data.cb5" aria-label="Switch 1"></md-switch>
+                    <md-switch ng-model="data.cb6" aria-label="Switch 1"></md-switch>
+                    <md-switch ng-model="data.cb7" aria-label="Switch 1"></md-switch>
                 </section>
                 <div class="errors" ng-show="ncc.errors.length > 0" layout-align="left center">
                     <li ng-repeat="error in ncc.errors">
