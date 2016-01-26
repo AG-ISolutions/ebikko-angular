@@ -42,6 +42,10 @@
         });
 
         it("should convert principals to list of IDs", function() {
+            httpBackend
+                .expectPOST(/\/Node(.*)/)
+                .respond(200, getJSONFixture('nodes/saveConfirmation.json'));
+
             spyOn(nodeCreateService, 'saveNode').and.callThrough();
             nodeCreateController.principalSearches.abc = [{
                 "_id": "123",
@@ -51,6 +55,8 @@
 
             nodeCreateController.save();
 
+            httpBackend.flush();
+
             expect(nodeCreateService.saveNode).toHaveBeenCalledWith(jasmine.objectContaining({
                 "data": {
                     "abc": ["123"]
@@ -59,6 +65,10 @@
         });
 
         it("should convert search principal to ID", function() {
+            httpBackend
+                .expectPOST(/\/Node(.*)/)
+                .respond(200, getJSONFixture('nodes/saveConfirmation.json'));
+
             spyOn(nodeCreateService, 'saveNode').and.callThrough();
             nodeCreateController.principalSearches.abc = {
                 "_id": "123",
@@ -68,6 +78,8 @@
 
             nodeCreateController.save();
 
+            httpBackend.flush();
+
             expect(nodeCreateService.saveNode).toHaveBeenCalledWith(jasmine.objectContaining({
                 "data": {
                     "abc": "123"
@@ -76,6 +88,11 @@
         });
 
         it("should format the dates to YYYY-MM-DD", function() {
+            httpBackend
+                .expectPOST(/\/Node(.*)/)
+                .respond(200, getJSONFixture('nodes/saveConfirmation.json'));
+
+
             spyOn(nodeCreateService, 'saveNode').and.callThrough();
             var date = new Date(2012, 0, 17);
 
@@ -88,6 +105,8 @@
 
             nodeCreateController.save();
 
+            httpBackend.flush();
+
             expect(nodeCreateService.saveNode).toHaveBeenCalledWith(jasmine.objectContaining({
                 "data": {
                     "abc": "2012-1-17"
@@ -96,6 +115,10 @@
         });
 
         it("should format the access control principals", function() {
+            httpBackend
+                .expectPOST(/\/Node(.*)/)
+                .respond(200, getJSONFixture('nodes/saveConfirmation.json'));
+
             spyOn(nodeCreateService, 'saveNode').and.callThrough();
             nodeCreateController.accessControlPrincipals = [{
                 'principal_id': "123",
@@ -106,6 +129,8 @@
             }];
 
             nodeCreateController.save();
+
+            httpBackend.flush();
 
             expect(nodeCreateService.saveNode).toHaveBeenCalledWith(jasmine.objectContaining({
                 "acl_list": [{
@@ -130,6 +155,8 @@
 
             var output = nodeCreateController.ignoreReadOnlyProperties(prop);
 
+            httpBackend.flush();
+
             expect(output).toBeTruthy();
         });
 
@@ -142,6 +169,8 @@
 
             var output = nodeCreateController.ignoreReadOnlyProperties(prop);
 
+            httpBackend.flush();
+
             expect(output).toBeFalsy();
         });
 
@@ -149,6 +178,8 @@
             var prop = {};
 
             var output = nodeCreateController.ignoreReadOnlyProperties(prop);
+
+            httpBackend.flush();
 
             expect(output).toBeTruthy();
         });
@@ -171,7 +202,27 @@
 
             nodeCreateController.save();
 
+            httpBackend.flush();
+
             expect(nodeCreateService.saveNode.calls.any()).toBeFalsy();
+        });
+
+        it("should resolve failure error messages", function() {
+            httpBackend
+                .expectPOST(/\/Node(.*)/)
+                .respond(500, getJSONFixture('nodes/saveFailure.json'));
+
+            nodeCreateController.save();
+
+            httpBackend.flush();
+
+            expect(nodeCreateController.errors.length).toEqual(1);
+            expect(nodeCreateController.errors).toContain("Record number [sdf/3] has already been used.");
+        });
+
+        afterEach(function() {
+            httpBackend.verifyNoOutstandingExpectation();
+            httpBackend.verifyNoOutstandingRequest();
         });
 
     });

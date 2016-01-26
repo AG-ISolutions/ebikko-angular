@@ -134,6 +134,5 @@
 
             expect(tabService.addTab).toHaveBeenCalled();
         });
-
     });
 })();

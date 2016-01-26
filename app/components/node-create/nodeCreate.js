@@ -2,6 +2,6 @@
 	"use strict";
 
 	angular
-		.module('ebikko.node-create', ['ebikko.shared-services', 'ebikko.validation']);
+		.module('ebikko.node-create', ['ebikko.shared-services', 'ebikko.validation', 'ebikko.config']);
 		
 })();

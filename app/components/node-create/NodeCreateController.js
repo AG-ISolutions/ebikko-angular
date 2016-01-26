@@ -3,9 +3,9 @@
 
     angular
         .module('ebikko.node-create')
-        .controller('NodeCreateController', ['nodeTypeService', 'nodeCreateService', 'nodeCreateValidator', '$timeout', '$filter', 'tabService', NodeCreateController]);
+        .controller('NodeCreateController', ['nodeTypeService', 'nodeCreateService', 'nodeCreateValidator', '$timeout', '$filter', 'tabService', 'messageResolver', NodeCreateController]);
 
-    function NodeCreateController(nodeTypeService, nodeCreateService, nodeCreateValidator, $timeout, $filter, tabService) {
+    function NodeCreateController(nodeTypeService, nodeCreateService, nodeCreateValidator, $timeout, $filter, tabService, messageResolver) {
         var self = this;
         self.activate = activate;
         self.accessControlPrincipals = [];
@@ -95,6 +95,7 @@
                         'id': 'uid-search'
                     });
                 }, function(response) {
+                    self.errors.push(messageResolver.resolveMessage(response.data.responsemsg, response.data.responseparam));
                     self.saving = false;
                 });
             }
