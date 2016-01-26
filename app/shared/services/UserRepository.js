@@ -3,13 +3,14 @@
 
     angular
         .module('ebikko.shared-services')
-        .service('userRepository', ['$filter', UserRepository]);
+        .service('userRepository', ['$filter', '$rootScope', UserRepository]);
 
-    function UserRepository($filter) {
+    function UserRepository($filter, $rootScope) {
         var currentUser = null;
         var principalDetails = null;
         var profileDetails = null;
         var self = this;
+        var userPreferences = null;
 
         self.setCurrentUser = function(loginDetails) {
             currentUser = loginDetails;
@@ -37,7 +38,12 @@
         };
 
         self.getSessionId = function() {
-            return self.getCurrentUser().ebikko_session_id;
+            if (self.getCurrentUser() && self.getCurrentUser().ebikko_session_id) {
+                return self.getCurrentUser().ebikko_session_id;
+            } else {
+                $rootScope.$broadcast('noSessionId');
+                throw "No Session Id";
+            }
         };
 
         self.setProfileDetails = function(profileDetails) {
@@ -49,14 +55,26 @@
         }
 
         self.hasProfilePermission = function(permissionId) {
-            var matchingPermissions = $filter('filter')(self.profileDetails.results, {
-                'id': permissionId
-            }, true);
-            if (matchingPermissions.length > 0) {
-                return matchingPermissions[0].value;
+            if (self.profileDetails) {
+                var matchingPermissions = $filter('filter')(self.profileDetails.results, {
+                    'id': permissionId
+                }, true);
+                if (matchingPermissions.length > 0) {
+                    return matchingPermissions[0].value;
+                } else {
+                    return false;
+                }
             } else {
                 return false;
             }
+        }
+
+        self.getUserPreferences = function() {
+            return self.userPreferences;
+        }
+
+        self.setUserPreferences = function(userPreferences) {
+            self.userPreferences = userPreferences;
         }
     }
 

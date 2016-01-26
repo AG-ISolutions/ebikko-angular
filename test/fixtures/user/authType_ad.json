@@ -1,0 +1,8 @@
+{
+    "success": true,
+    "code": 100,
+    "data": {
+        "responsemsg": "Success"
+    },
+    "authMethod": "ad"
+}

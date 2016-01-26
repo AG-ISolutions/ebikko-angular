@@ -9,11 +9,12 @@
 
         var nodeMenuController, userRepository;
 
-        beforeEach(inject(function(_$controller_) {
+        beforeEach(inject(function(_$controller_, _$rootScope_) {
             userRepository = jasmine.createSpyObj('userRepository', ['getPrincipalDetails']);
        
             nodeMenuController = _$controller_('NodeMenuController', {
-                userRepository: userRepository
+                userRepository: userRepository,
+                $scope: _$rootScope_.$new()
             });
         }));
 

@@ -3,21 +3,42 @@
 
     angular
         .module('ebikko.node-menu')
-        .controller('NodeMenuController', [ '$mdDialog', 'nodeService', 'tabService', 'userRepository', NodeMenuController]);
+        .controller('NodeMenuController', ['$http', '$mdDialog', '$scope', 'nodeService', 'tabService', 'userRepository', NodeMenuController]);
 
-    function NodeMenuController($mdDialog, nodeService, tabService, userRepository) {
+    function NodeMenuController($http, $mdDialog, $scope, nodeService, tabService, userRepository) {
         var self = this;
-        self.downloadContent = downloadContent;
+        self.activate = activate;
+        self.attemptCall = attemptCall;
         self.hasEmail = hasEmail;
         self.hasProfilePermission = hasProfilePermission;
         self.openTabMenu = openTabMenu;
         self.showEmailRecord = showEmailRecord;
         self.showSecureShare = showSecureShare;
 
-        function downloadContent() {
-            var tab = tabService.getSelectedTab();
-            nodeService.getDownloadUrl(tab.id).then(function(url) {
-                window.open(url, '_blank', '');
+        activate();
+
+        function activate() {
+            $scope.$on('tabSelected', function(ev, tab) {
+                if (tab.type === 'node') {
+                    self.downloadUrl = "";
+                    self.filename = "";
+                    self.counter = 0;
+                    self.attemptCall(tab);
+                }
+            });
+        }
+
+        // On Chrome on an iPad the http call for the download url intermittently fails, the only solution I could find was just to retry
+        function attemptCall(tab) {
+            nodeService.getDownloadUrl(tab.id).then(function(response) {
+                var url = response.data.data.contentUrl;
+                self.downloadUrl = url.substring(url.indexOf('/downloadURL'));
+                self.filename = tab.file_name;
+            }, function(response) {
+                self.counter++;
+                if (self.counter < 20) {
+                    self.attemptCall(tab);
+                }
             });
         }
 

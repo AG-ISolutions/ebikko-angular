@@ -14,8 +14,8 @@
         }));
 
         it('should extract an array of the properties', function() {
-            var results = getJSONFixture('nodes/nodeProperties.json');
-            var nodeDetails = getJSONFixture('nodes/nodeDetails.json');
+            var results = getJSONFixture('nodes/nodeTypeDetails.json').results[0];
+            var nodeDetails = getJSONFixture('nodes/nodeDetails.json').results[0];
 
             var response = processor.processResults(nodeDetails, results);
 
@@ -23,8 +23,8 @@
         });
 
         it('should look up the values for dynamic properties from the node single values', function() {
-            var results = getJSONFixture('nodes/nodeProperties.json');
-            var nodeDetails = getJSONFixture('nodes/nodeDetails.json');
+            var results = getJSONFixture('nodes/nodeTypeDetails.json').results[0];
+            var nodeDetails = getJSONFixture('nodes/nodeDetails.json').results[0];
 
             var response = processor.processResults(nodeDetails, results);
 
@@ -37,8 +37,8 @@
         });
 
         it('should look up the values for static properties from the node data', function() {
-            var results = getJSONFixture('nodes/nodeProperties.json');
-            var nodeDetails = getJSONFixture('nodes/nodeDetails.json');
+            var results = getJSONFixture('nodes/nodeTypeDetails.json').results[0];
+            var nodeDetails = getJSONFixture('nodes/nodeDetails.json').results[0];
 
             var response = processor.processResults(nodeDetails, results);
 
@@ -58,8 +58,8 @@
         });
 
         it('should use the alias name if it exists', function() {
-            var results = getJSONFixture('nodes/nodeProperties.json');
-            var nodeDetails = getJSONFixture('nodes/nodeDetails.json');
+            var results = getJSONFixture('nodes/nodeTypeDetails.json').results[0];
+            var nodeDetails = getJSONFixture('nodes/nodeDetails.json').results[0];
 
             var response = processor.processResults(nodeDetails, results);
 
@@ -72,8 +72,8 @@
         });
 
         it('should only display the username of principals', function() {
-            var results = getJSONFixture('nodes/nodeProperties.json');
-            var nodeDetails = getJSONFixture('nodes/nodeDetails.json');
+            var results = getJSONFixture('nodes/nodeTypeDetails.json').results[0];
+            var nodeDetails = getJSONFixture('nodes/nodeDetails.json').results[0];
 
             var response = processor.processResults(nodeDetails, results);
 
@@ -86,8 +86,8 @@
         });
 
         it('should support multi value properties', function() {
-            var results = getJSONFixture('nodes/nodeProperties.json');
-            var nodeDetails = getJSONFixture('nodes/nodeDetails.json');
+            var results = getJSONFixture('nodes/nodeTypeDetails.json').results[0];
+            var nodeDetails = getJSONFixture('nodes/nodeDetails.json').results[0];
 
             var response = processor.processResults(nodeDetails, results);
 

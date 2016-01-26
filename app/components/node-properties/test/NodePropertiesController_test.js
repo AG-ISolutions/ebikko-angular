@@ -7,49 +7,39 @@
 
         beforeEach(module('ebikko.node-properties'));
 
-        var nodePropertiesController, nodePropertiesService, nodePropertiesResultsProcessor, $q, $rootScope;
+        var nodePropertiesController, $q, $rootScope, httpBackend;
 
-        beforeEach(inject(function(_$controller_, _$q_, _$rootScope_) {
-            nodePropertiesService = jasmine.createSpyObj('nodePropertiesService', ['getNodeDetails', 'getNodeTypeDetails']);
-            nodePropertiesResultsProcessor = jasmine.createSpyObj('nodePropertiesResultsProcessor', ['processResults']);
-            nodePropertiesController = _$controller_('NodePropertiesController', {
-                nodePropertiesService: nodePropertiesService,
-                nodePropertiesResultsProcessor: nodePropertiesResultsProcessor
+        beforeEach(module(function($provide) {
+            $provide.service('userRepository', function() {
+                this.getSessionId = function() {
+                    return '123';
+                };
             });
+        }));
+
+        beforeEach(inject(function(_$controller_, _$q_, _$rootScope_, $httpBackend) {
+            nodePropertiesController = _$controller_('NodePropertiesController');
             $q = _$q_;
             $rootScope = _$rootScope_;
+            httpBackend = $httpBackend;
 
             nodePropertiesController.nodeId = "abc-def";
         }));
 
-        it("should parse the node id to extract the node type id", function() {
-            nodePropertiesController.activate();
+        it("should parse the properties and set the results on the controller", function() {
+            httpBackend
+                .expectGET(/\/Node(.*)/)
+                .respond(200, getJSONFixture('nodes/nodeDetails.json'));
 
-            expect(nodePropertiesService.getNodeDetails).toHaveBeenCalledWith('abc-def');
-            expect(nodePropertiesService.getNodeTypeDetails).toHaveBeenCalledWith('abc');
-        });
-
-        it("should load all the node information and pass to the processor", function() {
-            var nodeDetailsPromise = $q.defer();
-            nodePropertiesService.getNodeDetails.and.returnValue(nodeDetailsPromise.promise);
-
-            var nodeTypeDetailsPromise = $q.defer();
-            nodePropertiesService.getNodeTypeDetails.and.returnValue(nodeTypeDetailsPromise.promise);
-
-            var resultingData = ["some data"];
-            nodePropertiesResultsProcessor.processResults.and.returnValue(resultingData);
+            httpBackend
+                .expectGET(/\/NodeType(.*)/)
+                .respond(200, getJSONFixture('nodes/nodeTypeDetails.json'));
 
             nodePropertiesController.activate();
 
-            var nodeDetails = getJSONFixture('nodes/nodeDetails.json');
-            nodeDetailsPromise.resolve(nodeDetails);
-            var nodeTypeDetails = getJSONFixture('nodes/nodeProperties.json');
-            nodeTypeDetailsPromise.resolve(nodeTypeDetails);
+            httpBackend.flush();
 
-            $rootScope.$digest();
-
-            expect(nodePropertiesResultsProcessor.processResults).toHaveBeenCalledWith(nodeDetails, nodeTypeDetails);
-            expect(nodePropertiesController.data).toEqual(resultingData);
+            expect(nodePropertiesController.data.length).toEqual(6);
         });
     });
 })();

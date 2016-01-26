@@ -48,6 +48,22 @@ To continually run the tests whenever files are changed, run the following comma
 	grunt watch
 	
 This will watch for changes to any of the application files and run through all the unit tests when any changes are detected	
+## Development Flow
+
+ - Create redmine ticket
+ 
+ - Create branch from develop (on GitHub click the branch drop type and type in the name). Please include the redmine ticket in the branch name, ie '6079-hide-change-password'
+ 
+ - Checkout the branch in your local environment
+ 	- git fetch (to update all the branches)
+	- git checkout <branch name>
+ 
+ - Implement feature, commit and push code
+ - Create pull request in GitHub (Make sure to compare with develop, eg - https://github.com/AG-ISolutions/ebikko-angular/pull/4)
+ - Inform the team
+
+ - Once the pull request has been approved it can be merged into develop and released to the test environment 
+
 ## Open Source
 
 Please remember that this project is in the public domain, so it is important that the source code is kept free of personal information. When adding test fixtures etc... please review all the data to ensure nothing specific to a real person is added.
