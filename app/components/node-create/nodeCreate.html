@@ -26,12 +26,21 @@ form.nodeForm md-input-container {
     padding-left: 2px;
     padding-bottom: 0px;
 }
+
 div.errors {
-    width:98%;
+    width: 98%;
 }
 
 md-switch {
-    display:inline-block;
+    display: inline-block;
+}
+
+table.accessControlTable {
+    width: 100%;
+}
+
+table.accessControlTable td {
+    text-align: center;
 }
 </style>
 <md-content layout-padding layout-align="center center" layout="row" class="nodeCreateContainer">
@@ -81,15 +90,8 @@ md-switch {
                         </div>
                         <!-- 1200 - principals -->
                         <div ng-if="p.type == 1200" class="email-search">
-                            <ebikko-email-search 
-                                model="ncc.principalSearches[p.modelName]" 
-                                label="{{p.name}}" 
-                                multi-value="{{p.properties.is_multi_value}}" 
-                                must-be-member-of="{{p.properties.must_be_member_of}}" 
-                                require-email="false" 
-                                restrict-to-groups="{{p.properties.is_groups_only}}" 
-                                restrict-to-people="{{p.properties.is_non_groups_only}}">
-                            </ebikko-email-search/>
+                            <ebikko-email-search model="ncc.principalSearches[p.modelName]" label="{{p.name}}" multi-value="{{p.properties.is_multi_value}}" must-be-member-of="{{p.properties.must_be_member_of}}" require-email="false" restrict-to-groups="{{p.properties.is_groups_only}}" restrict-to-people="{{p.properties.is_non_groups_only}}">
+                                </ebikko-email-search/>
                         </div>
                         <!-- container - container search -->
                         <div ng-if="p.type == 'container'">
@@ -115,31 +117,61 @@ md-switch {
                 </section>
                 <section>
                     <md-subheader class="md-primary">Access Control</md-subheader>
-                    <ebikko-email-search
-                            model="ncc.accessControlPrincipal" 
-                            multi-value="false"
-                            label="Select principal"
-                            selected-item-change="ncc.updateAccessControlPrincipals(principal)"
-                            >
+                    <ebikko-email-search model="ncc.accessControlPrincipal" multi-value="false" label="Select principal" selected-item-change="ncc.updateAccessControlPrincipals(principal)">
                     </ebikko-email-search>
-
-                    <table>
+                    <table ng-show="ncc.accessControlPrincipals.length > 0" class="accessControlTable">
                         <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th colspan="3">Record</th>
+                                <th colspan="3">Content</th>
+                                <th>Give Access</th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>See</td>
+                                <td>Change</td>
+                                <td>Delete</td>
+                                <td>See</td>
+                                <td>Change</td>
+                                <td>Delete</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="p in ncc.accessControlPrincipals">
-                                <td>{{p.name}} {{p.id}}</td>
+                                <td>{{p.name}}</td>
+                                <td>
+                                    <md-switch ng-model="p.permissions['1']" aria-label="See record switch"></md-switch>
+                                </td>
+                                <td>
+                                    <md-switch ng-model="p.permissions['2']" aria-label="Change record switch"></md-switch>
+                                </td>
+                                <td>
+                                    <md-switch ng-model="p.permissions['3']" aria-label="Delete record switch"></md-switch>
+                                </td>
+                                <td>
+                                    <md-switch ng-model="p.permissions['4']" aria-label="See content switch"></md-switch>
+                                </td>
+                                <td>
+                                    <md-switch ng-model="p.permissions['5']" aria-label="Change content switch"></md-switch>
+                                </td>
+                                <td>
+                                    <md-switch ng-model="p.permissions['6']" aria-label="Delete content switch"></md-switch>
+                                </td>
+                                <td>
+                                    <md-switch ng-model="p.permissions['7']" aria-label="Give access switch"></md-switch>
+                                </td>
+                                <td>
+                                    <md-button ng-click="ncc.accessControlPrincipals.splice($index, 1)" aria-label="Remove item">
+                                        <md-icon md-svg-icon="close"></md-icon>
+                                    </md-button>
+                                </td>
                             </tr>
                         </tbody>
-                    <table>
-
-                    <md-switch ng-model="data.cb1" aria-label="Switch 1"></md-switch>
-                    <md-switch ng-model="data.cb2" aria-label="Switch 1"></md-switch>  
-                    <md-switch ng-model="data.cb3" aria-label="Switch 1"></md-switch>
-                    <md-switch ng-model="data.cb4" aria-label="Switch 1"></md-switch>
-                    <md-switch ng-model="data.cb5" aria-label="Switch 1"></md-switch>
-                    <md-switch ng-model="data.cb6" aria-label="Switch 1"></md-switch>
-                    <md-switch ng-model="data.cb7" aria-label="Switch 1"></md-switch>
+                    </table>
                 </section>
                 <div class="errors" ng-show="ncc.errors.length > 0" layout-align="left center">
                     <li ng-repeat="error in ncc.errors">

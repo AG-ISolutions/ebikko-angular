@@ -24,7 +24,7 @@
         activate();
 
         function activate() {
-            self.node = createNode();
+            self.node = defaultNode();
             self.times = generateTimes();
             self.loading = true;
             nodeTypeService.getNodeTypeDetails(self.nodeTypeId).then(function(response) {
@@ -79,6 +79,7 @@
 
         function save() {
             setPrincipalIdsOnNode();
+            setAccessControlPrincipalsOnNode();
             formatDates();
             setRetentionScheduleOnNode();
             self.errors = nodeCreateValidator.validate(self.node, self.nodeTypeProperties).errors;
@@ -90,6 +91,24 @@
                     self.saving = false;
                 });
             }
+        }
+
+        function setAccessControlPrincipalsOnNode() {
+            angular.forEach(self.accessControlPrincipals, function(principal, key) {
+                var aclList = {
+                    "principal_id": principal.principal_id,
+                    "permission_sets": []
+                };
+
+                angular.forEach(principal.permissions, function(value, key) {
+                    aclList.permission_sets.push({
+                        "permission_id": key,
+                        "is_allow": value || value === "true"
+                    });
+                });
+
+                self.node.acl_list.push(aclList);
+            });
         }
 
         function setPrincipalIdsOnNode() {
@@ -112,15 +131,16 @@
             // This is an awful hack to make sure the principal has been set on the model before this code runs
             window.setTimeout(function() {
                 var principal = self.accessControlPrincipal;
-                console.log(principal);
                 if (principal !== null && self.accessControlPrincipals.indexOf(principal) === -1) {
+                    principal.permissions = defaultPermissionSet();
                     self.accessControlPrincipals.push(principal);
+                    self.accessControlPrincipal = "";
                 }
             }, 150);
 
         }
 
-        function createNode() {
+        function defaultNode() {
             return {
                 "node_type_id": self.nodeTypeId,
                 "node_id": "",
@@ -181,6 +201,18 @@
                 "retention_schedule_new_home_uid": "",
                 "data": {},
                 "unsavedNodeProperties": {}
+            };
+        }
+
+        function defaultPermissionSet() {
+            return {
+                1: true,
+                2: true,
+                3: true,
+                4: true,
+                5: true,
+                6: true,
+                7: true
             };
         }
     }

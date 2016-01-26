@@ -26,10 +26,7 @@
                 .respond(200, getJSONFixture('nodes/nodeTypeDetails.json'));
 
             nodeCreateController = _$controller_('NodeCreateController');
-            nodeCreateController.node = {
-                "title": "Sample title",
-                "data": {}
-            };
+            nodeCreateController.node.title = "Sample title";
         }));
 
         it("should do load and process the node type details", function() {
@@ -61,7 +58,7 @@
             }));
         });
 
-        it("should convert since principal to ID", function() {
+        it("should convert search principal to ID", function() {
             spyOn(nodeCreateService, 'saveNode').and.callThrough();
             nodeCreateController.principalSearches.abc = {
                 "_id": "123",
@@ -95,6 +92,32 @@
                 "data": {
                     "abc": "2012-1-17"
                 }
+            }));
+        });
+
+        it("should format the access control principals", function() {
+            spyOn(nodeCreateService, 'saveNode').and.callThrough();
+            nodeCreateController.accessControlPrincipals = [{
+                'principal_id': "123",
+                'permissions': {
+                    1: true,
+                    2: false
+                }
+            }];
+
+            nodeCreateController.save();
+
+            expect(nodeCreateService.saveNode).toHaveBeenCalledWith(jasmine.objectContaining({
+                "acl_list": [{
+                    "principal_id": "123",
+                    "permission_sets": [{
+                        "permission_id": "1",
+                        "is_allow": true
+                    }, {
+                        "permission_id": "2",
+                        "is_allow": false
+                    }]
+                }]
             }));
         });
 
@@ -150,5 +173,6 @@
 
             expect(nodeCreateService.saveNode.calls.any()).toBeFalsy();
         });
+
     });
 })();
