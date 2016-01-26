@@ -166,8 +166,8 @@ table.treetable td:not(.loading) svg {
     display: none;
 }
 
-md-dialog div.errors ul {
-    padding-left: 5px;
+md-dialog md-content {
+    overflow: visible;
 }
 
 div.errors {
