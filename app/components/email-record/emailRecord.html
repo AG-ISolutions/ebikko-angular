@@ -15,9 +15,9 @@
             <textarea ng-model="erc.email.message" columns="1" md-maxlength="150" rows="5"></textarea>
         </md-input-container>
         <div class="errors" ng-show="erc.errors.length > 0" layout-align="left center">
-            <li ng-repeat="error in erc.errors">
-                <ul>{{error}}</ul>
-            </li>
+            <ul>
+                <li ng-repeat="error in erc.errors">{{error}}</li>
+            </ul>
         </div>
         <div layout="row" layout-align="center center" flex="100" class="md-block" ng-hide="erc.saving">
             <md-button class="md-raised" ng-click="erc.cancel()">{{'Cancel' | translate}}</md-button>
