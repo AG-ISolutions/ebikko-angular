@@ -3,9 +3,9 @@
 
     angular
         .module('ebikko.email-search')
-        .controller('EmailSearchController', ['emailSearchService', EmailSearchController]);
+        .controller('EmailSearchController', ['emailSearchService', '$q', EmailSearchController]);
 
-    function EmailSearchController(emailSearchService) {
+    function EmailSearchController(emailSearchService, $q) {
         var self = this;
         self.mustBeMemberOf = false;
         self.performPrincipalSearch = performPrincipalSearch;
@@ -50,15 +50,16 @@
         }
 
         function performPrincipalSearch(val) {
-            var p = emailSearchService.search(val, {
+            var deferred = $q.defer();
+            emailSearchService.search(val, {
                 mustBeMemberOf: self.mustBeMemberOf ? self.mustBeMemberOf : false,
                 type: calculateType(),
                 requireEmail: isTrue(self.requireEmail)
+            }).then(function(response) {
+                console.log("Found "+response.data.results.length);
+                deferred.resolve(response.data.results);
             });
-            p.then(function(response) {
-                self.principals = response.data.results;
-            });
-            return p;
+            return deferred.promise;
         }
 
         function transformChip(chip) {
