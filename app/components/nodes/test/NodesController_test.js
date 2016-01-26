@@ -51,8 +51,8 @@
             expect(nodesService.textSearch).toHaveBeenCalledWith('search query');
         });
 
-        it("should perform uid search when type is uid-search", function() {
-            nodesController.type = 'uid-search';
+        it("should perform document search when type is document-search", function() {
+            nodesController.type = 'document-search';
             nodesController.typeId = "123";
 
             nodesController.activate();

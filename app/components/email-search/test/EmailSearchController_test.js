@@ -7,7 +7,7 @@
 
         beforeEach(module('ebikko.email-search'));
 
-        var $controller, $q, $rootScope, $httpBackend, emailSearchService, emailSearchController;
+        var $controller, $q, $httpBackend, emailSearchService, emailSearchController;
 
         beforeEach(module(function($provide) {
             $provide.service('userRepository', function() {
@@ -17,9 +17,8 @@
             });
         }));
 
-        beforeEach(inject(function(_$controller_, _$q_, _$rootScope_, _$httpBackend_, _emailSearchService_) {
+        beforeEach(inject(function(_$controller_, _$q_, _$httpBackend_, _emailSearchService_) {
             $controller = _$controller_;
-            $rootScope = _$rootScope_;
             $httpBackend = _$httpBackend_;
             emailSearchService = _emailSearchService_;
 
@@ -31,12 +30,16 @@
         }));
 
         it("should perform a search", function() {
-            emailSearchController.performPrincipalSearch('John');
+            var principals;
+
+            emailSearchController.performPrincipalSearch('John').then(function(response) {
+                principals = response;
+            });
 
             $httpBackend.flush();
 
-            expect(emailSearchController.principals.length).toEqual(1);
-            expect(emailSearchController.principals[0].name).toEqual('Akmal');
+            expect(principals.length).toEqual(1);
+            expect(principals[0].name).toEqual('Akmal');
         });
 
         it("should default to type ALL, mustBeMemberOf false and require email true", function() {

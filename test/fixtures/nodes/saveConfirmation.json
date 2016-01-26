@@ -1,0 +1,10 @@
+{
+    "success": true,
+    "code": 100,
+    "data": {
+        "responsemsg": "Record saved successfully"
+    },
+    "node_id": "d41cc27f1b6b4fa48363b6ff9ebda9f8-d48137487082478ab4689ae8b864d151",
+    "record_number": "gtest/84994",
+    "voluming_status": 0
+}

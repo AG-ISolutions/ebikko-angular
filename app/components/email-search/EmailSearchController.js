@@ -28,10 +28,6 @@
             }
         }
 
-        self.test = function(principal) {
-            console.log('esc' + principal);
-        };
-
         function calculateType() {
             if (isTrue(self.restrictToPeople) && isTrue(self.restrictToGroups)) {
                 throw new Error("Cannot set both restrictions to true");
@@ -56,7 +52,6 @@
                 type: calculateType(),
                 requireEmail: isTrue(self.requireEmail)
             }).then(function(response) {
-                console.log("Found "+response.data.results.length);
                 deferred.resolve(response.data.results);
             });
             return deferred.promise;

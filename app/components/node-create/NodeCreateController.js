@@ -3,9 +3,9 @@
 
     angular
         .module('ebikko.node-create')
-        .controller('NodeCreateController', ['nodeTypeService', 'nodeCreateService', 'nodeCreateValidator', '$timeout', NodeCreateController]);
+        .controller('NodeCreateController', ['nodeTypeService', 'nodeCreateService', 'nodeCreateValidator', '$timeout', '$filter', 'tabService', NodeCreateController]);
 
-    function NodeCreateController(nodeTypeService, nodeCreateService, nodeCreateValidator, $timeout) {
+    function NodeCreateController(nodeTypeService, nodeCreateService, nodeCreateValidator, $timeout, $filter, tabService) {
         var self = this;
         self.activate = activate;
         self.accessControlPrincipals = [];
@@ -87,6 +87,13 @@
                 self.saving = true;
                 nodeCreateService.saveNode(self.node).then(function(response) {
                     self.saving = false;
+                    tabService.removeTab(tabService.getSelectedTab());
+                    tabService.addTab({
+                        'name': response.data.record_number,
+                        'type': 'nodes',
+                        'content': "<nodes type='uid-search' type-id='" + response.data.node_id + "'/>",
+                        'id': 'uid-search'
+                    });
                 }, function(response) {
                     self.saving = false;
                 });
@@ -131,13 +138,17 @@
             // This is an awful hack to make sure the principal has been set on the model before this code runs
             window.setTimeout(function() {
                 var principal = self.accessControlPrincipal;
-                if (principal !== null && self.accessControlPrincipals.indexOf(principal) === -1) {
-                    principal.permissions = defaultPermissionSet();
-                    self.accessControlPrincipals.push(principal);
-                    self.accessControlPrincipal = "";
+                if (principal !== null) {
+                    var principalInList = $filter('filter')(self.accessControlPrincipals, {
+                        'principal_id': principal.principal_id
+                    }, true).length > 0;
+                    if (!principalInList) {
+                        principal.permissions = defaultPermissionSet();
+                        self.accessControlPrincipals.push(principal);
+                        self.accessControlPrincipal = "";
+                    }
                 }
             }, 150);
-
         }
 
         function defaultNode() {

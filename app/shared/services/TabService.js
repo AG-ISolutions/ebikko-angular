@@ -3,9 +3,9 @@
 
     angular
         .module('ebikko.shared-services')
-        .service('tabService', ['$mdToast', TabService]);
+        .service('tabService', [TabService]);
 
-    function TabService($mdToast) {
+    function TabService() {
         var self = {
             tabs: [],
             selectedTab: {},

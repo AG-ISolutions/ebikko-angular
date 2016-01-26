@@ -70,8 +70,8 @@
                 tabService.addTab({
                     'name': 'Records',
                     'type': 'nodes',
-                    'content': "<nodes type='uid-search' type-id='" + self.documentId + "'/>",
-                    'id': 'uid-search'
+                    'content': "<nodes type='document-search' type-id='" + self.documentId + "'/>",
+                    'id': 'document-search'
                 });
             }
 

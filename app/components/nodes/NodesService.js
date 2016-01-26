@@ -17,7 +17,8 @@
             getSavedSearch: getSavedSearch,
 
             textSearch: textSearch,
-            documentSearch: documentSearch
+            documentSearch: documentSearch,
+            uidSearch : uidSearch
         };
 
         return self;
@@ -90,17 +91,21 @@
                     return node.node_id;
                 });
 
-                var json = {
-                    'ebikko_session_id': userRepository.getSessionId(),
-                    'method': 'SEARCH',
-                    'search_method': 'NODE_UIDS',
-                    'node_ids': uids
-                };
-                var stringed = JSON.stringify(json);
-                return $http({
-                    'method': 'GET',
-                    'url': '/NodeListing?json=' + stringed + '&limit=' + self.defaultLimit + '&start=' + self.defaultStart
-                });
+                return uidSearch(uids);
+            });
+        }
+
+        function uidSearch(uids) {
+            var json = {
+                'ebikko_session_id': userRepository.getSessionId(),
+                'method': 'SEARCH',
+                'search_method': 'NODE_UIDS',
+                'node_ids': uids
+            };
+            var stringed = JSON.stringify(json);
+            return $http({
+                'method': 'GET',
+                'url': '/NodeListing?json=' + stringed + '&limit=' + self.defaultLimit + '&start=' + self.defaultStart
             });
         }
     }

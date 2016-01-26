@@ -66,8 +66,11 @@
                 case 'search':
                     promise = nodesService.textSearch(self.typeId);
                     break;
-                case 'uid-search':
+                case 'document-search':
                     promise = nodesService.documentSearch(self.typeId);
+                    break;
+                case 'uid-search':
+                    promise = nodesService.uidSearch(angular.isArray(self.typeId) ? self.typeId : [self.typeId]);
                     break;
                 default:
                     break;
